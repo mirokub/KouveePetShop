@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_owner"
+    app:startDestination="@+id/navigation_produk">
+
+    <fragment
+        android:id="@+id/navigation_produk"
+        android:name="com.example.kouveepetshop.ui.produk.ProdukFragment"
+        android:label="@string/title_produk"
+        tools:layout="@layout/fragment_produk" />
+
+    <fragment
+        android:id="@+id/navigation_layanan"
+        android:name="com.example.kouveepetshop.ui.layanan.LayananFragment"
+        android:label="@string/title_layanan"
+        tools:layout="@layout/fragment_layanan" />
+
+    <fragment
+        android:id="@+id/navigation_jenis_hewan"
+        android:name="com.example.kouveepetshop.ui.jenis_hewan.JenisHewanFragment"
+        android:label="@string/title_jenis_hewan"
+        tools:layout="@layout/fragment_jenis_hewan" />
+
+    <fragment
+        android:id="@+id/navigation_ukuran_hewan"
+        android:name="com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanFragment"
+        android:label="@string/title_ukuran_hewan"
+        tools:layout="@layout/fragment_ukuran_hewan" />
+
+    <fragment
+        android:id="@+id/navigation_supplier"
+        android:name="com.example.kouveepetshop.ui.supplier.SupplierFragment"
+        android:label="@string/title_supplier"
+        tools:layout="@layout/fragment_supplier" />
+</navigation>

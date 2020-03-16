@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_cs"
+    app:startDestination="@+id/navigation_produk">
+
+    <fragment
+        android:id="@+id/navigation_produk"
+        android:name="com.example.kouveepetshop.ui.produk.ProdukFragment"
+        android:label="@string/title_produk"
+        tools:layout="@layout/fragment_produk" />
+
+    <fragment
+        android:id="@+id/navigation_layanan"
+        android:name="com.example.kouveepetshop.ui.layanan.LayananFragment"
+        android:label="@string/title_layanan"
+        tools:layout="@layout/fragment_layanan" />
+
+    <fragment
+        android:id="@+id/navigation_peliharaan"
+        android:name="com.example.kouveepetshop.ui.peliharaan.PeliharaanFragment"
+        android:label="@string/title_peliharaan"
+        tools:layout="@layout/fragment_peliharaan" />
+
+    <fragment
+        android:id="@+id/navigation_customer"
+        android:name="com.example.kouveepetshop.ui.customer.CustomerFragment"
+        android:label="@string/title_customer"
+        tools:layout="@layout/fragment_customer" />
+
+    <fragment
+        android:id="@+id/navigation_transaksi_cs"
+        android:name="com.example.kouveepetshop.ui.transaksiCS.TransaksiCSFragment"
+        android:label="@string/title_transaksi"
+        tools:layout="@layout/fragment_transaksi_cs" />
+</navigation>

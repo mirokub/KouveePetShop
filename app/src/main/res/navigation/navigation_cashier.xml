@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_cashier"
+    app:startDestination="@+id/navigation_produk">
+
+    <fragment
+        android:id="@+id/navigation_produk"
+        android:name="com.example.kouveepetshop.ui.produk.ProdukFragment"
+        android:label="@string/title_produk"
+        tools:layout="@layout/fragment_produk" />
+
+    <fragment
+        android:id="@+id/navigation_layanan"
+        android:name="com.example.kouveepetshop.ui.layanan.LayananFragment"
+        android:label="@string/title_layanan"
+        tools:layout="@layout/fragment_layanan" />
+</navigation>

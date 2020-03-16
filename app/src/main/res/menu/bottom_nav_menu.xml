@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_produk"
+        android:icon="@drawable/ic_action_produk"
+        android:title="@string/title_produk" />
+
+    <item
+        android:id="@+id/navigation_layanan"
+        android:icon="@drawable/ic_action_layanan"
+        android:title="@string/title_layanan" />
+
+    <item
+        android:id="@+id/navigation_jenis_hewan"
+        android:icon="@drawable/ic_action_jenis_hewan"
+        android:title="@string/title_jenis_hewan" />
+
+    <item
+        android:id="@+id/navigation_ukuran_hewan"
+        android:icon="@drawable/ic_action_ukuran_hewan"
+        android:title="@string/title_ukuran_hewan" />
+
+    <item
+        android:id="@+id/navigation_supplier"
+        android:icon="@drawable/ic_action_supplier"
+        android:title="@string/title_supplier" />
+
+</menu>
