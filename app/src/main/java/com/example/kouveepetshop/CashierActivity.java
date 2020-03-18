@@ -25,7 +25,7 @@ public class CashierActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_produk, R.id.navigation_layanan, R.id.navigation_jenis_hewan, R.id.navigation_ukuran_hewan, R.id.navigation_supplier)
+                R.id.navigation_produk, R.id.navigation_layanan, R.id.navigation_jenis_hewan, R.id.navigation_ukuran_hewan, R.id.navigation_pengadaan)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_cashier);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

@@ -9,4 +9,5 @@
     <string name="title_customer">Customer</string>
     <string name="title_peliharaan">Hewan Peliharaan</string>
     <string name="title_transaksi">Transaksi</string>
+    <string name="title_pengadaan">Pengadaan</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.kouveepetshop.ui.supplier;
+package com.example.kouveepetshop.ui.pengadaan;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kouveepetshop.R;
 
-public class SupplierFragment extends Fragment {
+public class PengadaanFragment extends Fragment {
 
-    private SupplierViewModel supplierViewModel;
+    private PengadaanViewModel pengadaanViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        supplierViewModel =
-                ViewModelProviders.of(this).get(SupplierViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_supplier, container, false);
-        final TextView textView = root.findViewById(R.id.text_supplier);
-        supplierViewModel.getText().observe(this, new Observer<String>() {
+        pengadaanViewModel =
+                ViewModelProviders.of(this).get(PengadaanViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_pengadaan, container, false);
+        final TextView textView = root.findViewById(R.id.text_pengadaan);
+        pengadaanViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
