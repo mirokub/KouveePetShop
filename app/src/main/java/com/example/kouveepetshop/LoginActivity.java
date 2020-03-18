@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 
 //        savePreferences();
+
 //        if(username.equals("owner")){
 //            Intent activityIntent = new Intent(LoginActivity.this, OwnerActivity.class);
 //            startActivity(activityIntent);
