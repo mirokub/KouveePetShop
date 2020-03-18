@@ -51,19 +51,38 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginBtn(View v) {
+//        String USER_TYPE_1 = "owner";
+//        String USER_TYPE_2 = "cs";
+//        String USER_TYPE_3 = "cashier";
+//
+//        /**After login success you add logic:**/
+//
+//        Intent intent = null;
+//        if(username.equals(USER_TYPE_1)){
+//            intent = new Intent(this, OwnerActivity.class);
+//        }else if(username.equals(USER_TYPE_2)){
+//            intent = new Intent(this, CSActivity.class);
+//        }else if(username.equals(USER_TYPE_3)){
+//            intent = new Intent(this, CashierActivity.class);
+//        }
+//
+//        if(intent!=null){
+//            startActivity(intent);
+//        }
+
 //        savePreferences();
 //        if(username.equals("owner")){
 //            Intent activityIntent = new Intent(LoginActivity.this, OwnerActivity.class);
 //            startActivity(activityIntent);
 //            finish();
 //        }else if(username.equals("cs")){
-            Intent activityIntent = new Intent(LoginActivity.this, CSActivity.class);
-            startActivity(activityIntent);
-            finish();
-//        }else if(username.equals("cashier")){
-//            Intent activityIntent = new Intent(LoginActivity.this, CashierActivity.class);
+//            Intent activityIntent = new Intent(LoginActivity.this, CSActivity.class);
 //            startActivity(activityIntent);
 //            finish();
+//        }else if(username.equals("cashier")){
+            Intent activityIntent = new Intent(LoginActivity.this, CashierActivity.class);
+            startActivity(activityIntent);
+            finish();
 //        }else{
 //            Toast.makeText(LoginActivity.this, "Invalid Login", Toast.LENGTH_SHORT).show();
 //        }
