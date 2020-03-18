@@ -32,7 +32,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txtUsername"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="@+id/txtUsername"
-        app:layout_constraintEnd_toEndOf="@id/txtUsername"
         />
     
     <Button
