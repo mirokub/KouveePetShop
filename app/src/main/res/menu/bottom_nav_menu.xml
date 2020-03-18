@@ -22,8 +22,8 @@
         android:title="@string/title_ukuran_hewan" />
 
     <item
-        android:id="@+id/navigation_supplier"
+        android:id="@+id/navigation_pengadaan"
         android:icon="@drawable/ic_action_supplier"
-        android:title="@string/title_supplier" />
+        android:title="@string/title_pengadaan" />
 
 </menu>
