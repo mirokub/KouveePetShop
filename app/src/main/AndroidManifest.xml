@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CashierActivity" />
+        <activity android:name=".CashierActivity"></activity>
         <activity android:name=".CSActivity" />
         <activity android:name=".ui.produk.DetailProduk" />
         <activity
