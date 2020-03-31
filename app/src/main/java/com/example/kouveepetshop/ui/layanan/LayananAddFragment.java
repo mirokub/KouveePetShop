@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
@@ -156,7 +155,7 @@ public class LayananAddFragment extends Fragment {
                 if(response.isSuccessful()){
                     Toast.makeText(getActivity(), "Adding Layanan Success !", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new LayananViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new LayananViewFragment()).commit();
                 }else{
                     Toast.makeText(getActivity(), "Adding Layanan Failed !", Toast.LENGTH_SHORT).show();
                 }

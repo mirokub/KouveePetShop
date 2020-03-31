@@ -75,7 +75,7 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
         mBundle.putString("ukuran_hewan", layananModel.getUkuran());
         mBundle.putString("harga", layananModel.getHarga());
         layananEditFragment.setArguments(mBundle);
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, layananEditFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, layananEditFragment).commit();
     }
 
     private void deleteLayanan(final View view, LayananModel layananModel, String pic){
@@ -89,7 +89,7 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
                     Toast.makeText(context.getApplicationContext(), "Delete Layanan Success !", Toast.LENGTH_SHORT).show();
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new LayananViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new LayananViewFragment()).commit();
                 }else{
                     Toast.makeText(context.getApplicationContext(), "Delete Layanan Failed !", Toast.LENGTH_SHORT).show();
                 }
@@ -149,8 +149,8 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
             super(itemView);
             mParent = itemView.findViewById(R.id.parentLayanan);
             mNamaLayanan = itemView.findViewById(R.id.txtViewNamaLayanan);
-            mHarga = itemView.findViewById(R.id.txtViewHarga);
-            mEditedBy = itemView.findViewById(R.id.txtViewEditedBy);
+            mHarga = itemView.findViewById(R.id.txtViewHargaLayanan);
+            mEditedBy = itemView.findViewById(R.id.txtViewEditedByLayanan);
         }
 
         @Override

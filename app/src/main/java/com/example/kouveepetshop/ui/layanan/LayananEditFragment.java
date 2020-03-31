@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,6 @@ import com.example.kouveepetshop.result.jenis_hewan.ResultJenisHewan;
 import com.example.kouveepetshop.result.layanan.ResultOneLayanan;
 import com.example.kouveepetshop.result.ukuran_hewan.ResultUkuranHewan;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -184,7 +182,7 @@ public class LayananEditFragment extends Fragment {
                 if(response.isSuccessful()){
                     Toast.makeText(getActivity(), "Update Layanan Success !", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new LayananViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new LayananViewFragment()).commit();
                 }else{
                     Toast.makeText(getActivity(), "Update Layanan Failed !", Toast.LENGTH_SHORT).show();
                 }

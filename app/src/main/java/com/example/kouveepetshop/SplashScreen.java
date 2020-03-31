@@ -16,11 +16,37 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent activityIntent = new Intent(SplashScreen.this, LoginActivity.class);
-                startActivity(activityIntent);
+//                Intent activityIntent = new Intent(SplashScreen.this, LoginActivity.class);
+//                startActivity(activityIntent);
+//                finish();
+                loadPreferences();
+            }
+        }, 2000);
+    }
+
+    private void loadPreferences(){
+        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
+        if(SP.getSpIsLogin()){
+            if(SP.getSpJabatan().equals("Owner")){
+                Intent intent = new Intent(this, OwnerActivity.class);
+                startActivity(intent);
+                finish();
+            }else if(SP.getSpJabatan().equals("CS")){
+                Intent intent = new Intent(this, CSActivity.class);
+                startActivity(intent);
+                finish();
+            }else if(SP.getSpJabatan().equals("Kasir")){
+                Intent intent = new Intent(this, CashierActivity.class);
+                startActivity(intent);
                 finish();
             }
-        },2000);
+        }else{
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+}
 
 //        final Intent activityIntent;
 
@@ -36,5 +62,5 @@ public class SplashScreen extends AppCompatActivity {
 
 //        startActivity(activityIntent);
 //        finish();
-    }
-}
+//    }
+//}

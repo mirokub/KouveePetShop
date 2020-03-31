@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_layanan"
-        android:name="com.example.kouveepetshop.ui.layanan.LayananFragment"
+        android:name="com.example.kouveepetshop.ui.layanan.LayananViewFragment"
         android:label="@string/title_layanan"
-        tools:layout="@layout/fragment_layanan" />
+        tools:layout="@layout/fragment_layanan_view" />
 
     <fragment
         android:id="@+id/navigation_peliharaan"
