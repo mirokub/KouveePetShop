@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kouveepetshop.R;
-import com.example.kouveepetshop.ui.peliharaan.PeliharaanViewModel;
 
 public class PembayaranCashierFragment extends Fragment {
 
