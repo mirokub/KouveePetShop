@@ -10,9 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.kouveepetshop.model.ResObj;
-import com.example.kouveepetshop.remote.ApiUtils;
-import com.example.kouveepetshop.remote.UserService;
+import com.example.kouveepetshop.api.ApiClient;
+import com.example.kouveepetshop.api.ApiPegawai;
+import com.example.kouveepetshop.model.PegawaiModel;
+import com.example.kouveepetshop.result.pegawai.ResultPegawai;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,9 +21,9 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private PegawaiModel pegawaiModel;
     EditText etUsername, etPassword;
     Button btnLogin;
-    UserService userService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.txtUsername);
         etPassword = (EditText) findViewById(R.id.txtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        userService = ApiUtils.getUserService();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,44 +51,95 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateLogin(String username, String password){
         if(username == null || username.trim().length() == 0){
+            etUsername.setError("Username is required");
             Toast.makeText(this, "Username is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(password == null || password.trim().length() == 0){
+            etPassword.setError("Password is required");
             Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
-    private void doLogin(final String username, final String password){
-        Call call = userService.login(username, password);
-        call.enqueue(new Callback() {
+    private void doLogin(String username, String password) {
+        ApiPegawai apiPegawai = ApiClient.getClient().create(ApiPegawai.class);
+        Call<ResultPegawai> callLogin = apiPegawai.login(username, password);
+
+        callLogin.enqueue(new Callback<ResultPegawai>() {
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(Call<ResultPegawai> call, Response<ResultPegawai> response) {
                 if(response.isSuccessful()){
-                    ResObj resObj = (ResObj) response.body();
-                    if(resObj.getMessage().equals("true")){
-                        //login start main activity
-                        Intent intent = new Intent(LoginActivity.this, OwnerActivity.class);
-                        intent.putExtra("username", username);
-                        startActivity(intent);
-                    }else {
-                        Toast.makeText(LoginActivity.this,"Username/Password salah.", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    Toast.makeText(LoginActivity.this,"Error!", Toast.LENGTH_SHORT).show();
+                    pegawaiModel = response.body().getPegawaiModel();
+                    savePreferences(pegawaiModel);
+                    Toast.makeText(getApplicationContext(), "Login Success !", Toast.LENGTH_SHORT).show();
+                    moveToActivity();
+                }else if(response.code() == 404){
+                    Toast.makeText(getApplicationContext(), "Username Not Found !", Toast.LENGTH_SHORT).show();
+                }else if(response.code() == 400){
+                    Toast.makeText(getApplicationContext(), "Login Failed !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResultPegawai> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Connection Problem !", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private void savePreferences(PegawaiModel pegawaiModel){
+        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
+        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, true);
+        SP.saveSPString(UserSharedPreferences.SP_ID, pegawaiModel.getId_pegawai());
+        SP.saveSPString(UserSharedPreferences.SP_NAMA_PEGAWAI, pegawaiModel.getNama_pegawai());
+        SP.saveSPString(UserSharedPreferences.SP_USERNAME, pegawaiModel.getUsername());
+        SP.saveSPString(UserSharedPreferences.SP_JABATAN, pegawaiModel.getJabatan());
+        SP.spEditor.apply();
+    }
+
+    private void moveToActivity(){
+        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
+        if(SP.getSpJabatan().equals("Owner")){
+            Intent intent = new Intent(this, OwnerActivity.class);
+            startActivity(intent);
+        }else if(SP.getSpJabatan().equals("CS")){
+            Intent intent = new Intent(this, CSActivity.class);
+            startActivity(intent);
+        }else if(SP.getSpJabatan().equals("Kasir")){
+            Intent intent = new Intent(this, CashierActivity.class);
+            startActivity(intent);
+        }
+    }
 }
+//        Call call = userService.login(username, password);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onResponse(Call call, Response response) {
+//                if(response.isSuccessful()){
+//                    ResObj resObj = (ResObj) response.body();
+//                    if(resObj.getMessage().equals("true")){
+//                        //login start main activity
+//                        Intent intent = new Intent(LoginActivity.this, OwnerActivity.class);
+//                        intent.putExtra("username", username);
+//                        startActivity(intent);
+//                    }else {
+//                        Toast.makeText(LoginActivity.this,"Username/Password salah.", Toast.LENGTH_SHORT).show();
+//                    }
+//                }else {
+//                    Toast.makeText(LoginActivity.this,"Error!", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+
+
 //    private SharedPreferences sp;
 //    private final String name = "myShared";
 //    public static final int mode = Activity.MODE_PRIVATE;

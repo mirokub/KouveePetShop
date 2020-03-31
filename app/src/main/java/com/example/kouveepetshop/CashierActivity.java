@@ -31,7 +31,7 @@ public class CashierActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        FloatingActionButton fab = findViewById(R.id.fab_btn);
+        FloatingActionButton fab = findViewById(R.id.fab_btn_owner);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

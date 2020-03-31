@@ -6,9 +6,12 @@
     <string name="title_jenis_hewan">Jenis Hewan</string>
     <string name="title_ukuran_hewan">Ukuran Hewan</string>
     <string name="title_supplier">Supplier</string>
-    <string name="title_customer">Customer</string>
     <string name="title_peliharaan">Hewan Peliharaan</string>
     <string name="title_transaksi">Transaksi</string>
     <string name="title_pengadaan">Pengadaan</string>
     <string name="title_pembayaran">Pembayaran</string>
+
+    <string name="title_hewan">Hewan</string>
+    <string name="title_customer">Customer</string>
+
 </resources>

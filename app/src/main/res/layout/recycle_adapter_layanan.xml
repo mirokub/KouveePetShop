@@ -30,13 +30,13 @@
             android:text="Nama Layanan" />
 
         <TextView
-            android:id="@+id/txtViewHarga"
+            android:id="@+id/txtViewHargaLayanan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Harga" />
 
         <TextView
-            android:id="@+id/txtViewEditedBy"
+            android:id="@+id/txtViewEditedByLayanan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edited By" />
