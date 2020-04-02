@@ -1,6 +1,8 @@
 package com.example.kouveepetshop;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -8,12 +10,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.kouveepetshop.ui.hewan.HewanAddFragment;
 import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
+import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -41,7 +46,15 @@ public class CSActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CSActivity.this, "You clicked", Toast.LENGTH_SHORT).show();
+                if (navView.getSelectedItemId() == R.id.navigation_customer) {
+
+                } else if (navView.getSelectedItemId() == R.id.navigation_hewan) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new HewanAddFragment()).commit();
+                } else if (navView.getSelectedItemId() == R.id.navigation_transaksi) {
+
+                }
+                fab.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -70,4 +83,30 @@ public class CSActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.LogOut:
+                doLogout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void doLogout(){
+        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
+        SP.spEditor.clear();
+        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, false);
+        SP.spEditor.apply();
+        Intent intent = new Intent(CSActivity.this, SplashScreen.class);
+        finish();
+        startActivity(intent);
+    }
 }
