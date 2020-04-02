@@ -102,13 +102,16 @@ public class LoginActivity extends AppCompatActivity {
     private void moveToActivity(){
         UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
         if(SP.getSpJabatan().equals("Owner")){
-            Intent intent = new Intent(this, OwnerActivity.class);
+            Intent intent = new Intent(LoginActivity.this, OwnerActivity.class);
+            finish();
             startActivity(intent);
         }else if(SP.getSpJabatan().equals("CS")){
-            Intent intent = new Intent(this, CSActivity.class);
+            Intent intent = new Intent(LoginActivity.this, CSActivity.class);
+            finish();
             startActivity(intent);
         }else if(SP.getSpJabatan().equals("Kasir")){
-            Intent intent = new Intent(this, CashierActivity.class);
+            Intent intent = new Intent(LoginActivity.this, CashierActivity.class);
+            finish();
             startActivity(intent);
         }
     }
