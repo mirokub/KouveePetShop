@@ -8,7 +8,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvLayanan"
+    android:id="@+id/cvHewan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -20,25 +20,43 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
-        android:id="@+id/parentLayanan"
+        android:id="@+id/parentHewan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtViewNamaLayanan"
+            android:id="@+id/txtViewNamaHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama Layanan" />
+            android:text="Nama Hewan" />
 
         <TextView
-            android:id="@+id/txtViewHargaLayanan"
+            android:id="@+id/txtViewTglLahirHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Harga" />
+            android:text="Tanggal Lahir" />
 
         <TextView
-            android:id="@+id/txtViewEditedByLayanan"
+            android:id="@+id/txtViewJenisHewan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jenis Hewan" />
+
+        <TextView
+            android:id="@+id/txtViewUkuranHewan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ukuran Hewan" />
+
+        <TextView
+            android:id="@+id/txtViewNamaCustomerHewan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Customer" />
+
+        <TextView
+            android:id="@+id/txtViewEditedByHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edited By" />

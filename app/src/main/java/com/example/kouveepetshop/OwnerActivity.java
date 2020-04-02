@@ -1,9 +1,12 @@
 package com.example.kouveepetshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,33 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class OwnerActivity extends AppCompatActivity {
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.LogOut:
-                doLogout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void doLogout(){
-        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
-        SP.spEditor.clear();
-        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, false);
-        SP.spEditor.apply();
-        finish();
-        System.exit(0);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +96,33 @@ public class OwnerActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.LogOut:
+                doLogout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void doLogout(){
+        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
+        SP.spEditor.clear();
+        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, false);
+        SP.spEditor.apply();
+        Intent intent = new Intent(OwnerActivity.this, SplashScreen.class);
+        finish();
+        startActivity(intent);
+    }
 
 
 }

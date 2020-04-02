@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_customer"
+        android:icon="@drawable/ic_person"
+        android:title="@string/title_customer" />
+
+    <item
+        android:id="@+id/navigation_hewan"
+        android:icon="@drawable/ic_action_jenis_hewan"
+        android:title="@string/title_hewan" />
+
+    <item
+        android:id="@+id/navigation_transaksi"
+        android:icon="@drawable/ic_transaction"
+        android:title="@string/title_transaksi" />
+
+</menu>
