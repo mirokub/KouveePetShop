@@ -13,6 +13,12 @@ public class ResultCustomer {
     @SerializedName("value")
     private List<CustomerModel> listCustomer;
 
+    public List<CustomerModel> getListCustomer() {
+        return listCustomer;
+    }
+
+    public void setListCustomer(List<CustomerModel> listCustomer) { this.listCustomer = listCustomer;    }
+
     public String getMessage() {
         return message;
     }
@@ -21,11 +27,4 @@ public class ResultCustomer {
         this.message = message;
     }
 
-    public List<CustomerModel> getListCustomer() {
-        return listCustomer;
-    }
-
-    public void setListCustomer(List<CustomerModel> listCustomer) {
-        this.listCustomer = listCustomer;
-    }
 }
