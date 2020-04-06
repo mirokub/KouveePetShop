@@ -4,6 +4,7 @@ import com.example.kouveepetshop.model.LayananModel;
 import com.google.gson.annotations.SerializedName;
 
 public class ResultOneLayanan {
+
     @SerializedName("message")
     private String message;
 
