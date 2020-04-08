@@ -13,5 +13,7 @@
 
     <string name="title_hewan">Hewan</string>
     <string name="title_customer">Customer</string>
+    <string name="title_harga_layanan">Harga Layanan</string>
+    <string name="title_edited_by">Edited by</string>
 
 </resources>
