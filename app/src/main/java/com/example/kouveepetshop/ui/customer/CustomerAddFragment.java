@@ -27,9 +27,7 @@ import com.example.kouveepetshop.api.ApiCustomer;
 import com.example.kouveepetshop.model.CustomerModel;
 import com.example.kouveepetshop.result.customer.ResultCustomer;
 import com.example.kouveepetshop.result.customer.ResultOneCustomer;
-import com.example.kouveepetshop.result.hewan.ResultOneHewan;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
-import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
