@@ -56,9 +56,6 @@
 <!--    &lt;!&ndash;        app:layout_constraintBottom_toTopOf="@id/nav_view_owner"&ndash;&gt;-->
 <!--&lt;!&ndash;        app:layout_constraintEnd_toEndOf="parent" />&ndash;&gt;-->
 <!--&lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
-
-
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

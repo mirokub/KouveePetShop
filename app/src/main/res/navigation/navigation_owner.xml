@@ -31,7 +31,20 @@
 
     <fragment
         android:id="@+id/navigation_pengadaan"
-        android:name="com.example.kouveepetshop.ui.pengadaan.PengadaanFragment"
+        android:name="com.example.kouveepetshop.ui.pengadaan_menu.PengadaanMenu"
         android:label="@string/title_pengadaan"
-        tools:layout="@layout/fragment_pengadaan" />
+        tools:layout="@layout/fragment_pengadaan_menu" />
+
+    <fragment
+        android:id="@+id/navigation_supplier"
+        android:name="com.example.kouveepetshop.ui.supplier.SupplierViewFragment"
+        android:label="@string/title_supplier"
+        tools:layout="@layout/fragment_supplier_view" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_pengadaan_child"-->
+<!--        android:name="com.example.kouveepetshop.ui.supplier.SupplierViewFragment"-->
+<!--        android:label="@string/title_supplier"-->
+<!--        tools:layout="@layout/fragment_supplier_view" />-->
+
 </navigation>
