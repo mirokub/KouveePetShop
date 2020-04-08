@@ -85,7 +85,7 @@ public class CustomerEditFragment extends Fragment {
                 String tglLahir = mTglLahir.getText().toString();
                 String nomorTelp = mNomorTelp.getText().toString();
 
-                if(validate(namaCustomer, tglLahir)){
+                if(validate(namaCustomer, tglLahir, nomorTelp)){
                     CustomerModel customerModel = new CustomerModel(namaCustomer, alamat, tglLahir, nomorTelp, pic);
                     updateCustomer(id_customer, customerModel);
                 }
@@ -130,13 +130,17 @@ public class CustomerEditFragment extends Fragment {
 
     }
 
-    private boolean validate(String namaCustomer, String tglLahir){
+    private boolean validate(String namaCustomer, String tglLahir, String noTelp){
         if(namaCustomer == null || namaCustomer.trim().length() == 0){
             mNamaCustomer.setError("Nama Customer is required");
             return false;
         }
         if(tglLahir == null || tglLahir.trim().length() == 0){
             mTglLahir.setError("Tanggal Lahir is required");
+            return false;
+        }
+        if(noTelp == null || noTelp.trim().length() == 0){
+            mNomorTelp.setError("Nomor Telepon is required");
             return false;
         }
         return true;

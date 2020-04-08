@@ -23,5 +23,7 @@
     <string name="title_nama_customer">Nama Customer</string>
     <string name="nama_hewan">Nama Hewan</string>
     <string name="title_nama_hewan">Nama Hewan</string>
+    <string name="title_nama_supplier">Nama Supplier</string>
+    <string name="title_alamat_supplier">Alamat Supplier</string>
 
 </resources>
