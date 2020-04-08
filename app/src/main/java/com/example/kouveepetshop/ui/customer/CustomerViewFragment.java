@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CustomerViewModel extends ViewModel {
+public class CustomerViewFragment extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public CustomerViewModel() {
+    public CustomerViewFragment() {
         mText = new MutableLiveData<>();
         mText.setValue("Kelola Data Customer");
     }
