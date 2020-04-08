@@ -62,7 +62,7 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
         final String pic = SP.getSpId();
         final LayananModel layananModel = result.get(position);
         holder.mNamaLayanan.setText(layananModel.getNama_layanan() + " " + layananModel.getJenis() + " " +layananModel.getUkuran());
-        holder.mHarga.setText(layananModel.getHarga());
+        holder.mHarga.setText("Harga : Rp" + layananModel.getHarga());
         holder.mEditedBy.setText("Edited by " + layananModel.getEdited_by() + " at " + layananModel.getUpdated_at());
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
