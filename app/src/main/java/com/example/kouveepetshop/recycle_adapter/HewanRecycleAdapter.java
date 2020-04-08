@@ -53,7 +53,7 @@ public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapte
         UserSharedPreferences SP = new UserSharedPreferences(context.getApplicationContext());
         final String pic = SP.getSpId();
         final HewanModel hewanModel = result.get(position);
-        holder.mNamaHewan.setText("Nama : " +hewanModel.getNama_hewan());
+        holder.mNamaHewan.setText(hewanModel.getNama_hewan());
         holder.mTglLahir.setText("Tanggal Lahir : " +hewanModel.getTgl_lahir());
         holder.mJenisHewan.setText("Jenis : " +hewanModel.getJenis());
         holder.mUkuranHewan.setText("Ukuran : " +hewanModel.getUkuran());

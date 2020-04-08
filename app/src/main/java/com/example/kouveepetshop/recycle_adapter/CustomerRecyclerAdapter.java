@@ -53,7 +53,7 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
         UserSharedPreferences SP = new UserSharedPreferences(context.getApplicationContext());
         final String pic = SP.getSpId();
         final CustomerModel customerModel = result.get(position);
-        holder.mNamaCustomer.setText("Nama : " + customerModel.getNama_customer());
+        holder.mNamaCustomer.setText(customerModel.getNama_customer());
         holder.mAlamat.setText("Alamat : " + customerModel.getAlamat());
         holder.mTglLahir.setText("Tanggal Lahir : " +customerModel.getTgl_lahir());
         holder.mNomorTelp.setText("Nomor Telepon : " +customerModel.getNo_telp());
