@@ -57,7 +57,6 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:clickable="true"
-        android:editable="false"
         android:ems="10"
         android:hint="@string/title_nomor_telepon"
         app:layout_constraintEnd_toEndOf="parent"

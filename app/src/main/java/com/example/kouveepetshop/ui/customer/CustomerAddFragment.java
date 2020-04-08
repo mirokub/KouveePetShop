@@ -56,6 +56,8 @@ public class CustomerAddFragment extends Fragment {
         UserSharedPreferences SP = new UserSharedPreferences(getActivity());
         pic = SP.getSpId();
 
+        setAtribut();
+
         myCalendar = Calendar.getInstance();
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -105,6 +107,7 @@ public class CustomerAddFragment extends Fragment {
         mNamaCustomer = myView.findViewById(R.id.etNamaCustomer);
         mAlamat = myView.findViewById(R.id.etAlamatCustomer);
         mTglLahir = myView.findViewById(R.id.etTglLahirCustomer);
+        mNomorTelp = myView.findViewById(R.id.etNoTelpCustomer);
         mBtnSaveCustomer = myView.findViewById(R.id.btnSaveCustomer);
     }
 
@@ -113,8 +116,16 @@ public class CustomerAddFragment extends Fragment {
             mNamaCustomer.setError("Nama Customer is required");
             return false;
         }
+        if(alamat == null || alamat.trim().length() == 0){
+            mAlamat.setError("Alamat is required");
+            return false;
+        }
         if(tglLahir == null || tglLahir.trim().length() == 0){
             mTglLahir.setError("Tanggal Lahir is required");
+            return false;
+        }
+        if(nomorTelp == null || nomorTelp.trim().length() == 0){
+            mNomorTelp.setError("Nomor Telepon is required");
             return false;
         }
         return true;

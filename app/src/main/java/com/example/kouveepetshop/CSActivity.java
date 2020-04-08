@@ -16,6 +16,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.kouveepetshop.ui.customer.CustomerAddFragment;
+import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 import com.example.kouveepetshop.ui.hewan.HewanAddFragment;
 import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
 import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
@@ -24,12 +26,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CSActivity extends AppCompatActivity {
 
+    Fragment selectedFragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cs);
         final BottomNavigationView navView = findViewById(R.id.nav_view_cs);
         navView.setOnNavigationItemSelectedListener(navListener);
+        selectedFragment = new CustomerViewFragment();
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -47,7 +52,8 @@ public class CSActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (navView.getSelectedItemId() == R.id.navigation_customer) {
-
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new CustomerAddFragment()).commit();
                 } else if (navView.getSelectedItemId() == R.id.navigation_hewan) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new HewanAddFragment()).commit();
@@ -63,11 +69,10 @@ public class CSActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FloatingActionButton fab = findViewById(R.id.fab_btn_cs);
-            Fragment selectedFragment = null;
 
             switch (item.getItemId()){
                 case R.id.navigation_customer:
-//                    selectedFragment = new ProdukFragment();
+                    selectedFragment = new CustomerViewFragment();
                     break;
                 case R.id.navigation_hewan:
                     selectedFragment = new HewanViewFragment();

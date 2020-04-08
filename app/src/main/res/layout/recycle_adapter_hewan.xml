@@ -29,37 +29,50 @@
             android:id="@+id/txtViewNamaHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama Hewan" />
+            android:text="@string/title_nama_hewan"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/txtViewTglLahirHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tanggal Lahir" />
+            android:text="@string/title_tanggal_lahir"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/txtViewJenisHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jenis Hewan" />
+            android:text="@string/title_jenis_hewan"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/txtViewUkuranHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ukuran Hewan" />
+            android:text="@string/title_ukuran_hewan"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/txtViewNamaCustomerHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama Customer" />
+            android:text="@string/title_customer"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/txtViewEditedByHewan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edited By" />
+            android:textSize="15sp"
+            android:text="@string/title_edited_by" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
