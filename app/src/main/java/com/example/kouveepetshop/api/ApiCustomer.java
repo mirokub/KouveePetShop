@@ -1,7 +1,5 @@
 package com.example.kouveepetshop.api;
 
-import androidx.appcompat.widget.LinearLayoutCompat;
-
 import com.example.kouveepetshop.model.CustomerModel;
 import com.example.kouveepetshop.result.customer.ResultCustomer;
 import com.example.kouveepetshop.result.customer.ResultOneCustomer;
@@ -21,7 +19,7 @@ public interface ApiCustomer {
     Call<ResultCustomer> getAllCustomer();
 
     @GET("customer/{id}")
-    Call<ResultCustomer> getCustomer(@Path("id") String id_customer);
+    Call<ResultOneCustomer> getCustomer(@Path("id") String id_customer);
 
     @POST("customer")
     Call<ResultOneCustomer> createCustomer(@Body CustomerModel customerModel);
@@ -34,5 +32,4 @@ public interface ApiCustomer {
     @FormUrlEncoded
     Call<ResultOneCustomer> deleteCustomer(@Path("id") String id_customer,
                                            @Field("pic") String pic);
-
 }
