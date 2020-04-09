@@ -44,14 +44,6 @@ public class CustomerModel {
         this.pic = pic;
     }
 
-    public CustomerModel(String nama_customer, String alamat, String tgl_lahir, String no_telp, String pic) {
-        this.nama_customer = nama_customer;
-        this.alamat = alamat;
-        this.tgl_lahir = tgl_lahir;
-        this.no_telp = no_telp;
-        this.pic = pic;
-    }
-
     public String getId_customer() {
         return id_customer;
     }
