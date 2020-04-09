@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_customer"
-        android:name="com.example.kouveepetshop.ui.customer.CustomerFragment"
+        android:name="com.example.kouveepetshop.ui.customer.CustomerViewFragment"
         android:label="@string/title_customer"
         tools:layout="@layout/fragment_customer" />
 

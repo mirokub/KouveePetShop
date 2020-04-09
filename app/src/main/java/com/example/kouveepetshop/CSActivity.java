@@ -5,20 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.kouveepetshop.ui.hewan.HewanAddFragment;
 import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
-import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -47,7 +41,8 @@ public class CSActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (navView.getSelectedItemId() == R.id.navigation_customer) {
-
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new CustomerAddFragment()).commit();
                 } else if (navView.getSelectedItemId() == R.id.navigation_hewan) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new HewanAddFragment()).commit();
@@ -67,7 +62,7 @@ public class CSActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.navigation_customer:
-//                    selectedFragment = new ProdukFragment();
+                    selectedFragment = new CustomerViewFragment();
                     break;
                 case R.id.navigation_hewan:
                     selectedFragment = new HewanViewFragment();
