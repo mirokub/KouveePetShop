@@ -25,6 +25,7 @@ import com.example.kouveepetshop.result.customer.ResultOneCustomer;
 import com.example.kouveepetshop.ui.customer.CustomerEditFragment;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -160,6 +161,12 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
         public void onClick(View view) {
             Toast.makeText(context, "Oh You Touch Me?", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void setFilter(ArrayList<CustomerModel> filterList){
+        result = new ArrayList<>();
+        result.addAll(filterList);
+        notifyDataSetChanged();
     }
 
 }
