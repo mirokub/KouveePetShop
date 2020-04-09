@@ -23,25 +23,51 @@
         android:id="@+id/parentLayanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:id="@+id/image_layanan"-->
+<!--            android:src="@mipmap/ic_launcher"/>-->
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/parentLayanan2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:layout_marginStart="85dp">-->
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_layanan"
+            android:textSize="20sp"
             android:id="@+id/txtViewNamaLayanan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nama Layanan" />
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_harga_layanan"
+            android:textSize="15sp"
             android:id="@+id/txtViewHargaLayanan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Harga" />
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
-            android:id="@+id/txtViewEditedByLayanan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edited By" />
+            android:text="@string/title_edited_by"
+            android:textSize="15sp"
+            android:id="@+id/txtViewEditedByLayanan"
+            />
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
 <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

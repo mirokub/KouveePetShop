@@ -41,8 +41,6 @@ public class OwnerActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(navView, navController);
 
-
-
         final FloatingActionButton fab = findViewById(R.id.fab_btn_owner);
 
         fab.setOnClickListener(new View.OnClickListener() {
