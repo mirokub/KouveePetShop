@@ -2,8 +2,12 @@ package com.example.kouveepetshop.ui.customer;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -72,5 +76,36 @@ public class CustomerViewFragment extends Fragment {
                 Toast.makeText(getContext(), "Connection Problem", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.logout_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.SearchTxt);
+        SearchView searchView = new SearchView(getActivity());
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                newText = newText.toLowerCase();
+
+                ArrayList<CustomerModel> customerModel = new ArrayList<>();
+                for(CustomerModel data:customerList){
+                    String nama = data.getNama_customer().toLowerCase();
+                    if(nama.contains(newText)){
+                        customerModel.add(data);
+                    }
+                }
+                customerRecyclerAdapter.setFilter(customerModel);
+
+                return true;
+            }
+        });
+        searchItem.setActionView(searchView);
     }
 }

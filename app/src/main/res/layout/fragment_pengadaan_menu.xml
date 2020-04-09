@@ -5,25 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:id="@+id/image_supplier"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/ic_supplier"/>
+            android:src="@mipmap/ic_truck"
+            android:background="@color/colorAccent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBtnSupplier"
+            android:text="@string/title_supplier"
+            android:layout_below="@id/image_supplier"
+            android:layout_alignRight="@id/image_supplier"
+            android:layout_alignLeft="@id/image_supplier"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            />
 
         <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="40dp"
             android:id="@+id/image_pengadaan"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/ic_shopping_bag"/>
-    </LinearLayout>
+            android:src="@mipmap/ic_package_1"
+            android:layout_below="@id/tvBtnSupplier"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_pengadaan"
+            android:layout_below="@+id/image_pengadaan"
+            android:layout_alignRight="@+id/image_pengadaan"
+            android:layout_alignLeft="@id/image_pengadaan"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/tvBtnPengadaan"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>
