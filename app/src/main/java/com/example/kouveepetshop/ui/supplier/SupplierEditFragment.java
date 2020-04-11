@@ -1,16 +1,11 @@
 package com.example.kouveepetshop.ui.supplier;
 
-import android.app.DatePickerDialog;
-import android.icu.util.ULocale;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,14 +18,7 @@ import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
 import com.example.kouveepetshop.api.ApiSupplier;
 import com.example.kouveepetshop.model.SupplierModel;
-import com.example.kouveepetshop.result.supplier.ResultSupplier;
 import com.example.kouveepetshop.result.supplier.ResultOneSupplier;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,12 +34,14 @@ public class SupplierEditFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         myView = inflater.inflate(R.layout.fragment_supplier_edit, container, false);
 
         UserSharedPreferences SP = new UserSharedPreferences(getActivity());
         pic = SP.getSpId();
 
         setAtribut();
+        setText();
 
         mBtnUpdateSupplier.setOnClickListener(new View.OnClickListener() {
             @Override
