@@ -54,6 +54,7 @@ public class CustomerEditFragment extends Fragment {
         pic = SP.getSpId();
 
         setAtribut();
+        setText();
 
         myCalendar = Calendar.getInstance();
         setText();
