@@ -3,13 +3,13 @@ package com.example.kouveepetshop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -19,8 +19,7 @@ import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
 import com.example.kouveepetshop.ui.pengadaan_menu.PengadaanMenu;
 import com.example.kouveepetshop.ui.produk.ProdukFragment;
 import com.example.kouveepetshop.ui.supplier.SupplierAddFragment;
-import com.example.kouveepetshop.ui.supplier.SupplierViewFragment;
-import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanFragment;
+import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanViewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -88,7 +87,7 @@ public class OwnerActivity extends AppCompatActivity {
                     fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_ukuran_hewan:
-                    selectedFragment = new UkuranHewanFragment();
+                    selectedFragment = new UkuranHewanViewFragment();
                     fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_pengadaan:
@@ -108,7 +107,9 @@ public class OwnerActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu, menu);
+
         return true;
     }
 

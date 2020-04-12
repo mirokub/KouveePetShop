@@ -23,7 +23,7 @@ public class UkuranHewanModel {
     @SerializedName("pic")
     private String pic;
 
-    public UkuranHewanModel() {
+    public UkuranHewanModel(String ukuranHewan, String pic) {
     }
 
     public UkuranHewanModel(String id_ukuran, String ukuran, String created_at, String updated_at, String pic) {
