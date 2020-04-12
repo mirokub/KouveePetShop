@@ -110,7 +110,7 @@ public class LayananAddFragment extends Fragment {
             @Override
             public void onResponse(Call<ResultUkuranHewan> call, Response<ResultUkuranHewan> response) {
                 if(response.isSuccessful()){
-                    List<UkuranHewanModel> ukuranHewan = response.body().getUkuranHewanModels();
+                    List<UkuranHewanModel> ukuranHewan = response.body().getListUkuranHewan();
                     ArrayAdapter<UkuranHewanModel> adapter = new ArrayAdapter<UkuranHewanModel>(getActivity(), android.R.layout.simple_spinner_dropdown_item, ukuranHewan);
                     mUkuranHewan.setAdapter(adapter);
                 }

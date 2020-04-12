@@ -19,6 +19,7 @@ import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
 import com.example.kouveepetshop.ui.pengadaan_menu.PengadaanMenu;
 import com.example.kouveepetshop.ui.produk.ProdukFragment;
 import com.example.kouveepetshop.ui.supplier.SupplierAddFragment;
+import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanAddFragment;
 import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanViewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,16 +32,6 @@ public class OwnerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_owner);
         final BottomNavigationView navView = findViewById(R.id.nav_view_owner);
         navView.setOnNavigationItemSelectedListener(navListener);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_produk, R.id.navigation_layanan, R.id.navigation_jenis_hewan, R.id.navigation_ukuran_hewan, R.id.navigation_pengadaan)
-//                .build();
-//        final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_owner);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(navView, navController);
 
         final FloatingActionButton fab = findViewById(R.id.fab_btn_owner);
 
@@ -55,7 +46,8 @@ public class OwnerActivity extends AppCompatActivity {
                 } else if (navView.getSelectedItemId() == R.id.navigation_jenis_hewan) {
 
                 } else if (navView.getSelectedItemId() == R.id.navigation_ukuran_hewan) {
-
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new UkuranHewanAddFragment()).commit();
                 } else if (navView.getSelectedItemId() == R.id.navigation_pengadaan) {
 
                 } else if (navView.getSelectedItemId() == R.id.navigation_supplier){

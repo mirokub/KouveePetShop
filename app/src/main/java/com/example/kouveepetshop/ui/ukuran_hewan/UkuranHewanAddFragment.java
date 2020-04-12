@@ -27,13 +27,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-class UkuranHeawanAddFragment extends Fragment {
+public class UkuranHewanAddFragment extends Fragment {
 
     private String pic;
     View myView;
     EditText mUkuranHewan;
     Button mBtnSaveUkuran;
-    DatePickerDialog.OnDateSetListener date;
 
     @Nullable
     @Override
@@ -46,15 +45,14 @@ class UkuranHeawanAddFragment extends Fragment {
 
         setAtribut();
 
-
         mBtnSaveUkuran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String UkuranHewan = mUkuranHewan.getText().toString();
+                String ukuranHewan = mUkuranHewan.getText().toString();
 
-                if(validate(UkuranHewan)){
-                    UkuranHewanModel ukuranHewanModel = new UkuranHewanModel(UkuranHewan, pic);
-                    mBtnSaveUkuran(ukuranHewanModel);
+                if(validate(ukuranHewan)){
+                    UkuranHewanModel ukuranHewanModel = new UkuranHewanModel(ukuranHewan, pic);
+                    saveUkuranHewan(ukuranHewanModel);
                 }
             }
         });
@@ -62,13 +60,8 @@ class UkuranHeawanAddFragment extends Fragment {
         return myView;
     }
 
-    private void mBtnSaveUkuran(UkuranHewanModel ukuranHewanModel) {
-
-    }
-
-
     private void setAtribut(){
-        mUkuranHewan = myView.findViewById(R.id.etUkuranHewanEdit);
+        mUkuranHewan = myView.findViewById(R.id.etUkuranHewanAdd);
         mBtnSaveUkuran = myView.findViewById(R.id.btnSaveUkuran);
     }
 
@@ -80,17 +73,17 @@ class UkuranHeawanAddFragment extends Fragment {
         return true;
     }
 
-    private void saveUkuran(String ukuranHewanModel){
+    private void saveUkuranHewan(UkuranHewanModel ukuranHewanModel){
         ApiUkuranHewan apiUkuranHewan = ApiClient.getClient().create(ApiUkuranHewan.class);
-        Call<ResultOneUkuran> ukuranCall = apiUkuranHewan.createUkuran(ukuranHewanModel);
+        Call<ResultOneUkuran> ukuranHewanCall = apiUkuranHewan.createUkuranHewan(ukuranHewanModel);
 
-        ukuranCall.enqueue(new Callback<ResultOneUkuran>() {
+        ukuranHewanCall.enqueue(new Callback<ResultOneUkuran>() {
             @Override
             public void onResponse(Call<ResultOneUkuran> call, Response<ResultOneUkuran> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(getActivity(), "Adding Ukuran Success !", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new UkuranHewanViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new UkuranHewanViewFragment()).commit();
                 }else{
                     Toast.makeText(getActivity(), "Adding Ukuran Failed !", Toast.LENGTH_SHORT).show();
                 }
