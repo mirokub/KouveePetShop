@@ -5,15 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.kouveepetshop.ui.jenis_hewan.JenisHewanFragment;
+import com.example.kouveepetshop.ui.jenis_hewan.JenisHewanViewFragment;
 import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
 import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
 import com.example.kouveepetshop.ui.pengadaan.PengadaanFragment;
@@ -81,7 +79,7 @@ public class OwnerActivity extends AppCompatActivity {
                     selectedFragment = new LayananViewFragment();
                     break;
                 case R.id.navigation_jenis_hewan:
-                    selectedFragment = new JenisHewanFragment();
+                    selectedFragment = new JenisHewanViewFragment();
                     break;
                 case R.id.navigation_ukuran_hewan:
                     selectedFragment = new UkuranHewanFragment();

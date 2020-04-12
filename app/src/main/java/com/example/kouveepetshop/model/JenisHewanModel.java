@@ -26,21 +26,9 @@ public class JenisHewanModel {
     public JenisHewanModel() {
     }
 
-    public JenisHewanModel(String id_jenis, String jenis, String created_at, String updated_at, String edited_by, String pic) {
-        this.id_jenis = id_jenis;
+    public JenisHewanModel(String jenis, String pic) {
         this.jenis = jenis;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.edited_by = edited_by;
         this.pic = pic;
-    }
-
-    public JenisHewanModel(String id_jenis, String jenis, String created_at, String updated_at, String edited_by) {
-        this.id_jenis = id_jenis;
-        this.jenis = jenis;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.edited_by = edited_by;
     }
 
     public String getId_jenis() {

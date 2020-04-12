@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kouveepetshop.R;
 
-public class JenisHewanFragment extends Fragment {
+public class JenisHewanViewFragment extends Fragment {
 
     private JenisHewanViewModel jenisHewanViewModel;
 
@@ -22,7 +22,7 @@ public class JenisHewanFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         jenisHewanViewModel =
                 ViewModelProviders.of(this).get(JenisHewanViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_jenis_hewan, container, false);
+        View root = inflater.inflate(R.layout.fragment_jenis_hewan_view, container, false);
         final TextView textView = root.findViewById(R.id.text_jenis_hewan);
         jenisHewanViewModel.getText().observe(this, new Observer<String>() {
             @Override
