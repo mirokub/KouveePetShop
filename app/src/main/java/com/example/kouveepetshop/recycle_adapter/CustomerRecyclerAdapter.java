@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,19 +28,22 @@ import com.example.kouveepetshop.ui.customer.CustomerEditFragment;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecyclerAdapter.MyViewHolder> {
+public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecyclerAdapter.MyViewHolder> implements Filterable {
     private Context context;
     private List<CustomerModel> result;
+    private List<CustomerModel> resultFull;
 
     public CustomerRecyclerAdapter(Context context, List<CustomerModel> result) {
         this.context = context;
         this.result = result;
+        resultFull = new ArrayList<>(result);
     }
 
     @NonNull
@@ -80,7 +85,7 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
         fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, customerEditFragment).commit();
     }
 
-    private void deleteLayanan(final View view, CustomerModel customerModel, String pic){
+    private void deleteCustomer(final View view, CustomerModel customerModel, String pic){
         ApiCustomer apiCustomer = ApiClient.getClient().create(ApiCustomer.class);
         Call<ResultOneCustomer> customerCall = apiCustomer.deleteCustomer(customerModel.getId_customer(), pic);
 
@@ -129,7 +134,7 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
                 confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteLayanan(view, customerModel, pic);
+                        deleteCustomer(view, customerModel, pic);
                     }
                 });
                 confirmDialog.show();
@@ -163,10 +168,38 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
         }
     }
 
-    public void setFilter(ArrayList<CustomerModel> filterList){
-        result = new ArrayList<>();
-        result.addAll(filterList);
-        notifyDataSetChanged();
+    @Override
+    public Filter getFilter() {
+        return filter;
     }
 
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<CustomerModel> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(resultFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(CustomerModel customer : resultFull){
+                    if(customer.getNama_customer().toLowerCase().contains(filterPattern)){
+                        filteredList.add(customer);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            result.clear();
+            result.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

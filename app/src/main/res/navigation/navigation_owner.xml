@@ -27,7 +27,7 @@
         android:id="@+id/navigation_ukuran_hewan"
         android:name="com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanViewFragment"
         android:label="@string/title_ukuran_hewan"
-        tools:layout="@layout/fragment_ukuran_hewan_add" />
+        tools:layout="@layout/fragment_ukuran_hewan_view" />
 
     <fragment
         android:id="@+id/navigation_pengadaan"

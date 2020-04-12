@@ -15,7 +15,8 @@ public class ResultOneCustomer {
         return customerModel;
     }
 
-    public void setCustomerModel(CustomerModel customerModel) { this.customerModel = customerModel; }
+    public void setCustomerModel(CustomerModel customerModel) {
+        this.customerModel = customerModel; }
 
     public String getMessage() {
         return message;

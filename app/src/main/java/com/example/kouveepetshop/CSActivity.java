@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -16,6 +17,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.kouveepetshop.recycle_adapter.CustomerRecyclerAdapter;
+import com.example.kouveepetshop.recycle_adapter.HewanRecycleAdapter;
 import com.example.kouveepetshop.ui.customer.CustomerAddFragment;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 import com.example.kouveepetshop.ui.hewan.HewanAddFragment;
@@ -27,6 +30,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CSActivity extends AppCompatActivity {
 
     Fragment selectedFragment = null;
+    CustomerRecyclerAdapter customerRecyclerAdapter;
+    HewanRecycleAdapter hewanRecycleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class CSActivity extends AppCompatActivity {
         });
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    public BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FloatingActionButton fab = findViewById(R.id.fab_btn_cs);
@@ -78,7 +83,7 @@ public class CSActivity extends AppCompatActivity {
                     selectedFragment = new HewanViewFragment();
                     break;
                 case R.id.navigation_transaksi:
-//                    selectedFragment = new JenisHewanFragment();
+//                    selectedFragment = new TransaksiViewFragment();
                     break;
             }
             fab.setVisibility(View.VISIBLE);
@@ -91,6 +96,24 @@ public class CSActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.logout_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.SearchTxt);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                    customerRecyclerAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         return true;
     }
 
@@ -100,6 +123,7 @@ public class CSActivity extends AppCompatActivity {
             case R.id.LogOut:
                 doLogout();
                 return true;
+            case R.id.SearchTxt:
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 public class UkuranHewanModel {
+
     @SerializedName("id_ukuran")
     private String id_ukuran;
 
@@ -23,23 +24,18 @@ public class UkuranHewanModel {
     @SerializedName("pic")
     private String pic;
 
-    public UkuranHewanModel(String ukuranHewan, String pic) {
+    public UkuranHewanModel() {
     }
 
-    public UkuranHewanModel(String id_ukuran, String ukuran, String created_at, String updated_at, String pic) {
-        this.id_ukuran = id_ukuran;
-        this.ukuran = ukuran;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.pic = pic;
-    }
-
-    public UkuranHewanModel(String id_ukuran, String ukuran, String created_at, String updated_at, String edited_by, String pic) {
-        this.id_ukuran = id_ukuran;
+    public UkuranHewanModel(String ukuran, String created_at, String updated_at, String edited_by) {
         this.ukuran = ukuran;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.edited_by = edited_by;
+    }
+
+    public UkuranHewanModel(String ukuran, String pic) {
+        this.ukuran = ukuran;
         this.pic = pic;
     }
 

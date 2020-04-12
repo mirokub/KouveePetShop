@@ -1,16 +1,22 @@
 package com.example.kouveepetshop.ui.customer;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +42,7 @@ public class CustomerViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private CustomerRecyclerAdapter customerRecyclerAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
     View myView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +58,27 @@ public class CustomerViewFragment extends Fragment {
         showAllCustomer();
 
         return myView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        MenuItem searchItem = menu.findItem(R.id.SearchTxt);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                customerRecyclerAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     public void showAllCustomer(){
@@ -78,34 +106,4 @@ public class CustomerViewFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.logout_menu, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.SearchTxt);
-        SearchView searchView = new SearchView(getActivity());
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                newText = newText.toLowerCase();
-
-                ArrayList<CustomerModel> customerModel = new ArrayList<>();
-                for(CustomerModel data:customerList){
-                    String nama = data.getNama_customer().toLowerCase();
-                    if(nama.contains(newText)){
-                        customerModel.add(data);
-                    }
-                }
-                customerRecyclerAdapter.setFilter(customerModel);
-
-                return true;
-            }
-        });
-        searchItem.setActionView(searchView);
-    }
 }
