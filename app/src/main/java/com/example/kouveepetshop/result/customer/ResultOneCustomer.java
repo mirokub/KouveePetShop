@@ -11,6 +11,12 @@ public class ResultOneCustomer {
     @SerializedName("value")
     private CustomerModel customerModel;
 
+    public CustomerModel getCustomerModel() {
+        return customerModel;
+    }
+
+    public void setCustomerModel(CustomerModel customerModel) { this.customerModel = customerModel; }
+
     public String getMessage() {
         return message;
     }
@@ -19,11 +25,4 @@ public class ResultOneCustomer {
         this.message = message;
     }
 
-    public CustomerModel getCustomerModel() {
-        return customerModel;
-    }
-
-    public void setCustomerModel(CustomerModel customerModel) {
-        this.customerModel = customerModel;
-    }
 }

@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
@@ -25,13 +28,18 @@ import com.example.kouveepetshop.result.layanan.ResultOneLayanan;
 import com.example.kouveepetshop.ui.layanan.LayananEditFragment;
 import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAdapter.MyViewHolder> {
+
     private Context context;
     private List<LayananModel> result;
 
@@ -54,7 +62,7 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
         final String pic = SP.getSpId();
         final LayananModel layananModel = result.get(position);
         holder.mNamaLayanan.setText(layananModel.getNama_layanan() + " " + layananModel.getJenis() + " " +layananModel.getUkuran());
-        holder.mHarga.setText(layananModel.getHarga());
+        holder.mHarga.setText("Harga : Rp" + layananModel.getHarga());
         holder.mEditedBy.setText("Edited by " + layananModel.getEdited_by() + " at " + layananModel.getUpdated_at());
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,5 +166,4 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
             Toast.makeText(context, "Oh You Touch Me?", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

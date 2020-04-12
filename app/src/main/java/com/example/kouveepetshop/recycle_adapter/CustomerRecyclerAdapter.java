@@ -19,23 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
-import com.example.kouveepetshop.api.ApiHewan;
-import com.example.kouveepetshop.model.HewanModel;
-import com.example.kouveepetshop.result.hewan.ResultOneHewan;
-import com.example.kouveepetshop.ui.hewan.HewanEditFragment;
-import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
+import com.example.kouveepetshop.api.ApiCustomer;
+import com.example.kouveepetshop.model.CustomerModel;
+import com.example.kouveepetshop.result.customer.ResultOneCustomer;
+import com.example.kouveepetshop.ui.customer.CustomerEditFragment;
+import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapter.MyViewHolder> {
+public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecyclerAdapter.MyViewHolder> {
     private Context context;
-    private List<HewanModel> result;
+    private List<CustomerModel> result;
 
-    public HewanRecycleAdapter(Context context, List<HewanModel> result) {
+    public CustomerRecyclerAdapter(Context context, List<CustomerModel> result) {
         this.context = context;
         this.result = result;
     }
@@ -43,7 +44,7 @@ public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycle_adapter_hewan, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycle_adapter_customer, parent, false);
         final MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -52,68 +53,65 @@ public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapte
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         UserSharedPreferences SP = new UserSharedPreferences(context.getApplicationContext());
         final String pic = SP.getSpId();
-        final HewanModel hewanModel = result.get(position);
-        holder.mNamaHewan.setText(hewanModel.getNama_hewan());
-        holder.mTglLahir.setText("Tanggal Lahir : " +hewanModel.getTgl_lahir());
-        holder.mJenisHewan.setText("Jenis : " +hewanModel.getJenis());
-        holder.mUkuranHewan.setText("Ukuran : " +hewanModel.getUkuran());
-        holder.mNamaCustomer.setText("Nama Customer : " +hewanModel.getNama_customer());
-        holder.mEditedBy.setText("Edited by " + hewanModel.getEdited_by() + " at " + hewanModel.getUpdated_at());
+        final CustomerModel customerModel = result.get(position);
+        holder.mNamaCustomer.setText(customerModel.getNama_customer());
+        holder.mAlamat.setText("Alamat : " + customerModel.getAlamat());
+        holder.mTglLahir.setText("Tanggal Lahir : " +customerModel.getTgl_lahir());
+        holder.mNomorTelp.setText("Nomor Telepon : " +customerModel.getNo_telp());
+        holder.mEditedBy.setText("Edited by " + customerModel.getEdited_by() + " at " + customerModel.getUpdated_at());
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog(view, hewanModel, pic);
+                showDialog(view, customerModel, pic);
             }
         });
     }
 
-    private void moveToEditFragment(View view, HewanModel hewanModel){
+    private void moveToEditFragment(View view, CustomerModel customerModel){
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        HewanEditFragment hewanEditFragment = new HewanEditFragment();
+        CustomerEditFragment customerEditFragment = new CustomerEditFragment();
         Bundle mBundle = new Bundle();
-        mBundle.putString("id_hewan", hewanModel.getId_hewan());
-        mBundle.putString("nama_hewan", hewanModel.getNama_hewan());
-        mBundle.putString("tgl_lahir", hewanModel.getTgl_lahir());
-        mBundle.putString("jenis_hewan", hewanModel.getJenis());
-        mBundle.putString("ukuran_hewan", hewanModel.getUkuran());
-        mBundle.putString("nama_customer", hewanModel.getNama_customer());
-        hewanEditFragment.setArguments(mBundle);
-        fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, hewanEditFragment).commit();
+        mBundle.putString("id_customer", customerModel.getId_customer());
+        mBundle.putString("nama_customer", customerModel.getNama_customer());
+        mBundle.putString("tgl_lahir", customerModel.getTgl_lahir());
+        mBundle.putString("nomor_telp", customerModel.getNo_telp());
+        customerEditFragment.setArguments(mBundle);
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, customerEditFragment).commit();
     }
 
-    private void deleteLayanan(final View view, HewanModel hewanModel, String pic){
-        ApiHewan apiHewan = ApiClient.getClient().create(ApiHewan.class);
-        Call<ResultOneHewan> hewanCall = apiHewan.deleteHewan(hewanModel.getId_hewan(), pic);
+    private void deleteLayanan(final View view, CustomerModel customerModel, String pic){
+        ApiCustomer apiCustomer = ApiClient.getClient().create(ApiCustomer.class);
+        Call<ResultOneCustomer> customerCall = apiCustomer.deleteCustomer(customerModel.getId_customer(), pic);
 
-        hewanCall.enqueue(new Callback<ResultOneHewan>() {
+        customerCall.enqueue(new Callback<ResultOneCustomer>() {
             @Override
-            public void onResponse(Call<ResultOneHewan> call, Response<ResultOneHewan> response) {
+            public void onResponse(Call<ResultOneCustomer> call, Response<ResultOneCustomer> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(context.getApplicationContext(), "Delete Hewan Success !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "Delete Customer Success !", Toast.LENGTH_SHORT).show();
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new HewanViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new CustomerViewFragment()).commit();
                 }else{
-                    Toast.makeText(context.getApplicationContext(), "Delete Hewan Failed !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "Delete Customer Failed !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResultOneHewan> call, Throwable t) {
+            public void onFailure(Call<ResultOneCustomer> call, Throwable t) {
                 Toast.makeText(context.getApplicationContext(), "Connection Problem !", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void showDialog(final View view, final HewanModel hewanModel, final String pic){
+    private void showDialog(final View view, final CustomerModel customerModel, final String pic){
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle("");
         alertDialog.setMessage("Choose Your Action");
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                moveToEditFragment(view, hewanModel);
+                moveToEditFragment(view, customerModel);
             }
         });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", new DialogInterface.OnClickListener() {
@@ -131,7 +129,7 @@ public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapte
                 confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteLayanan(view, hewanModel, pic);
+                        deleteLayanan(view, customerModel, pic);
                     }
                 });
                 confirmDialog.show();
@@ -146,24 +144,29 @@ public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapte
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mNamaHewan, mTglLahir, mJenisHewan, mUkuranHewan, mNamaCustomer, mEditedBy;
+        private TextView mNamaCustomer, mAlamat, mTglLahir, mNomorTelp, mEditedBy;
         private LinearLayout mParent;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mNamaHewan = itemView.findViewById(R.id.txtViewNamaHewan);
-            mTglLahir = itemView.findViewById(R.id.txtViewTglLahirHewan);
-            mJenisHewan = itemView.findViewById(R.id.txtViewJenisHewan);
-            mUkuranHewan = itemView.findViewById(R.id.txtViewUkuranHewan);
-            mNamaCustomer = itemView.findViewById(R.id.txtViewNamaCustomerHewan);
-            mEditedBy = itemView.findViewById(R.id.txtViewEditedByHewan);
-            mParent = itemView.findViewById(R.id.parentHewan);
+            mNamaCustomer = itemView.findViewById(R.id.txtViewNamaCustomer);
+            mAlamat = itemView.findViewById(R.id.txtViewAlamat);
+            mTglLahir = itemView.findViewById(R.id.txtViewTglLahir);
+            mNomorTelp = itemView.findViewById(R.id.txtViewNomorTelp);
+            mEditedBy = itemView.findViewById(R.id.txtViewEditedByCustomer);
+            mParent = itemView.findViewById(R.id.parentCustomer);
         }
 
         @Override
         public void onClick(View view) {
             Toast.makeText(context, "Oh You Touch Me?", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void setFilter(ArrayList<CustomerModel> filterList){
+        result = new ArrayList<>();
+        result.addAll(filterList);
+        notifyDataSetChanged();
     }
 
 }

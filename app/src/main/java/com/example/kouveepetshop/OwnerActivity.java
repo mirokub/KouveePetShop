@@ -14,8 +14,10 @@ import androidx.fragment.app.FragmentManager;
 import com.example.kouveepetshop.ui.jenis_hewan.JenisHewanViewFragment;
 import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
 import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
-import com.example.kouveepetshop.ui.pengadaan.PengadaanFragment;
+import com.example.kouveepetshop.ui.pengadaan_menu.PengadaanMenu;
 import com.example.kouveepetshop.ui.produk.ProdukFragment;
+import com.example.kouveepetshop.ui.supplier.SupplierAddFragment;
+import com.example.kouveepetshop.ui.supplier.SupplierViewFragment;
 import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,15 +41,11 @@ public class OwnerActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(navView, navController);
 
-
-
         final FloatingActionButton fab = findViewById(R.id.fab_btn_owner);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                System.out.println(navController.getCurrentDestination().getLabel());
-//                Toast.makeText(OwnerActivity.this, "You clicked", Toast.LENGTH_SHORT).show();
                 if (navView.getSelectedItemId() == R.id.navigation_produk) {
 
                 } else if (navView.getSelectedItemId() == R.id.navigation_layanan) {
@@ -59,6 +57,9 @@ public class OwnerActivity extends AppCompatActivity {
 
                 } else if (navView.getSelectedItemId() == R.id.navigation_pengadaan) {
 
+                } else if (navView.getSelectedItemId() == R.id.navigation_supplier){
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new SupplierAddFragment()).commit();
                 }
                 fab.setVisibility(View.INVISIBLE);
             }
@@ -74,21 +75,29 @@ public class OwnerActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.navigation_produk:
                     selectedFragment = new ProdukFragment();
+                    fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_layanan:
                     selectedFragment = new LayananViewFragment();
+                    fab.setVisibility(View.VISIBLE);
                     break;
-                case R.id.navigation_jenis_hewan:
-                    selectedFragment = new JenisHewanViewFragment();
+                case R.id.navigation_jenis_hewan;
+                    selectedFragment = new JenisHewanFragment();
+                    fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_ukuran_hewan:
                     selectedFragment = new UkuranHewanFragment();
+                    fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_pengadaan:
-                    selectedFragment = new PengadaanFragment();
+                    selectedFragment = new PengadaanMenu();
+                    fab.setVisibility(View.INVISIBLE);
                     break;
+//                case R.id.navigation_supplier:
+//                    selectedFragment = new SupplierViewFragment();
+//                    fab.setVisibility(View.VISIBLE);
+//                    break;
             }
-            fab.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_owner, selectedFragment).commit();
 
             return true;

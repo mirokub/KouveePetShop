@@ -8,7 +8,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvLayanan"
+    android:id="@+id/cvSupplier"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -20,33 +20,33 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
-        android:id="@+id/parentLayanan"
+        android:id="@+id/parentSupplier"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center_vertical">
 
-<!--        <de.hdodenhof.circleimageview.CircleImageView-->
-<!--            android:layout_width="80dp"-->
-<!--            android:layout_height="80dp"-->
-<!--            android:id="@+id/image_layanan"-->
-<!--            android:src="@mipmap/ic_launcher"/>-->
-<!--    </LinearLayout>-->
+        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+        <!--            android:layout_width="80dp"-->
+        <!--            android:layout_height="80dp"-->
+        <!--            android:id="@+id/image_layanan"-->
+        <!--            android:src="@mipmap/ic_launcher"/>-->
+        <!--    </LinearLayout>-->
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/parentLayanan2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_gravity="center_vertical"-->
-<!--        android:layout_marginStart="85dp">-->
+        <!--    <LinearLayout-->
+        <!--        android:id="@+id/parentLayanan2"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:orientation="vertical"-->
+        <!--        android:layout_gravity="center_vertical"-->
+        <!--        android:layout_marginStart="85dp">-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_layanan"
             android:textSize="20sp"
-            android:id="@+id/txtViewNamaLayanan"
+            android:id="@+id/txtViewNamaSupplier"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
             />
@@ -54,9 +54,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_harga_layanan"
+            android:text="@string/title_alamat"
             android:textSize="15sp"
-            android:id="@+id/txtViewHargaLayanan"
+            android:id="@+id/txtViewAlamatSupplier"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_nomor_telepon"
+            android:textSize="15sp"
+            android:id="@+id/txtViewNomorTelpSupplier"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -64,10 +72,10 @@
             android:layout_height="wrap_content"
             android:text="@string/title_edited_by"
             android:textSize="15sp"
-            android:id="@+id/txtViewEditedByLayanan"
+            android:id="@+id/txtViewEditedBySupplier"
             />
 
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

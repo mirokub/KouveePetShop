@@ -1,22 +1,17 @@
 package com.example.kouveepetshop.model;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.annotations.SerializedName;
 
-public class CustomerModel {
+public class SupplierModel {
 
-    @SerializedName("id_customer")
-    private String id_customer;
+    @SerializedName("id_supplier")
+    private String id_supplier;
 
-    @SerializedName("nama_customer")
-    private String nama_customer;
+    @SerializedName("nama_supplier")
+    private String nama_supplier;
 
     @SerializedName("alamat")
     private String alamat;
-
-    @SerializedName("tgl_lahir")
-    private String tgl_lahir;
 
     @SerializedName("no_telp")
     private String no_telp;
@@ -33,31 +28,39 @@ public class CustomerModel {
     @SerializedName("pic")
     private String pic;
 
-    public CustomerModel() {
+    public SupplierModel() {
     }
 
-    public CustomerModel(String nama_customer, String alamat, String tgl_lahir, String no_telp, String pic) {
-        this.nama_customer = nama_customer;
+    public SupplierModel(String nama_supplier, String alamat, String no_telp, String created_at, String updated_at, String edited_by) {
+        this.nama_supplier = nama_supplier;
         this.alamat = alamat;
-        this.tgl_lahir = tgl_lahir;
+        this.no_telp = no_telp;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.edited_by = edited_by;
+    }
+
+    public SupplierModel(String nama_supplier, String alamat, String no_telp, String pic) {
+        this.nama_supplier = nama_supplier;
+        this.alamat = alamat;
         this.no_telp = no_telp;
         this.pic = pic;
     }
 
-    public String getId_customer() {
-        return id_customer;
+    public String getId_supplier() {
+        return id_supplier;
     }
 
-    public void setId_customer(String id_customer) {
-        this.id_customer = id_customer;
+    public void setId_supplier(String id_supplier) {
+        this.id_supplier = id_supplier;
     }
 
-    public String getNama_customer() {
-        return nama_customer;
+    public String getNama_supplier() {
+        return nama_supplier;
     }
 
-    public void setNama_customer(String nama_customer) {
-        this.nama_customer = nama_customer;
+    public void setNama_supplier(String nama_supplier) {
+        this.nama_supplier = nama_supplier;
     }
 
     public String getAlamat() {
@@ -66,14 +69,6 @@ public class CustomerModel {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
-    }
-
-    public String getTgl_lahir() {
-        return tgl_lahir;
-    }
-
-    public void setTgl_lahir(String tgl_lahir) {
-        this.tgl_lahir = tgl_lahir;
     }
 
     public String getNo_telp() {
@@ -114,11 +109,5 @@ public class CustomerModel {
 
     public void setPic(String pic) {
         this.pic = pic;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return this.nama_customer;
     }
 }

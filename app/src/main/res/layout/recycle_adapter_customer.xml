@@ -8,7 +8,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvHewan"
+    android:id="@+id/cvCustomer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -20,59 +20,69 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
-        android:id="@+id/parentHewan"
+        android:id="@+id/parentCustomer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+        <!--            android:layout_width="80dp"-->
+        <!--            android:layout_height="80dp"-->
+        <!--            android:id="@+id/image_layanan"-->
+        <!--            android:src="@mipmap/ic_launcher"/>-->
+        <!--    </LinearLayout>-->
+
+        <!--    <LinearLayout-->
+        <!--        android:id="@+id/parentLayanan2"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:orientation="vertical"-->
+        <!--        android:layout_gravity="center_vertical"-->
+        <!--        android:layout_marginStart="85dp">-->
+
         <TextView
-            android:id="@+id/txtViewNamaHewan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_nama_hewan"
+            android:text="@string/title_customer"
             android:textSize="20sp"
+            android:id="@+id/txtViewNamaCustomer"
             android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_alamat"
+            android:textSize="15sp"
+            android:id="@+id/txtViewAlamat"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
-            android:id="@+id/txtViewTglLahirHewan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_tanggal_lahir"
             android:textSize="15sp"
+            android:id="@+id/txtViewTglLahir"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
-            android:id="@+id/txtViewJenisHewan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_jenis_hewan"
+            android:text="@string/title_nomor_telepon"
             android:textSize="15sp"
+            android:id="@+id/txtViewNomorTelp"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
-            android:id="@+id/txtViewUkuranHewan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_ukuran_hewan"
+            android:text="@string/title_edited_by"
             android:textSize="15sp"
-            android:textColor="@color/colorPrimaryDark"/>
-
-        <TextView
-            android:id="@+id/txtViewNamaCustomerHewan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_customer"
-            android:textSize="15sp"
-            android:textColor="@color/colorPrimaryDark"/>
-
-        <TextView
-            android:id="@+id/txtViewEditedByHewan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="@string/title_edited_by" />
+            android:id="@+id/txtViewEditedByCustomer"
+            />
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
