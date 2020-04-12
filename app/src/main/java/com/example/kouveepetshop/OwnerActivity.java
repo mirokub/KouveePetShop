@@ -81,8 +81,8 @@ public class OwnerActivity extends AppCompatActivity {
                     selectedFragment = new LayananViewFragment();
                     fab.setVisibility(View.VISIBLE);
                     break;
-                case R.id.navigation_jenis_hewan;
-                    selectedFragment = new JenisHewanFragment();
+                case R.id.navigation_jenis_hewan:
+                    selectedFragment = new JenisHewanViewFragment();
                     fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_ukuran_hewan:

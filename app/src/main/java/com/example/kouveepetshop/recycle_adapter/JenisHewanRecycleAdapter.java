@@ -74,20 +74,20 @@ public class JenisHewanRecycleAdapter extends RecyclerView.Adapter<JenisHewanRec
         fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, jenisHewanEditFragment).commit();
     }
 
-    private void deleteLayanan(final View view, JenisHewanModel jenisHewanModel, String pic){
+    private void deleteJenis(final View view, JenisHewanModel jenisHewanModel, String pic){
         ApiJenisHewan apiJenisHewan = ApiClient.getClient().create(ApiJenisHewan.class);
-        Call<ResultOneJenis> layananCall = apiJenisHewan.deleteJenisHewan(jenisHewanModel.getId_jenis(), pic);
+        Call<ResultOneJenis> jenisCall = apiJenisHewan.deleteJenisHewan(jenisHewanModel.getId_jenis(), pic);
 
-        layananCall.enqueue(new Callback<ResultOneJenis>() {
+        jenisCall.enqueue(new Callback<ResultOneJenis>() {
             @Override
             public void onResponse(Call<ResultOneJenis> call, Response<ResultOneJenis> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(context.getApplicationContext(), "Delete Layanan Success !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "Delete Jenis Success !", Toast.LENGTH_SHORT).show();
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new JenisHewanViewFragment()).commit();
                 }else{
-                    Toast.makeText(context.getApplicationContext(), "Delete Layanan Failed !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "Delete Jenis Failed !", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -105,7 +105,7 @@ public class JenisHewanRecycleAdapter extends RecyclerView.Adapter<JenisHewanRec
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                moveToEditFragment(view, JenisHewanModel);
+                moveToEditFragment(view, jenisHewanModel);
             }
         });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", new DialogInterface.OnClickListener() {
@@ -123,7 +123,7 @@ public class JenisHewanRecycleAdapter extends RecyclerView.Adapter<JenisHewanRec
                 confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteLayanan(view, JenisHewanModel, pic);
+                        deleteJenis(view, jenisHewanModel, pic);
                     }
                 });
                 confirmDialog.show();
