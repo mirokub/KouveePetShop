@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CustomerModel {
+public class dCustomerModel {
 
     @SerializedName("id_customer")
     private String id_customer;
