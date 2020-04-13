@@ -20,7 +20,7 @@ import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.api.ApiClient;
 import com.example.kouveepetshop.api.ApiUkuranHewan;
 import com.example.kouveepetshop.model.UkuranHewanModel;
-import com.example.kouveepetshop.recycle_adapter.UkuranRecycleAdapter;
+import com.example.kouveepetshop.recycle_adapter.UkuranHewanRecycleAdapter;
 import com.example.kouveepetshop.result.ukuran_hewan.ResultUkuranHewan;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class UkuranHewanViewFragment extends Fragment {
 
     private List<UkuranHewanModel> ukuranHewanModelList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private UkuranRecycleAdapter ukuranRecyclerAdapter;
+    private UkuranHewanRecycleAdapter ukuranHewanRecycleAdapter;
     private RecyclerView.LayoutManager layoutManager;
     View myView;
 
@@ -61,10 +61,10 @@ public class UkuranHewanViewFragment extends Fragment {
             @Override
             public void onResponse(Call<ResultUkuranHewan> call, Response<ResultUkuranHewan> response) {
                 if(response.isSuccessful()){
-                    ukuranHewanModelList = response.body().getUkuranHewanModels();
-                    ukuranRecyclerAdapter = new UkuranRecycleAdapter(getActivity(), ukuranHewanModelList);
-                    recyclerView.setAdapter(ukuranRecyclerAdapter);
-                    ukuranRecyclerAdapter.notifyDataSetChanged();
+                    ukuranHewanModelList = response.body().getListUkuranHewan();
+                    ukuranHewanRecycleAdapter = new UkuranHewanRecycleAdapter(getActivity(), ukuranHewanModelList);
+                    recyclerView.setAdapter(ukuranHewanRecycleAdapter);
+                    ukuranHewanRecycleAdapter.notifyDataSetChanged();
                 }else if(response.code() == 404){
                     Toast.makeText(getContext(), "Ukuran Hewan is Empty !", Toast.LENGTH_SHORT).show();
                 }
@@ -76,25 +76,5 @@ public class UkuranHewanViewFragment extends Fragment {
                 Toast.makeText(getContext(), "Connection Problem", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.logout_menu, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.SearchTxt);
-        SearchView searchView = new SearchView(getActivity());
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-        searchItem.setActionView(searchView);
     }
 }
