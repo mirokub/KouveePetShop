@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
@@ -33,19 +35,21 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAdapter.MyViewHolder> {
+public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAdapter.MyViewHolder> implements Filterable {
 
     private Context context;
     private List<LayananModel> result;
+    private List<LayananModel> resultFull;
 
     public LayananRecycleAdapter(Context context, List<LayananModel> result) {
         this.context = context;
         this.result = result;
+        resultFull = new ArrayList<>(result);
     }
 
     @NonNull
@@ -166,4 +170,42 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
             Toast.makeText(context, "Oh You Touch Me?", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<LayananModel> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(resultFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(LayananModel layanan : resultFull){
+                    if(layanan.getNama_layanan().toLowerCase().contains(filterPattern) ||
+                        layanan.getJenis().toLowerCase().contains(filterPattern) ||
+                        layanan.getUkuran().toLowerCase().contains(filterPattern) ||
+                        layanan.getHarga().toLowerCase().contains(filterPattern)){
+                            filteredList.add(layanan);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            result.clear();
+            result.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

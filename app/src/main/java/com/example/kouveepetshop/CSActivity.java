@@ -3,6 +3,7 @@ package com.example.kouveepetshop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -35,16 +36,6 @@ public class CSActivity extends AppCompatActivity {
         final BottomNavigationView navView = findViewById(R.id.nav_view_cs);
         navView.setOnNavigationItemSelectedListener(navListener);
         selectedFragment = new CustomerViewFragment();
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_produk, R.id.navigation_layanan, R.id.navigation_peliharaan, R.id.navigation_customer, R.id.navigation_transaksi_cs)
-//                .build();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_cs);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(navView, navController);
 
         final FloatingActionButton fab = findViewById(R.id.fab_btn_cs);
 
@@ -90,28 +81,14 @@ public class CSActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.LogOut:
-                doLogout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void doLogout(){
-        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
-        SP.spEditor.clear();
-        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, false);
-        SP.spEditor.apply();
-        Intent intent = new Intent(CSActivity.this, SplashScreen.class);
-        finish();
-        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }

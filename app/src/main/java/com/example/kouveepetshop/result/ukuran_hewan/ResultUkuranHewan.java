@@ -10,7 +10,7 @@ public class ResultUkuranHewan {
     private String message;
 
     @SerializedName("value")
-    private List<UkuranHewanModel> ukuranHewanModels;
+    private List<UkuranHewanModel> listUkuranHewan;
 
     public String getMessage() {
         return message;
@@ -20,11 +20,11 @@ public class ResultUkuranHewan {
         this.message = message;
     }
 
-    public List<UkuranHewanModel> getUkuranHewanModels() {
-        return ukuranHewanModels;
+    public List<UkuranHewanModel> getListUkuranHewan() {
+        return listUkuranHewan;
     }
 
     public void setUkuranHewanModels(List<UkuranHewanModel> ukuranHewanModels) {
-        this.ukuranHewanModels = ukuranHewanModels;
+        this.listUkuranHewan = ukuranHewanModels;
     }
 }

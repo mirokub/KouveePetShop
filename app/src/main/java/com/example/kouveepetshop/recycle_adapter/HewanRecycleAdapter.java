@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,19 +27,22 @@ import com.example.kouveepetshop.result.hewan.ResultOneHewan;
 import com.example.kouveepetshop.ui.hewan.HewanEditFragment;
 import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapter.MyViewHolder> {
+public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapter.MyViewHolder> implements Filterable {
     private Context context;
     private List<HewanModel> result;
+    private List<HewanModel> resultFull;
 
     public HewanRecycleAdapter(Context context, List<HewanModel> result) {
         this.context = context;
         this.result = result;
+        resultFull = new ArrayList<>(result);
     }
 
     @NonNull
@@ -166,4 +171,42 @@ public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapte
         }
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<HewanModel> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(resultFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(HewanModel hewan : resultFull){
+                    if(hewan.getNama_hewan().toLowerCase().contains(filterPattern) ||
+                        hewan.getTgl_lahir().toLowerCase().contains(filterPattern) ||
+                        hewan.getJenis().toLowerCase().contains(filterPattern) ||
+                        hewan.getUkuran().toLowerCase().contains(filterPattern) ||
+                        hewan.getNama_customer().toLowerCase().contains(filterPattern)){
+                            filteredList.add(hewan);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            result.clear();
+            result.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

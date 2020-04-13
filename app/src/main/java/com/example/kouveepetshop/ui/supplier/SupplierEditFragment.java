@@ -71,8 +71,8 @@ public class SupplierEditFragment extends Fragment {
         Bundle nBundle = getArguments();
         id_supplier = nBundle.getString("id_supplier");
         mNamaSupplier.setText(nBundle.getString("nama_supplier"));
-        mAlamatSupplier.setText(nBundle.getString("alamat_supplier"));
-        mNomorTelpSupplier.setText(nBundle.getString("noTelp_supplier"));
+        mAlamatSupplier.setText(nBundle.getString("alamat"));
+        mNomorTelpSupplier.setText(nBundle.getString("no_telp"));
     }
 
     private boolean validate(String namaSupplier, String alamatSupplier, String nomorTelpSupplier){

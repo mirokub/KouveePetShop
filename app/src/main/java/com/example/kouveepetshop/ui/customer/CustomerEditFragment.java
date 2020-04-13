@@ -54,7 +54,6 @@ public class CustomerEditFragment extends Fragment {
         pic = SP.getSpId();
 
         setAtribut();
-        setText();
 
         myCalendar = Calendar.getInstance();
         setText();
@@ -114,9 +113,9 @@ public class CustomerEditFragment extends Fragment {
         Bundle nBundle = getArguments();
         id_customer = nBundle.getString("id_customer");
         mNamaCustomer.setText(nBundle.getString("nama_customer"));
-        mAlamat.setText(nBundle.getString("alamat_customer"));
+        mAlamat.setText(nBundle.getString("alamat"));
         setTglLahir(nBundle.getString("tgl_lahir"));
-        mNomorTelp.setText(nBundle.getString("noTelp_customer"));
+        mNomorTelp.setText(nBundle.getString("no_telp"));
     }
 
     public void setTglLahir(String tglLahir){
