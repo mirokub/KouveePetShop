@@ -186,8 +186,11 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
             }else{
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for(LayananModel layanan : resultFull){
-                    if(layanan.getNama_layanan().toLowerCase().contains(filterPattern)){
-                        filteredList.add(layanan);
+                    if(layanan.getNama_layanan().toLowerCase().contains(filterPattern) ||
+                        layanan.getJenis().toLowerCase().contains(filterPattern) ||
+                        layanan.getUkuran().toLowerCase().contains(filterPattern) ||
+                        layanan.getHarga().toLowerCase().contains(filterPattern)){
+                            filteredList.add(layanan);
                     }
                 }
             }
