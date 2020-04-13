@@ -4,14 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
@@ -30,11 +27,8 @@ import com.example.kouveepetshop.result.layanan.ResultOneLayanan;
 import com.example.kouveepetshop.ui.layanan.LayananEditFragment;
 import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -189,7 +183,8 @@ public class LayananRecycleAdapter extends RecyclerView.Adapter<LayananRecycleAd
                     if(layanan.getNama_layanan().toLowerCase().contains(filterPattern) ||
                         layanan.getJenis().toLowerCase().contains(filterPattern) ||
                         layanan.getUkuran().toLowerCase().contains(filterPattern) ||
-                        layanan.getHarga().toLowerCase().contains(filterPattern)){
+                        layanan.getHarga().contains(constraint) ||
+                        layanan.getEdited_by().toLowerCase().contains(filterPattern)){
                             filteredList.add(layanan);
                     }
                 }

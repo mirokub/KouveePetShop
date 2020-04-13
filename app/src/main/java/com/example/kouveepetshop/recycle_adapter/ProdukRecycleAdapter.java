@@ -4,14 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
@@ -30,11 +27,8 @@ import com.example.kouveepetshop.result.produk.ResultOneProduk;
 import com.example.kouveepetshop.ui.produk.ProdukViewFragment;
 import com.example.kouveepetshop.ui.produk.ProdukEditFragment;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,9 +61,11 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
         final String pic = SP.getSpId();
         final ProdukModel produkModel = result.get(position);
         holder.mNamaProduk.setText(produkModel.getNama_produk());
-        holder.mHargaSatuan.setText("Harga Satuan : Rp" + produkModel.getSatuan());
+        holder.mSatuan.setText("Satuan : " + produkModel.getSatuan());
         holder.mHargaJual.setText("Harga Jual : Rp" + produkModel.getHarga_jual());
         holder.mHargaBeli.setText("Harga Beli : Rp" + produkModel.getHarga_beli());
+        holder.mStok.setText("Stok : " + produkModel.getStok());
+        holder.mStokMinimum.setText("Stok Minimum : " + produkModel.getStok_minimum());
         holder.mEditedBy.setText("Edited by " + produkModel.getEdited_by() + " at " + produkModel.getUpdated_at());
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +85,8 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
         mBundle.putString("satuan", produkModel.getSatuan());
         mBundle.putString("harga_jual", produkModel.getHarga_jual());
         mBundle.putString("harga_beli", produkModel.getHarga_beli());
+        mBundle.putString("stok", produkModel.getStok());
+        mBundle.putString("stok_minimum", produkModel.getStok_minimum());
         produkEditFragment.setArguments(mBundle);
         fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, produkEditFragment).commit();
     }
@@ -157,17 +155,19 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mNamaProduk, mHargaSatuan, mHargaJual, mHargaBeli, mEditedBy;
+        private TextView mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum, mEditedBy;
         private LinearLayout mParent;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mParent = itemView.findViewById(R.id.parentProduk);
             mNamaProduk = itemView.findViewById(R.id.txtViewNamaProduk);
-            mHargaSatuan = itemView.findViewById(R.id.txtViewHargaProdukSatuan);
+            mSatuan = itemView.findViewById(R.id.txtViewSatuanProduk);
             mHargaJual = itemView.findViewById(R.id.txtViewHargaProdukJual);
             mHargaBeli = itemView.findViewById(R.id.txtViewHargaProdukBeli);
-            mEditedBy = itemView.findViewById(R.id.txtViewEditedByLayanan);
+            mStok = itemView.findViewById(R.id.txtViewStok);
+            mStokMinimum = itemView.findViewById(R.id.txtViewStokMinimum);
+            mEditedBy = itemView.findViewById(R.id.txtViewEditedByProduk);
         }
 
         @Override
@@ -191,8 +191,14 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
             }else{
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for(ProdukModel produk : resultFull){
-                    if(produk.getNama_produk().toLowerCase().contains(filterPattern)){
-                        filteredList.add(produk);
+                    if(produk.getNama_produk().toLowerCase().contains(filterPattern) ||
+                        produk.getHarga_beli().contains(constraint) ||
+                        produk.getHarga_jual().contains(constraint) ||
+                        produk.getStok().contains(constraint) ||
+                        produk.getStok_minimum().contains(constraint) ||
+                        produk.getSatuan().toLowerCase().contains(filterPattern) ||
+                        produk.getEdited_by().toLowerCase().contains(filterPattern)){
+                            filteredList.add(produk);
                     }
                 }
             }

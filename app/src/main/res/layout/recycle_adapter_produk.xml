@@ -39,9 +39,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_harga_satuan_produk"
+            android:text="@string/satuan"
             android:textSize="15sp"
-            android:id="@+id/txtViewHargaProdukSatuan"
+            android:id="@+id/txtViewSatuanProduk"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -59,6 +59,23 @@
             android:textSize="15sp"
             android:id="@+id/txtViewHargaProdukBeli"
             android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stok"
+            android:textSize="15sp"
+            android:id="@+id/txtViewStok"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stok_minimum"
+            android:textSize="15sp"
+            android:id="@+id/txtViewStokMinimum"
+            android:textColor="@color/colorPrimaryDark"
+            />
 
         <TextView
             android:layout_width="wrap_content"

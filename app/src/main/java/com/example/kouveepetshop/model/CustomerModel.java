@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
-public class dCustomerModel {
+public class CustomerModel {
 
     @SerializedName("id_customer")
     private String id_customer;
@@ -34,6 +34,18 @@ public class dCustomerModel {
     private String pic;
 
     public CustomerModel() {
+    }
+
+    public CustomerModel(String id_customer, String nama_customer, String alamat, String tgl_lahir, String no_telp, String created_at, String updated_at, String edited_by, String pic) {
+        this.id_customer = id_customer;
+        this.nama_customer = nama_customer;
+        this.alamat = alamat;
+        this.tgl_lahir = tgl_lahir;
+        this.no_telp = no_telp;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.edited_by = edited_by;
+        this.pic = pic;
     }
 
     public CustomerModel(String nama_customer, String alamat, String tgl_lahir, String no_telp, String pic) {

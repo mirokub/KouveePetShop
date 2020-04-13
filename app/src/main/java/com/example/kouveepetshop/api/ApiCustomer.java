@@ -1,6 +1,6 @@
 package com.example.kouveepetshop.api;
 
-/*import com.example.kouveepetshop.model.CustomerModel;
+import com.example.kouveepetshop.model.CustomerModel;
 import com.example.kouveepetshop.result.customer.ResultCustomer;
 import com.example.kouveepetshop.result.customer.ResultOneCustomer;
 
@@ -32,4 +32,4 @@ public interface ApiCustomer {
     @FormUrlEncoded
     Call<ResultOneCustomer> deleteCustomer(@Path("id") String id_customer,
                                            @Field("pic") String pic);
-}*/
+}

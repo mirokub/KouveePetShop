@@ -16,8 +16,9 @@ public class ApiClient {
         }
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).
-                    addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build();
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient).build();
         }
         return retrofit;
     }

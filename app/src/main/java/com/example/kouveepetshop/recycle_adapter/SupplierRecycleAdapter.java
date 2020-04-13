@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,19 +27,23 @@ import com.example.kouveepetshop.result.supplier.ResultOneSupplier;
 import com.example.kouveepetshop.ui.supplier.SupplierEditFragment;
 import com.example.kouveepetshop.ui.supplier.SupplierViewFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SupplierRecycleAdapter extends RecyclerView.Adapter<SupplierRecycleAdapter.MyViewHolder> {
+public class SupplierRecycleAdapter extends RecyclerView.Adapter<SupplierRecycleAdapter.MyViewHolder> implements Filterable {
+
     private Context context;
     private List<SupplierModel> result;
+    private List<SupplierModel> resultFull;
 
     public SupplierRecycleAdapter(Context context, List<SupplierModel> result) {
         this.context = context;
         this.result = result;
+        resultFull = new ArrayList<>(result);
     }
 
     @NonNull
@@ -159,4 +165,41 @@ public class SupplierRecycleAdapter extends RecyclerView.Adapter<SupplierRecycle
         }
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<SupplierModel> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(resultFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(SupplierModel supplier : resultFull){
+                    if(supplier.getNama_supplier().toLowerCase().contains(filterPattern) ||
+                            supplier.getAlamat().toLowerCase().contains(filterPattern) ||
+                            supplier.getNo_telp().contains(constraint) ||
+                            supplier.getEdited_by().toLowerCase().contains(filterPattern)){
+                        filteredList.add(supplier);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            result.clear();
+            result.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

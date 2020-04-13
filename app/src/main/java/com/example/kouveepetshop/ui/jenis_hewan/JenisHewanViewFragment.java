@@ -43,8 +43,6 @@ import retrofit2.Response;
 
 public class JenisHewanViewFragment extends Fragment {
 
-//    private JenisHewanViewModel jenisHewanViewModel;
-
     private List<JenisHewanModel> jenisHewanList = new ArrayList<>();
     private RecyclerView recyclerView;
     private JenisHewanRecycleAdapter jenisHewanRecycleAdapter;
@@ -52,6 +50,12 @@ public class JenisHewanViewFragment extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     View myView;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

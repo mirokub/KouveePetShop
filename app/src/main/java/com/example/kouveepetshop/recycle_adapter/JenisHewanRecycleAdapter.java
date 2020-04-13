@@ -175,11 +175,11 @@ public class JenisHewanRecycleAdapter extends RecyclerView.Adapter<JenisHewanRec
             }else{
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for(JenisHewanModel jenis : resultFull){
-                    if(jenis.getJenis().toLowerCase().contains(filterPattern))
+                    if(jenis.getJenis().toLowerCase().contains(filterPattern) ||
+                        jenis.getEdited_by().toLowerCase().contains(filterPattern))
                         filteredList.add(jenis);
                 }
             }
-
 
             FilterResults results = new FilterResults();
             results.values = filteredList;

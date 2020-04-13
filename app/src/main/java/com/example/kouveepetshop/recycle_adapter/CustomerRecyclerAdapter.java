@@ -1,6 +1,6 @@
 package com.example.kouveepetshop.recycle_adapter;
 
-/*import android.app.AlertDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -28,7 +28,6 @@ import com.example.kouveepetshop.ui.customer.CustomerEditFragment;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecyclerAdapter.MyViewHolder> implements Filterable {
+
     private Context context;
     private List<CustomerModel> result;
     private List<CustomerModel> resultFull;
@@ -183,7 +183,12 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
             }else{
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for(CustomerModel customer : resultFull){
-                    if(customer.getNama_customer().toLowerCase().contains(filterPattern)){
+                    if(customer.getNama_customer().toLowerCase().contains(filterPattern) ||
+                        customer.getNama_customer().toLowerCase().contains(filterPattern) ||
+                        customer.getAlamat().toLowerCase().contains(filterPattern) ||
+                        customer.getNo_telp().toLowerCase().contains(filterPattern) ||
+                        customer.getTgl_lahir().contains(constraint) ||
+                        customer.getEdited_by().toLowerCase().contains(filterPattern)){
                         filteredList.add(customer);
                     }
                 }
@@ -202,4 +207,4 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
             notifyDataSetChanged();
         }
     };
-}*/
+}

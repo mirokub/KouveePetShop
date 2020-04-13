@@ -12,7 +12,6 @@
         android:usesCleartextTraffic="true">
         <activity android:name="com.example.kouveepetshop.CashierActivity"/>
         <activity android:name="com.example.kouveepetshop.CSActivity" />
-        <activity android:name="com.example.kouveepetshop.ui.produk.DetailProduk" />
         <activity
             android:name="com.example.kouveepetshop.OwnerActivity"
             android:label="@string/app_name">

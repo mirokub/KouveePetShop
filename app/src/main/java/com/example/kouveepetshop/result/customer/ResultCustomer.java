@@ -1,6 +1,6 @@
 package com.example.kouveepetshop.result.customer;
 
-/*import com.example.kouveepetshop.model.CustomerModel;
+import com.example.kouveepetshop.model.CustomerModel;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -27,4 +27,4 @@ public class ResultCustomer {
         this.message = message;
     }
 
-}*/
+}

@@ -2,8 +2,10 @@ package com.example.kouveepetshop.ui.pengadaan_menu;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,15 +14,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.kouveepetshop.R;
-import com.example.kouveepetshop.ui.produk.ProdukFragment;
+import com.example.kouveepetshop.SplashScreen;
+import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.ui.supplier.SupplierViewFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PengadaanMenu extends Fragment {
 
@@ -29,7 +34,15 @@ public class PengadaanMenu extends Fragment {
     }
 
     ImageButton mBtnSupplier, mBtnPengadaan;
+
     View myView;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +62,7 @@ public class PengadaanMenu extends Fragment {
                 // Replace whatever is in the fragment_container view with this fragment,
                 // and add the transaction to the back stack
                 transaction.replace(R.id.fragment_container_owner, newFragment);
-//                transaction.addToBackStack(null);
+                //transaction.addToBackStack(null);
 
                 // Commit the transaction
                 transaction.commit();
@@ -64,4 +77,53 @@ public class PengadaanMenu extends Fragment {
         mBtnPengadaan = myView.findViewById(R.id.image_pengadaan);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.findItem(R.id.SearchTxt).setVisible(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.LogOut:
+                showDialog();
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void doLogout(){
+        UserSharedPreferences SP = new UserSharedPreferences(getActivity());
+        SP.spEditor.clear();
+        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, false);
+        SP.spEditor.apply();
+        Toast.makeText(getActivity(), "Logout Success", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), SplashScreen.class);
+        getActivity().finish();
+        startActivity(intent);
+    }
+
+    private void showDialog(){
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle("Warning");
+        alertDialog.setMessage("Are you sure want to logout ?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                doLogout();
+            }
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.show();
+    }
 }

@@ -30,10 +30,9 @@ import retrofit2.Response;
 
 public class ProdukEditFragment extends Fragment {
 
-
     private String id_produk, pic;
     View myView;
-    EditText mNamaProduk, mHargaSatuan, mHargaJual, mHargaBeli;
+    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
     Button mBtnUpdateProduk;
 
     @Nullable
@@ -51,12 +50,14 @@ public class ProdukEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String namaProduk = mNamaProduk.getText().toString();
-                String hargaSatuan = mHargaSatuan.getText().toString();
+                String satuan = mSatuan.getText().toString();
                 String hargaJual = mHargaJual.getText().toString();
                 String hargaBeli = mHargaBeli.getText().toString();
+                String stok = mStok.getText().toString();
+                String stok_minimum = mStokMinimum.getText().toString();
 
-                if(validate(namaProduk, hargaSatuan, hargaJual, hargaBeli)){
-                    ProdukModel produkModel = new ProdukModel(namaProduk, hargaSatuan, hargaJual, hargaBeli, pic);
+                if(validate(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum)){
+                    ProdukModel produkModel = new ProdukModel(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, pic);
                     updateProduk(id_produk, produkModel);
                 }
             }
@@ -67,9 +68,11 @@ public class ProdukEditFragment extends Fragment {
 
     private void setAtribut(){
         mNamaProduk = myView.findViewById(R.id.etNamaProdukEdit);
-        mHargaSatuan = myView.findViewById(R.id.etHargaSatuanEdit);
+        mSatuan = myView.findViewById(R.id.etSatuanEdit);
         mHargaJual = myView.findViewById(R.id.etHargaJualEdit);
         mHargaBeli = myView.findViewById(R.id.etHargaBeliEdit);
+        mStok = myView.findViewById(R.id.etStokEdit);
+        mStokMinimum = myView.findViewById(R.id.etStokMinimumEdit);
         mBtnUpdateProduk = myView.findViewById(R.id.btnUpdateProduk);
     }
 
@@ -77,90 +80,20 @@ public class ProdukEditFragment extends Fragment {
         Bundle nBundle = getArguments();
         id_produk = nBundle.getString("id_produk");
         mNamaProduk.setText(nBundle.getString("nama_produk"));
-        mHargaSatuan.setText(nBundle.getString("satuan"));
+        mSatuan.setText(nBundle.getString("satuan"));
         mHargaJual.setText(nBundle.getString("harga_jual"));
         mHargaBeli.setText(nBundle.getString("harga_beli"));
+        mStok.setText(nBundle.getString("stok"));
+        mStokMinimum.setText(nBundle.getString("stok_minimum"));
     }
 
-    /*private void setSpinnerJenis(final String jenisSelected){
-        ApiJenisHewan apiJenisHewan = ApiClient.getClient().create(ApiJenisHewan.class);
-        Call<ResultJenisHewan> jenisHewanCall = apiJenisHewan.getAllJenisHewan();
-
-        jenisHewanCall.enqueue(new Callback<ResultJenisHewan>() {
-            @Override
-            public void onResponse(Call<ResultJenisHewan> call, Response<ResultJenisHewan> response) {
-                if(response.isSuccessful()){
-                    List<JenisHewanModel> jenisHewan = response.body().getJenisHewanModels();
-                    ArrayAdapter<JenisHewanModel> adapter = new ArrayAdapter<JenisHewanModel>(getActivity(), android.R.layout.simple_spinner_dropdown_item, jenisHewan);
-                    mJenisHewan.setAdapter(adapter);
-                    setJenisSelected(adapter, jenisSelected);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResultJenisHewan> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void setSpinnerUkuran(final String ukuranSelected){
-        ApiUkuranHewan apiUkuranHewan = ApiClient.getClient().create(ApiUkuranHewan.class);
-        Call<ResultUkuranHewan> ukuranHewanCall = apiUkuranHewan.getAllUkuranHewan();
-
-        ukuranHewanCall.enqueue(new Callback<ResultUkuranHewan>() {
-            @Override
-            public void onResponse(Call<ResultUkuranHewan> call, Response<ResultUkuranHewan> response) {
-                if(response.isSuccessful()){
-                    List<UkuranHewanModel> ukuranHewan = response.body().getUkuranHewanModels();
-                    ArrayAdapter<UkuranHewanModel> adapter = new ArrayAdapter<UkuranHewanModel>(getActivity(), android.R.layout.simple_spinner_dropdown_item, ukuranHewan);
-                    mUkuranHewan.setAdapter(adapter);
-                    setUkuranSelected(adapter, ukuranSelected);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResultUkuranHewan> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void setJenisSelected(ArrayAdapter<JenisHewanModel> adapter, String jenisSelected){
-        for(int i=0; i<adapter.getCount(); i++){
-            if(adapter.getItem(i).toString().equals(jenisSelected)){
-                mJenisHewan.setSelection(i);
-                break;
-            }
-        }
-    }
-
-    private void setUkuranSelected(ArrayAdapter<UkuranHewanModel> adapter, String ukuranSelected){
-        for(int i=0; i<adapter.getCount(); i++){
-            if(adapter.getItem(i).toString().equals(ukuranSelected)){
-                mUkuranHewan.setSelection(i);
-                break;
-            }
-        }
-    }
-
-    private String getJenisSelected(){
-        JenisHewanModel jenisHewanModel = (JenisHewanModel) mJenisHewan.getSelectedItem();
-        return jenisHewanModel.getId_jenis();
-    }
-
-    private String getUkuranSelected(){
-        UkuranHewanModel ukuranHewanModel = (UkuranHewanModel) mUkuranHewan.getSelectedItem();
-        return ukuranHewanModel.getId_ukuran();
-    }*/
-
-    private boolean validate(String namaProduk, String hargaSatuan, String hargaJual, String hargaBeli){
+    private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum){
         if(namaProduk == null || namaProduk.trim().length() == 0){
             mNamaProduk.setError("Nama Produk is required");
             return false;
         }
-        if(hargaSatuan == null || hargaSatuan.trim().length() == 0){
-            mHargaSatuan.setError("Harga Satuan is required");
+        if(satuan == null || satuan.trim().length() == 0){
+            mSatuan.setError("Satuan is required");
             return false;
         }
         if(hargaJual == null || hargaJual.trim().length() == 0){
@@ -169,6 +102,14 @@ public class ProdukEditFragment extends Fragment {
         }
         if(hargaBeli == null || hargaBeli.trim().length() == 0){
             mHargaBeli.setError("Harga Beli is required");
+            return false;
+        }
+        if(stok == null || stok.trim().length() == 0){
+            mHargaJual.setError("Stok is required");
+            return false;
+        }
+        if(stok_minimum == null || stok_minimum.trim().length() == 0){
+            mHargaBeli.setError("Stok minimum is required");
             return false;
         }
         return true;

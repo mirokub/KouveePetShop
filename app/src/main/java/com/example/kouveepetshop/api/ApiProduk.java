@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 public interface ApiProduk {
 
     @Multipart
-    @POST("produk")
+    @POST("produk/{gambar}")
     Call<RequestBody> uploadImage(@Part MultipartBody.Part part, @Part("gambar") RequestBody requestBody);
 
     @GET("produk")

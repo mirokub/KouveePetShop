@@ -28,5 +28,8 @@
     <string name="title_harga_jual_produk">Harga Jual Produk</string>
     <string name="title_harga_beli_produk">Harga Beli Produk</string>
     <string name="title_harga_satuan_produk">Harga Satuan Produk</string>
+    <string name="satuan">Satuan</string>
+    <string name="stok">Stok</string>
+    <string name="stok_minimum">Stok Minimum</string>
 
 </resources>
