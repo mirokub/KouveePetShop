@@ -25,5 +25,8 @@
     <string name="title_nama_hewan">Nama Hewan</string>
     <string name="title_nama_supplier">Nama Supplier</string>
     <string name="title_alamat_supplier">Alamat Supplier</string>
+    <string name="title_harga_jual_produk">Harga Jual Produk</string>
+    <string name="title_harga_beli_produk">Harga Beli Produk</string>
+    <string name="title_harga_satuan_produk">Harga Satuan Produk</string>
 
 </resources>
