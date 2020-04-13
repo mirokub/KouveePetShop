@@ -1,11 +1,14 @@
 package com.example.kouveepetshop;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +26,10 @@ import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanViewFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
 public class OwnerActivity extends AppCompatActivity {
+
+    Fragment selectedFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +37,7 @@ public class OwnerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_owner);
         final BottomNavigationView navView = findViewById(R.id.nav_view_owner);
         navView.setOnNavigationItemSelectedListener(navListener);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_produk, R.id.navigation_layanan, R.id.navigation_jenis_hewan, R.id.navigation_ukuran_hewan, R.id.navigation_pengadaan)
-//                .build();
-//        final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_owner);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(navView, navController);
+        selectedFragment = new ProdukFragment();
 
         final FloatingActionButton fab = findViewById(R.id.fab_btn_owner);
 
@@ -71,7 +68,6 @@ public class OwnerActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FloatingActionButton fab = findViewById(R.id.fab_btn_owner);
-            Fragment selectedFragment = null;
 
             switch (item.getItemId()){
                 case R.id.navigation_produk:
@@ -94,10 +90,6 @@ public class OwnerActivity extends AppCompatActivity {
                     selectedFragment = new PengadaanMenu();
                     fab.setVisibility(View.INVISIBLE);
                     break;
-//                case R.id.navigation_supplier:
-//                    selectedFragment = new SupplierViewFragment();
-//                    fab.setVisibility(View.VISIBLE);
-//                    break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_owner, selectedFragment).commit();
 
@@ -115,24 +107,6 @@ public class OwnerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.LogOut:
-                doLogout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
-
-    private void doLogout(){
-        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
-        SP.spEditor.clear();
-        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, false);
-        SP.spEditor.apply();
-        Intent intent = new Intent(OwnerActivity.this, SplashScreen.class);
-        finish();
-        startActivity(intent);
-    }
-
-
 }
