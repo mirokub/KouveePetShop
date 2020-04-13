@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.kouveepetshop.ui.jenis_hewan.JenisHewanAddFragment;
 import com.example.kouveepetshop.ui.jenis_hewan.JenisHewanViewFragment;
 import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
 import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
@@ -52,7 +53,8 @@ public class OwnerActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new LayananAddFragment()).commit();
                 } else if (navView.getSelectedItemId() == R.id.navigation_jenis_hewan) {
-
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new JenisHewanAddFragment()).commit();
                 } else if (navView.getSelectedItemId() == R.id.navigation_ukuran_hewan) {
 
                 } else if (navView.getSelectedItemId() == R.id.navigation_pengadaan) {

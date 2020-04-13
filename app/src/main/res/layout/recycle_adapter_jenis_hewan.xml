@@ -27,7 +27,9 @@
                 android:id="@+id/textViewJeniss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jenis :" />
+                android:text="Jenis :"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewPICJenis"
