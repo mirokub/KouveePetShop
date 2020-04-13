@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,19 +27,23 @@ import com.example.kouveepetshop.result.jenis_hewan.ResultOneJenis;
 import com.example.kouveepetshop.ui.jenis_hewan.JenisHewanEditFragment;
 import com.example.kouveepetshop.ui.jenis_hewan.JenisHewanViewFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class JenisHewanRecycleAdapter extends RecyclerView.Adapter<JenisHewanRecycleAdapter.MyViewHolder> {
+public class JenisHewanRecycleAdapter extends RecyclerView.Adapter<JenisHewanRecycleAdapter.MyViewHolder> implements Filterable {
+
     private Context context;
     private List<JenisHewanModel> result;
+    private List<JenisHewanModel> resultFull;
 
     public JenisHewanRecycleAdapter(Context context, List<JenisHewanModel> result) {
         this.context = context;
         this.result = result;
+        resultFull = new ArrayList<>(result);
     }
 
     @NonNull
@@ -154,4 +160,39 @@ public class JenisHewanRecycleAdapter extends RecyclerView.Adapter<JenisHewanRec
         }
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<JenisHewanModel> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(resultFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(JenisHewanModel jenis : resultFull){
+                    if(jenis.getJenis().toLowerCase().contains(filterPattern))
+                        filteredList.add(jenis);
+                }
+            }
+
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            result.clear();
+            result.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+
+    };
 }
