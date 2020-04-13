@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_jenis_hewan"
-        android:name="com.example.kouveepetshop.ui.jenis_hewan.JenisHewanFragment"
+        android:name="com.example.kouveepetshop.ui.jenis_hewan.JenisHewanViewFragment"
         android:label="@string/title_jenis_hewan"
-        tools:layout="@layout/fragment_jenis_hewan" />
+        tools:layout="@layout/fragment_jenis_hewan_view" />
 
     <fragment
         android:id="@+id/navigation_ukuran_hewan"
