@@ -3,13 +3,13 @@ package com.example.kouveepetshop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -17,8 +17,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.kouveepetshop.recycle_adapter.CustomerRecyclerAdapter;
-import com.example.kouveepetshop.recycle_adapter.HewanRecycleAdapter;
 import com.example.kouveepetshop.ui.customer.CustomerAddFragment;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 import com.example.kouveepetshop.ui.hewan.HewanAddFragment;
@@ -30,8 +28,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CSActivity extends AppCompatActivity {
 
     Fragment selectedFragment = null;
-    CustomerRecyclerAdapter customerRecyclerAdapter;
-    HewanRecycleAdapter hewanRecycleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +36,6 @@ public class CSActivity extends AppCompatActivity {
         final BottomNavigationView navView = findViewById(R.id.nav_view_cs);
         navView.setOnNavigationItemSelectedListener(navListener);
         selectedFragment = new CustomerViewFragment();
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_produk, R.id.navigation_layanan, R.id.navigation_peliharaan, R.id.navigation_customer, R.id.navigation_transaksi_cs)
-//                .build();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_cs);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(navView, navController);
 
         final FloatingActionButton fab = findViewById(R.id.fab_btn_cs);
 
@@ -70,7 +56,7 @@ public class CSActivity extends AppCompatActivity {
         });
     }
 
-    public BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FloatingActionButton fab = findViewById(R.id.fab_btn_cs);
@@ -83,7 +69,7 @@ public class CSActivity extends AppCompatActivity {
                     selectedFragment = new HewanViewFragment();
                     break;
                 case R.id.navigation_transaksi:
-//                    selectedFragment = new TransaksiViewFragment();
+//                    selectedFragment = new JenisHewanFragment();
                     break;
             }
             fab.setVisibility(View.VISIBLE);
@@ -95,47 +81,14 @@ public class CSActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.SearchTxt);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-//                    customerRecyclerAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu, menu);
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.LogOut:
-                doLogout();
-                return true;
-            case R.id.SearchTxt:
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void doLogout(){
-        UserSharedPreferences SP = new UserSharedPreferences(getApplicationContext());
-        SP.spEditor.clear();
-        SP.saveSPBoolean(UserSharedPreferences.SP_ISLOGIN, false);
-        SP.spEditor.apply();
-        Intent intent = new Intent(CSActivity.this, SplashScreen.class);
-        finish();
-        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }
