@@ -1,6 +1,6 @@
 package com.example.kouveepetshop;
 
-import android.content.Intent;
+/*import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -91,4 +91,4 @@ public class CSActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-}
+}*/

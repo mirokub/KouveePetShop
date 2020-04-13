@@ -40,7 +40,7 @@ public class ProdukViewFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.fragment_Produk_view, container, false);
+        myView = inflater.inflate(R.layout.fragment_produk_view, container, false);
 
         recyclerView = myView.findViewById(R.id.recycleViewLayanan);
         layoutManager = new LinearLayoutManager(getActivity());

@@ -18,17 +18,8 @@ import androidx.fragment.app.FragmentManager;
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
-import com.example.kouveepetshop.api.ApiJenisHewan;
-import com.example.kouveepetshop.api.ApiLayanan;
-import com.example.kouveepetshop.api.ApiUkuranHewan;
 import com.example.kouveepetshop.api.ApiProduk;
-import com.example.kouveepetshop.model.JenisHewanModel;
-import com.example.kouveepetshop.model.LayananModel;
-import com.example.kouveepetshop.model.UkuranHewanModel;
 import com.example.kouveepetshop.model.ProdukModel;
-import com.example.kouveepetshop.result.jenis_hewan.ResultJenisHewan;
-import com.example.kouveepetshop.result.layanan.ResultOneLayanan;
-import com.example.kouveepetshop.result.ukuran_hewan.ResultUkuranHewan;
 import com.example.kouveepetshop.result.produk.ResultOneProduk;
 
 import java.util.List;
@@ -40,15 +31,15 @@ import retrofit2.Response;
 public class ProdukEditFragment extends Fragment {
 
 
-    private String id_layanan, pic;
+    private String id_produk, pic;
     View myView;
-    EditText mNamaProduk, mHarga;
+    EditText mNamaProduk, mHargaSatuan, mHargaJual, mHargaBeli;
     Button mBtnUpdateProduk;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.fragment_Produk_edit, container, false);
+        myView = inflater.inflate(R.layout.fragment_produk_edit, container, false);
 
         UserSharedPreferences SP = new UserSharedPreferences(getActivity());
         pic = SP.getSpId();
@@ -60,10 +51,12 @@ public class ProdukEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String namaProduk = mNamaProduk.getText().toString();
-                String harga = mHarga.getText().toString();
+                String hargaSatuan = mHargaSatuan.getText().toString();
+                String hargaJual = mHargaJual.getText().toString();
+                String hargaBeli = mHargaBeli.getText().toString();
 
-                if(validate(namaProduk, harga)){
-                    ProdukModel produkModel = new ProdukModel(namaProduk, harga, pic);
+                if(validate(namaProduk, hargaSatuan, hargaJual, hargaBeli)){
+                    ProdukModel produkModel = new ProdukModel(namaProduk, hargaSatuan, hargaJual, hargaBeli, pic);
                     updateProduk(id_produk, produkModel);
                 }
             }
@@ -74,7 +67,9 @@ public class ProdukEditFragment extends Fragment {
 
     private void setAtribut(){
         mNamaProduk = myView.findViewById(R.id.etNamaProdukEdit);
-        mHarga = myView.findViewById(R.id.etHargaEdit);
+        mHargaSatuan = myView.findViewById(R.id.etHargaSatuanEdit);
+        mHargaJual = myView.findViewById(R.id.etHargaJualEdit);
+        mHargaBeli = myView.findViewById(R.id.etHargaBeliEdit);
         mBtnUpdateProduk = myView.findViewById(R.id.btnUpdateProduk);
     }
 
@@ -82,7 +77,9 @@ public class ProdukEditFragment extends Fragment {
         Bundle nBundle = getArguments();
         id_produk = nBundle.getString("id_produk");
         mNamaProduk.setText(nBundle.getString("nama_produk"));
-        mHarga.setText(nBundle.getString("harga"));
+        mHargaSatuan.setText(nBundle.getString("satuan"));
+        mHargaJual.setText(nBundle.getString("harga_jual"));
+        mHargaBeli.setText(nBundle.getString("harga_beli"));
     }
 
     /*private void setSpinnerJenis(final String jenisSelected){
@@ -157,13 +154,21 @@ public class ProdukEditFragment extends Fragment {
         return ukuranHewanModel.getId_ukuran();
     }*/
 
-    private boolean validate(String namaProduk, String harga){
+    private boolean validate(String namaProduk, String hargaSatuan, String hargaJual, String hargaBeli){
         if(namaProduk == null || namaProduk.trim().length() == 0){
             mNamaProduk.setError("Nama Produk is required");
             return false;
         }
-        if(harga == null || harga.trim().length() == 0){
-            mHarga.setError("Harga is required");
+        if(hargaSatuan == null || hargaSatuan.trim().length() == 0){
+            mHargaSatuan.setError("Harga Satuan is required");
+            return false;
+        }
+        if(hargaJual == null || hargaJual.trim().length() == 0){
+            mHargaJual.setError("Harga Jual is required");
+            return false;
+        }
+        if(hargaBeli == null || hargaBeli.trim().length() == 0){
+            mHargaBeli.setError("Harga Beli is required");
             return false;
         }
         return true;

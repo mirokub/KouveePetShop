@@ -1,6 +1,6 @@
 package com.example.kouveepetshop.result.customer;
 
-import com.example.kouveepetshop.model.CustomerModel;
+/*import com.example.kouveepetshop.model.CustomerModel;
 import com.google.gson.annotations.SerializedName;
 
 public class ResultOneCustomer {
@@ -26,4 +26,4 @@ public class ResultOneCustomer {
         this.message = message;
     }
 
-}
+}*/

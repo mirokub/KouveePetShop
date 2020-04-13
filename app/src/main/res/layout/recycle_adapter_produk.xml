@@ -26,21 +26,6 @@
         android:orientation="vertical"
         android:layout_gravity="center_vertical">
 
-        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
-        <!--            android:layout_width="80dp"-->
-        <!--            android:layout_height="80dp"-->
-        <!--            android:id="@+id/image_layanan"-->
-        <!--            android:src="@mipmap/ic_launcher"/>-->
-        <!--    </LinearLayout>-->
-
-        <!--    <LinearLayout-->
-        <!--        android:id="@+id/parentLayanan2"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:orientation="vertical"-->
-        <!--        android:layout_gravity="center_vertical"-->
-        <!--        android:layout_marginStart="85dp">-->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,9 +39,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_harga_layanan"
+            android:text="@string/title_harga_satuan_produk"
             android:textSize="15sp"
-            android:id="@+id/txtViewHargaLayanan"
+            android:id="@+id/txtViewHargaProdukSatuan"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_harga_jual_produk"
+            android:textSize="15sp"
+            android:id="@+id/txtViewHargaProdukJual"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_harga_beli_produk"
+            android:textSize="15sp"
+            android:id="@+id/txtViewHargaProdukBeli"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView

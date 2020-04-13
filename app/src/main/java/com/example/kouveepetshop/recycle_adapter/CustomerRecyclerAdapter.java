@@ -1,6 +1,6 @@
 package com.example.kouveepetshop.recycle_adapter;
 
-import android.app.AlertDialog;
+/*import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -202,4 +202,4 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
             notifyDataSetChanged();
         }
     };
-}
+}*/
