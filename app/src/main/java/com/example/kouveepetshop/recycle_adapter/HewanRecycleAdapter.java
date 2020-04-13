@@ -35,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapter.MyViewHolder> implements Filterable {
+
     private Context context;
     private List<HewanModel> result;
     private List<HewanModel> resultFull;
@@ -187,10 +188,11 @@ public class HewanRecycleAdapter extends RecyclerView.Adapter<HewanRecycleAdapte
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for(HewanModel hewan : resultFull){
                     if(hewan.getNama_hewan().toLowerCase().contains(filterPattern) ||
-                        hewan.getTgl_lahir().toLowerCase().contains(filterPattern) ||
+                        hewan.getTgl_lahir().contains(constraint) ||
                         hewan.getJenis().toLowerCase().contains(filterPattern) ||
                         hewan.getUkuran().toLowerCase().contains(filterPattern) ||
-                        hewan.getNama_customer().toLowerCase().contains(filterPattern)){
+                        hewan.getNama_customer().toLowerCase().contains(filterPattern) ||
+                        hewan.getEdited_by().toLowerCase().contains(filterPattern)){
                             filteredList.add(hewan);
                     }
                 }

@@ -21,33 +21,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
-import com.example.kouveepetshop.api.ApiCustomer;
 import com.example.kouveepetshop.api.ApiUkuranHewan;
-import com.example.kouveepetshop.model.CustomerModel;
 import com.example.kouveepetshop.model.UkuranHewanModel;
-import com.example.kouveepetshop.result.customer.ResultOneCustomer;
 import com.example.kouveepetshop.result.ukuran_hewan.ResultOneUkuran;
-import com.example.kouveepetshop.ui.customer.CustomerEditFragment;
-import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanEditFragment;
 import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanViewFragment;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UkuranHewanRecycleAdapter extends RecyclerView.Adapter<UkuranHewanRecycleAdapter.MyViewHolder> {
+public class UkuranHewanRecycleAdapter extends RecyclerView.Adapter<UkuranHewanRecycleAdapter.MyViewHolder> implements Filterable {
 
     private Context context;
     private List<UkuranHewanModel> result;
+    private List<UkuranHewanModel> resultFull;
 
     public UkuranHewanRecycleAdapter(Context context, List<UkuranHewanModel> result) {
         this.context = context;
         this.result = result;
+        resultFull = new ArrayList<>(result);
     }
 
     @NonNull
@@ -164,4 +160,40 @@ public class UkuranHewanRecycleAdapter extends RecyclerView.Adapter<UkuranHewanR
             Toast.makeText(context, "Oh You Touch Me?", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<UkuranHewanModel> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(resultFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(UkuranHewanModel ukuran : resultFull){
+                    if(ukuran.getUkuran().toLowerCase().contains(filterPattern) ||
+                            ukuran.getEdited_by().toLowerCase().contains(filterPattern)){
+                        filteredList.add(ukuran);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            result.clear();
+            result.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

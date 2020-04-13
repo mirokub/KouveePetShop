@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.kouveepetshop.OwnerActivity;
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.SplashScreen;
 import com.example.kouveepetshop.UserSharedPreferences;

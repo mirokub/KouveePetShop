@@ -31,13 +31,15 @@ public class SupplierModel {
     public SupplierModel() {
     }
 
-    public SupplierModel(String nama_supplier, String alamat, String no_telp, String created_at, String updated_at, String edited_by) {
+    public SupplierModel(String id_supplier, String nama_supplier, String alamat, String no_telp, String created_at, String updated_at, String edited_by, String pic) {
+        this.id_supplier = id_supplier;
         this.nama_supplier = nama_supplier;
         this.alamat = alamat;
         this.no_telp = no_telp;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.edited_by = edited_by;
+        this.pic = pic;
     }
 
     public SupplierModel(String nama_supplier, String alamat, String no_telp, String pic) {

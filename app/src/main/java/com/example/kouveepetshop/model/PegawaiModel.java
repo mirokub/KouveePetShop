@@ -50,6 +50,16 @@ public class PegawaiModel {
         this.edited_by = edited_by;
     }
 
+    public PegawaiModel(String nama_pegawai, String alamat, String tgl_lahir, String no_telp, String jabatan, String username, String edited_by) {
+        this.nama_pegawai = nama_pegawai;
+        this.alamat = alamat;
+        this.tgl_lahir = tgl_lahir;
+        this.no_telp = no_telp;
+        this.jabatan = jabatan;
+        this.username = username;
+        this.edited_by = edited_by;
+    }
+
     public String getId_pegawai() {
         return id_pegawai;
     }

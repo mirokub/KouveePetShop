@@ -1,4 +1,4 @@
-package com.example.kouveepetshop.ui.ukuran_hewan;
+package com.example.kouveepetshop.ui.produk;
 
 import android.app.AlertDialog;
 import android.app.SearchManager;
@@ -26,10 +26,14 @@ import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.SplashScreen;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
-import com.example.kouveepetshop.api.ApiUkuranHewan;
-import com.example.kouveepetshop.model.UkuranHewanModel;
-import com.example.kouveepetshop.recycle_adapter.UkuranHewanRecycleAdapter;
-import com.example.kouveepetshop.result.ukuran_hewan.ResultUkuranHewan;
+import com.example.kouveepetshop.api.ApiLayanan;
+import com.example.kouveepetshop.api.ApiProduk;
+import com.example.kouveepetshop.model.LayananModel;
+import com.example.kouveepetshop.model.ProdukModel;
+import com.example.kouveepetshop.recycle_adapter.LayananRecycleAdapter;
+import com.example.kouveepetshop.recycle_adapter.ProdukRecycleAdapter;
+import com.example.kouveepetshop.result.layanan.ResultLayanan;
+import com.example.kouveepetshop.result.produk.ResultProduk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +42,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UkuranHewanViewFragment extends Fragment {
+public class ProdukViewFragment extends Fragment {
 
-    private List<UkuranHewanModel> ukuranHewanModelList = new ArrayList<>();
+    private List<ProdukModel> produkList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private UkuranHewanRecycleAdapter ukuranHewanRecycleAdapter;
+    private ProdukRecycleAdapter produkRecycleAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private androidx.appcompat.widget.SearchView searchView = null;
+    private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     View myView;
 
@@ -56,20 +60,19 @@ public class UkuranHewanViewFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.fragment_ukuran_hewan_view, container, false);
+        myView = inflater.inflate(R.layout.fragment_produk_view, container, false);
 
-        recyclerView = myView.findViewById(R.id.recycleViewUkuranHewan);
+        recyclerView = myView.findViewById(R.id.recycleViewProduk);
         layoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        showAllUkuranHewan();
+        showAllProduk();
 
         return myView;
     }
 
-    @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -86,7 +89,7 @@ public class UkuranHewanViewFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ukuranHewanRecycleAdapter.getFilter().filter(newText);
+                produkRecycleAdapter.getFilter().filter(newText);
                 return true;
             }
         };
@@ -106,26 +109,25 @@ public class UkuranHewanViewFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    public void showAllProduk(){
+        ApiProduk apiProduk = ApiClient.getClient().create(ApiProduk.class);
+        Call<ResultProduk> resultProdukCall = apiProduk.getAllProduk();
 
-    public void showAllUkuranHewan(){
-        ApiUkuranHewan apiUkuranHewan = ApiClient.getClient().create(ApiUkuranHewan.class);
-        Call<ResultUkuranHewan> ukuranHewanCall = apiUkuranHewan.getAllUkuranHewan();
-
-        ukuranHewanCall.enqueue(new Callback<ResultUkuranHewan>() {
+        resultProdukCall.enqueue(new Callback<ResultProduk>() {
             @Override
-            public void onResponse(Call<ResultUkuranHewan> call, Response<ResultUkuranHewan> response) {
+            public void onResponse(Call<ResultProduk> call, Response<ResultProduk> response) {
                 if(response.isSuccessful()){
-                    ukuranHewanModelList = response.body().getListUkuranHewan();
-                    ukuranHewanRecycleAdapter = new UkuranHewanRecycleAdapter(getActivity(), ukuranHewanModelList);
-                    recyclerView.setAdapter(ukuranHewanRecycleAdapter);
-                    ukuranHewanRecycleAdapter.notifyDataSetChanged();
+                    produkList = response.body().getListProduk();
+                    produkRecycleAdapter = new ProdukRecycleAdapter(getActivity(), produkList);
+                    recyclerView.setAdapter(produkRecycleAdapter);
+                    produkRecycleAdapter.notifyDataSetChanged();
                 }else if(response.code() == 404){
-                    Toast.makeText(getContext(), "Ukuran Hewan is Empty !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Produk is Empty !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResultUkuranHewan> call, Throwable t) {
+            public void onFailure(Call<ResultProduk> call, Throwable t) {
                 System.out.println(t.getMessage());
                 Toast.makeText(getContext(), "Connection Problem", Toast.LENGTH_SHORT).show();
             }

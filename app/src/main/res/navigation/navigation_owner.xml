@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_produk"
-        android:name="com.example.kouveepetshop.ui.produk.ProdukFragment"
+        android:name="com.example.kouveepetshop.ui.produk.ProdukViewFragment"
         android:label="@string/title_produk"
-        tools:layout="@layout/fragment_produk" />
+        tools:layout="@layout/fragment_produk_view" />
 
     <fragment
         android:id="@+id/navigation_layanan"

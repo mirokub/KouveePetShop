@@ -12,10 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.kouveepetshop.ui.customer.CustomerAddFragment;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
@@ -27,15 +23,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CSActivity extends AppCompatActivity {
 
-    Fragment selectedFragment = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cs);
         final BottomNavigationView navView = findViewById(R.id.nav_view_cs);
         navView.setOnNavigationItemSelectedListener(navListener);
-        selectedFragment = new CustomerViewFragment();
 
         final FloatingActionButton fab = findViewById(R.id.fab_btn_cs);
 
@@ -60,6 +53,8 @@ public class CSActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FloatingActionButton fab = findViewById(R.id.fab_btn_cs);
+
+            Fragment selectedFragment = null;
 
             switch (item.getItemId()){
                 case R.id.navigation_customer:
