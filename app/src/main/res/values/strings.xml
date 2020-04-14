@@ -31,5 +31,6 @@
     <string name="satuan">Satuan</string>
     <string name="stok">Stok</string>
     <string name="stok_minimum">Stok Minimum</string>
+    <string name="under_construction">Under Construction</string>
 
 </resources>

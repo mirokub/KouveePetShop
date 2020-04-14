@@ -41,6 +41,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:inputType="phone"
         android:clickable="true"
         android:ems="10"
         android:hint="@string/title_nomor_telepon"

@@ -3,12 +3,14 @@ package com.example.kouveepetshop.recycle_adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -157,10 +159,12 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum, mEditedBy;
         private LinearLayout mParent;
+        private ImageView mProdukImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mParent = itemView.findViewById(R.id.parentProduk);
+            mProdukImage = itemView.findViewById(R.id.produkImageView);
             mNamaProduk = itemView.findViewById(R.id.txtViewNamaProduk);
             mSatuan = itemView.findViewById(R.id.txtViewSatuanProduk);
             mHargaJual = itemView.findViewById(R.id.txtViewHargaProdukJual);

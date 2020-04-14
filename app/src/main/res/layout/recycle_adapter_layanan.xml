@@ -27,6 +27,9 @@
             android:textSize="20sp"
             android:id="@+id/txtViewNamaLayanan"
             android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             android:textColor="@color/colorPrimaryDark"
             />
 
@@ -35,6 +38,9 @@
             android:layout_height="wrap_content"
             android:text="@string/title_harga_layanan"
             android:textSize="15sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
             android:id="@+id/txtViewHargaLayanan"
             android:textColor="@color/colorPrimaryDark"/>
 
@@ -43,6 +49,9 @@
             android:layout_height="wrap_content"
             android:text="@string/title_edited_by"
             android:textSize="15sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:id="@+id/txtViewEditedByLayanan"
             />
 
