@@ -24,16 +24,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/produkImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_produk"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
             android:textSize="20sp"
             android:id="@+id/txtViewNamaProduk"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
+            android:layout_marginEnd="5dp"
             />
 
         <TextView
@@ -42,6 +55,8 @@
             android:text="@string/satuan"
             android:textSize="15sp"
             android:id="@+id/txtViewSatuanProduk"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -50,6 +65,8 @@
             android:text="@string/title_harga_jual_produk"
             android:textSize="15sp"
             android:id="@+id/txtViewHargaProdukJual"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -58,6 +75,8 @@
             android:text="@string/title_harga_beli_produk"
             android:textSize="15sp"
             android:id="@+id/txtViewHargaProdukBeli"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -65,12 +84,18 @@
             android:layout_height="wrap_content"
             android:text="@string/stok"
             android:textSize="15sp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:id="@+id/txtViewStok"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@color/colorPrimaryDark"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/stok_minimum"
             android:textSize="15sp"
             android:id="@+id/txtViewStokMinimum"
@@ -82,7 +107,10 @@
             android:layout_height="wrap_content"
             android:text="@string/title_edited_by"
             android:textSize="15sp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:id="@+id/txtViewEditedByProduk"
+            android:layout_marginBottom="5dp"
             />
 
     </LinearLayout>

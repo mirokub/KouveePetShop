@@ -26,21 +26,6 @@
         android:orientation="vertical"
         android:layout_gravity="center_vertical">
 
-        <!--        <de.hdodenhof.circleimageview.CircleImageView-->
-        <!--            android:layout_width="80dp"-->
-        <!--            android:layout_height="80dp"-->
-        <!--            android:id="@+id/image_layanan"-->
-        <!--            android:src="@mipmap/ic_launcher"/>-->
-        <!--    </LinearLayout>-->
-
-        <!--    <LinearLayout-->
-        <!--        android:id="@+id/parentLayanan2"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:orientation="vertical"-->
-        <!--        android:layout_gravity="center_vertical"-->
-        <!--        android:layout_marginStart="85dp">-->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,6 +33,9 @@
             android:textSize="20sp"
             android:id="@+id/txtViewNamaSupplier"
             android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             android:textColor="@color/colorPrimaryDark"
             />
 
@@ -57,6 +45,8 @@
             android:text="@string/title_alamat"
             android:textSize="15sp"
             android:id="@+id/txtViewAlamatSupplier"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -64,6 +54,9 @@
             android:layout_height="wrap_content"
             android:text="@string/title_nomor_telepon"
             android:textSize="15sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
             android:id="@+id/txtViewNomorTelpSupplier"
             android:textColor="@color/colorPrimaryDark"/>
 
@@ -72,6 +65,9 @@
             android:layout_height="wrap_content"
             android:text="@string/title_edited_by"
             android:textSize="15sp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:id="@+id/txtViewEditedBySupplier"
             />
 

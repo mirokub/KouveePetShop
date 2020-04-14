@@ -18,6 +18,7 @@ import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 import com.example.kouveepetshop.ui.hewan.HewanAddFragment;
 import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
 import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
+import com.example.kouveepetshop.ui.transaksiCS.TransaksiCSFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -42,7 +43,8 @@ public class CSActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new HewanAddFragment()).commit();
                 } else if (navView.getSelectedItemId() == R.id.navigation_transaksi) {
-
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new TransaksiCSFragment()).commit();
                 }
                 fab.setVisibility(View.INVISIBLE);
             }
@@ -64,7 +66,7 @@ public class CSActivity extends AppCompatActivity {
                     selectedFragment = new HewanViewFragment();
                     break;
                 case R.id.navigation_transaksi:
-//                    selectedFragment = new JenisHewanFragment();
+                    selectedFragment = new TransaksiCSFragment();
                     break;
             }
             fab.setVisibility(View.VISIBLE);

@@ -16,7 +16,8 @@
             android:layout_height="150dp"
             android:id="@+id/image_supplier"
             android:src="@mipmap/ic_truck"
-            android:background="@color/colorAccent"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             />
 
         <TextView
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvBtnSupplier"
             android:text="@string/title_supplier"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/image_supplier"
             android:layout_alignRight="@id/image_supplier"
             android:layout_alignLeft="@id/image_supplier"
@@ -36,6 +38,8 @@
             android:layout_height="150dp"
             android:layout_marginTop="40dp"
             android:id="@+id/image_pengadaan"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
             android:src="@mipmap/ic_package_1"
             android:layout_below="@id/tvBtnSupplier"
             />
@@ -50,7 +54,9 @@
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:id="@+id/tvBtnPengadaan"
+            android:layout_marginTop="10dp"
             />
+
     </RelativeLayout>
 
 </RelativeLayout>
