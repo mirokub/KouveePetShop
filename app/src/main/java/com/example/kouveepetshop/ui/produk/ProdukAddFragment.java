@@ -32,7 +32,7 @@ public class ProdukAddFragment extends Fragment {
 
     private String pic;
     View myView;
-    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
+    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum, mGambar;
     Button mBtnSaveProduk;
 
     @Nullable
@@ -55,9 +55,10 @@ public class ProdukAddFragment extends Fragment {
                 String hargaBeli = mHargaBeli.getText().toString();
                 String stok = mStok.getText().toString();
                 String stok_minimum = mStokMinimum.getText().toString();
+                String gambar = mGambar.getText().toString();
 
-                if(validate(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum)){
-                    ProdukModel produkModel = new ProdukModel(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, pic);
+                if(validate(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar)){
+                    ProdukModel produkModel = new ProdukModel(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar, pic);
                     saveProduk(produkModel);
                 }
             }
@@ -75,7 +76,7 @@ public class ProdukAddFragment extends Fragment {
         mBtnSaveProduk = myView.findViewById(R.id.btnSaveProduk);
     }
 
-    private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum){
+    private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum, String gambar){
         if(namaProduk == null || namaProduk.trim().length() == 0){
             mNamaProduk.setError("Nama Produk is required");
             return false;
@@ -98,6 +99,10 @@ public class ProdukAddFragment extends Fragment {
         }
         if(stok_minimum == null || stok_minimum.trim().length() == 0){
             mHargaBeli.setError("Stok minimum is required");
+            return false;
+        }
+        if(gambar == null){
+            mGambar.setError("Gambar is required");
             return false;
         }
         return true;

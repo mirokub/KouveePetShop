@@ -164,7 +164,7 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mParent = itemView.findViewById(R.id.parentProduk);
-            mProdukImage = itemView.findViewById(R.id.produkImageView);
+            mProdukImage = itemView.findViewById(R.id.gambarProduk);
             mNamaProduk = itemView.findViewById(R.id.txtViewNamaProduk);
             mSatuan = itemView.findViewById(R.id.txtViewSatuanProduk);
             mHargaJual = itemView.findViewById(R.id.txtViewHargaProdukJual);
