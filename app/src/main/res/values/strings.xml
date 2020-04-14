@@ -32,5 +32,9 @@
     <string name="stok">Stok</string>
     <string name="stok_minimum">Stok Minimum</string>
     <string name="under_construction">Under Construction</string>
+    <string name="title_save">Save</string>
+    <string name="title_harga_beli">Harga Beli</string>
+    <string name="title_harga_jual">Harga Jual</string>
+    <string name="title_nama_produk">Nama Produk</string>
 
 </resources>

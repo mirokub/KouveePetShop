@@ -35,10 +35,6 @@ public class SplashScreen extends AppCompatActivity {
                 Intent intent = new Intent(this, CSActivity.class);
                 startActivity(intent);
                 finish();
-            }else if(SP.getSpJabatan().equals("Kasir")){
-                Intent intent = new Intent(this, CashierActivity.class);
-                startActivity(intent);
-                finish();
             }
         }else{
             Intent intent = new Intent(this, LoginActivity.class);

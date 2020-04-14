@@ -1,5 +1,6 @@
 package com.example.kouveepetshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
 import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
 import com.example.kouveepetshop.ui.pengadaan_menu.PengadaanMenu;
 import com.example.kouveepetshop.ui.produk.ProdukAddFragment;
+import com.example.kouveepetshop.ui.produk.ProdukEditFragment;
 import com.example.kouveepetshop.ui.produk.ProdukViewFragment;
 import com.example.kouveepetshop.ui.supplier.SupplierAddFragment;
 import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanAddFragment;
@@ -100,7 +102,7 @@ public class OwnerActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.logout_menu, menu);
+        inflater.inflate(R.menu.action_bar_menu, menu);
 
         return true;
     }
@@ -109,4 +111,5 @@ public class OwnerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
+
 }

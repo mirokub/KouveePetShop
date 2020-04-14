@@ -44,7 +44,7 @@ public class UkuranHewanViewFragment extends Fragment {
     private RecyclerView recyclerView;
     private UkuranHewanRecycleAdapter ukuranHewanRecycleAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private androidx.appcompat.widget.SearchView searchView = null;
+    private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     View myView;
 

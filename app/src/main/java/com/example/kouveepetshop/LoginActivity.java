@@ -107,10 +107,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, CSActivity.class);
             finish();
             startActivity(intent);
-        }else if(SP.getSpJabatan().equals("Kasir")){
-            Intent intent = new Intent(LoginActivity.this, CashierActivity.class);
-            finish();
-            startActivity(intent);
         }
     }
 }

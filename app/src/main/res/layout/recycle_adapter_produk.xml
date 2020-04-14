@@ -27,14 +27,12 @@
         android:layout_gravity="center">
 
         <ImageView
-            android:id="@+id/produkImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            />
+            android:id="@+id/gambarProduk"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_height="55dp"
+            android:layout_width="55dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
