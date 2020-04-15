@@ -80,7 +80,8 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
         mBundle.putString("id_customer", customerModel.getId_customer());
         mBundle.putString("nama_customer", customerModel.getNama_customer());
         mBundle.putString("tgl_lahir", customerModel.getTgl_lahir());
-        mBundle.putString("nomor_telp", customerModel.getNo_telp());
+        mBundle.putString("alamat", customerModel.getAlamat());
+        mBundle.putString("no_telp", customerModel.getNo_telp());
         customerEditFragment.setArguments(mBundle);
         fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, customerEditFragment).commit();
     }

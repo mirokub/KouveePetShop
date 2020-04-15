@@ -36,5 +36,6 @@
     <string name="title_harga_beli">Harga Beli</string>
     <string name="title_harga_jual">Harga Jual</string>
     <string name="title_nama_produk">Nama Produk</string>
+    <string name="title_click_image_to_upload"><![CDATA[<<Click Image to Upload>>]]></string>
 
 </resources>

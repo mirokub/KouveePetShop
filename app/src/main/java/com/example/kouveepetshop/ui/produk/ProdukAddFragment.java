@@ -1,13 +1,15 @@
 package com.example.kouveepetshop.ui.produk;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +24,7 @@ import com.example.kouveepetshop.api.ApiProduk;
 import com.example.kouveepetshop.model.ProdukModel;
 import com.example.kouveepetshop.result.produk.ResultOneProduk;
 
-import java.util.List;
+import java.io.ByteArrayOutputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,8 +34,11 @@ public class ProdukAddFragment extends Fragment {
 
     private String pic;
     View myView;
-    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum, mGambar;
+    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
     Button mBtnSaveProduk;
+    ImageView mGambar;
+    String nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar;
+    Bitmap bitmap;
 
     @Nullable
     @Override
@@ -49,21 +54,41 @@ public class ProdukAddFragment extends Fragment {
        mBtnSaveProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String namaProduk = mNamaProduk.getText().toString();
-                String satuan = mSatuan.getText().toString();
-                String hargaJual = mHargaJual.getText().toString();
-                String hargaBeli = mHargaBeli.getText().toString();
-                String stok = mStok.getText().toString();
-                String stok_minimum = mStokMinimum.getText().toString();
-                String gambar = mGambar.getText().toString();
+                nama_produk = mNamaProduk.getText().toString();
+                satuan = mSatuan.getText().toString();
+                harga_jual = mHargaJual.getText().toString();
+                harga_beli = mHargaBeli.getText().toString();
+                stok = mStok.getText().toString();
+                stok_minimum = mStokMinimum.getText().toString();
+                gambar = null;
+                if (bitmap == null) {
+                    gambar = "";
+                } else {
+                    gambar = getStringImage(bitmap);
+                }
 
-                if(validate(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar)){
-                    ProdukModel produkModel = new ProdukModel(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar, pic);
+                if(validate(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar)){
+                    ProdukModel produkModel = new ProdukModel(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar, pic);
                     saveProduk(produkModel);
                 }
             }
         });
         return myView;
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    private void chooseFile() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
     }
 
     private void setAtribut(){
@@ -74,6 +99,14 @@ public class ProdukAddFragment extends Fragment {
         mStok = myView.findViewById(R.id.etStok);
         mStokMinimum = myView.findViewById(R.id.etStokMinimum);
         mBtnSaveProduk = myView.findViewById(R.id.btnSaveProduk);
+        mGambar = myView.findViewById(R.id.produkImage);
+
+        mGambar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseFile();
+            }
+        });
     }
 
     private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum, String gambar){
@@ -102,7 +135,6 @@ public class ProdukAddFragment extends Fragment {
             return false;
         }
         if(gambar == null){
-            mGambar.setError("Gambar is required");
             return false;
         }
         return true;

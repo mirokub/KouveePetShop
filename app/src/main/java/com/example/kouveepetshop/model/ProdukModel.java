@@ -27,6 +27,9 @@ public class ProdukModel {
     @SerializedName("stok_minimum")
     private String stok_minimum;
 
+    @SerializedName("gambar")
+    private String gambar;
+
     @SerializedName("created_at")
     private String created_at;
 
@@ -42,7 +45,7 @@ public class ProdukModel {
     public ProdukModel() {
     }
 
-    public ProdukModel(String id_produk, String nama_produk, String satuan, String harga_jual, String harga_beli, String stok, String stok_minimum, String created_at, String updated_at, String edited_by, String pic) {
+    public ProdukModel(String id_produk, String nama_produk, String satuan, String harga_jual, String harga_beli, String stok, String stok_minimum, String gambar, String created_at, String updated_at, String edited_by, String pic) {
         this.id_produk = id_produk;
         this.nama_produk = nama_produk;
         this.satuan = satuan;
@@ -50,19 +53,21 @@ public class ProdukModel {
         this.harga_beli = harga_beli;
         this.stok = stok;
         this.stok_minimum = stok_minimum;
+        this.gambar = gambar;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.edited_by = edited_by;
         this.pic = pic;
     }
 
-    public ProdukModel(String nama_produk, String satuan, String harga_jual, String harga_beli, String stok, String stok_minimum, String pic) {
+    public ProdukModel(String nama_produk, String satuan, String harga_jual, String harga_beli, String stok, String stok_minimum, String gambar, String pic) {
         this.nama_produk = nama_produk;
         this.satuan = satuan;
         this.harga_jual = harga_jual;
         this.harga_beli = harga_beli;
         this.stok = stok;
         this.stok_minimum = stok_minimum;
+        this.gambar = gambar;
         this.pic = pic;
     }
 
@@ -111,6 +116,14 @@ public class ProdukModel {
     }
 
     public void setHarga_jual(String harga_jual) { this.harga_jual = harga_jual;}
+
+    public String getGambar() {
+        return "https://tugasbesarkami.com/api/produk/picture/"+gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
+    }
 
     public String getHarga_beli() {
         return harga_beli;

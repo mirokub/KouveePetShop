@@ -8,14 +8,24 @@
 
     <ImageView
         android:id="@+id/produkImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
         android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/txtUpload"
+        android:text="@string/title_click_image_to_upload"
+        android:textSize="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/produkImage"
+        android:layout_centerHorizontal="true"
+    />
 
     <EditText
         android:id="@+id/etNamaProduk"
@@ -28,7 +38,7 @@
         android:hint="Nama Produk"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_below="@+id/produkImage"/>
+        android:layout_below="@+id/txtUpload"/>
 
     <EditText
         android:id="@+id/etSatuan"

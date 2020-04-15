@@ -1,12 +1,16 @@
 package com.example.kouveepetshop.ui.produk;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,8 +24,11 @@ import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
 import com.example.kouveepetshop.api.ApiProduk;
 import com.example.kouveepetshop.model.ProdukModel;
+import com.example.kouveepetshop.recycle_adapter.ProdukRecycleAdapter;
 import com.example.kouveepetshop.result.produk.ResultOneProduk;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,8 +39,11 @@ public class ProdukEditFragment extends Fragment {
 
     private String id_produk, pic;
     View myView;
-    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum, mGambar;
+    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
+    ImageView mGambar;
+    String nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar;
     Button mBtnUpdateProduk;
+    Bitmap bitmap;
 
     @Nullable
     @Override
@@ -49,22 +59,42 @@ public class ProdukEditFragment extends Fragment {
         mBtnUpdateProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String namaProduk = mNamaProduk.getText().toString();
-                String satuan = mSatuan.getText().toString();
-                String hargaJual = mHargaJual.getText().toString();
-                String hargaBeli = mHargaBeli.getText().toString();
-                String stok = mStok.getText().toString();
-                String stok_minimum = mStokMinimum.getText().toString();
-                String gambar = mGambar.getText().toString();
+                nama_produk = mNamaProduk.getText().toString();
+                satuan = mSatuan.getText().toString();
+                harga_jual = mHargaJual.getText().toString();
+                harga_beli = mHargaBeli.getText().toString();
+                stok = mStok.getText().toString();
+                stok_minimum = mStokMinimum.getText().toString();
+                gambar = null;
+                if (bitmap == null) {
+                    gambar = "";
+                } else {
+                    gambar = getStringImage(bitmap);
+                }
 
-                if(validate(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar)){
-                    ProdukModel produkModel = new ProdukModel(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar, pic);
+                if(validate(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar)){
+                    ProdukModel produkModel = new ProdukModel(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar, pic);
                     updateProduk(id_produk, produkModel);
                 }
             }
         });
 
         return myView;
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    private void chooseFile() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
     }
 
     private void setAtribut(){
@@ -75,6 +105,14 @@ public class ProdukEditFragment extends Fragment {
         mStok = myView.findViewById(R.id.etStokEdit);
         mStokMinimum = myView.findViewById(R.id.etStokMinimumEdit);
         mBtnUpdateProduk = myView.findViewById(R.id.btnUpdateProduk);
+        mGambar = myView.findViewById(R.id.produkImageEdit);
+
+        mGambar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseFile();
+            }
+        });
     }
 
     public void setText(){
@@ -86,6 +124,11 @@ public class ProdukEditFragment extends Fragment {
         mHargaBeli.setText(nBundle.getString("harga_beli"));
         mStok.setText(nBundle.getString("stok"));
         mStokMinimum.setText(nBundle.getString("stok_minimum"));
+
+        Picasso.with(getContext())
+                .load(gambar)
+                .placeholder(R.mipmap.ic_launcher_round)
+                .into(mGambar);
     }
 
     private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum, String gambar){
