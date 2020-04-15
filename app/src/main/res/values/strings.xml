@@ -16,7 +16,6 @@
     <string name="title_harga_layanan">Harga Layanan</string>
     <string name="title_edited_by">Edited by</string>
     <string name="title_alamat">Alamat</string>
-    <string name="title_update">Update</string>
     <string name="title_nomor_telepon">Nomor Telepon</string>
     <string name="title_tanggal_lahir">Tanggal Lahir</string>
     <string name="title_alamat_customer">Alamat Customer</string>
@@ -32,10 +31,12 @@
     <string name="stok">Stok</string>
     <string name="stok_minimum">Stok Minimum</string>
     <string name="under_construction">Under Construction</string>
-    <string name="title_save">Save</string>
     <string name="title_harga_beli">Harga Beli</string>
     <string name="title_harga_jual">Harga Jual</string>
     <string name="title_nama_produk">Nama Produk</string>
     <string name="title_click_image_to_upload"><![CDATA[<<Click Image to Upload>>]]></string>
+    <string name="title_click_image_to_upload_2">- Click Image to Upload -</string>
+    <string name="title_update">Update</string>
+    <string name="title_save">Save</string>
 
 </resources>

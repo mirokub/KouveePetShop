@@ -1,8 +1,11 @@
 package com.example.kouveepetshop.ui.produk;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +28,19 @@ import com.example.kouveepetshop.model.ProdukModel;
 import com.example.kouveepetshop.result.produk.ResultOneProduk;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ProdukAddFragment extends Fragment {
 
     private String pic;
+    String filePath;
     View myView;
     EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
     Button mBtnSaveProduk;
@@ -54,6 +62,8 @@ public class ProdukAddFragment extends Fragment {
        mBtnSaveProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                File file = new File(filePath);
+
                 nama_produk = mNamaProduk.getText().toString();
                 satuan = mSatuan.getText().toString();
                 harga_jual = mHargaJual.getText().toString();
@@ -88,7 +98,7 @@ public class ProdukAddFragment extends Fragment {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+        startActivityForResult(intent, 1);
     }
 
     private void setAtribut(){
@@ -161,6 +171,25 @@ public class ProdukAddFragment extends Fragment {
                 Toast.makeText(getActivity(), "Connection Problem !", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath);
+
+                mGambar.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 }

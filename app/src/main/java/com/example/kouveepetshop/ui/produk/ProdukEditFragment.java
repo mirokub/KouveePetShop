@@ -1,8 +1,11 @@
 package com.example.kouveepetshop.ui.produk;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +32,14 @@ import com.example.kouveepetshop.result.produk.ResultOneProduk;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ProdukEditFragment extends Fragment {
 
@@ -127,7 +133,7 @@ public class ProdukEditFragment extends Fragment {
 
         Picasso.with(getContext())
                 .load(gambar)
-                .placeholder(R.mipmap.ic_launcher_round)
+                .placeholder(R.mipmap.ic_no_image)
                 .into(mGambar);
     }
 
@@ -184,6 +190,26 @@ public class ProdukEditFragment extends Fragment {
                 Toast.makeText(getActivity(), "Connection Problem !", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath);
+
+                mGambar.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 
