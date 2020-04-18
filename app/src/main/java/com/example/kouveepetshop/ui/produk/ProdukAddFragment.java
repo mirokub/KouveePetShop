@@ -2,11 +2,13 @@ package com.example.kouveepetshop.ui.produk;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.loader.content.CursorLoader;
 
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
@@ -31,6 +34,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,11 +47,11 @@ import static android.app.Activity.RESULT_OK;
 public class ProdukAddFragment extends Fragment {
 
     private String pic;
-    String filePath;
     View myView;
     EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
     Button mBtnSaveProduk;
     ImageView mGambar;
+
     String nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar;
     Bitmap bitmap;
 
@@ -62,8 +69,6 @@ public class ProdukAddFragment extends Fragment {
        mBtnSaveProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                File file = new File(filePath);
-
                 nama_produk = mNamaProduk.getText().toString();
                 satuan = mSatuan.getText().toString();
                 harga_jual = mHargaJual.getText().toString();
@@ -71,9 +76,7 @@ public class ProdukAddFragment extends Fragment {
                 stok = mStok.getText().toString();
                 stok_minimum = mStokMinimum.getText().toString();
                 gambar = null;
-                if (bitmap == null) {
-                    gambar = "";
-                } else {
+                if (bitmap != null) {
                     gambar = getStringImage(bitmap);
                 }
 
@@ -84,21 +87,6 @@ public class ProdukAddFragment extends Fragment {
             }
         });
         return myView;
-    }
-
-    public String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-    }
-
-    private void chooseFile() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
     }
 
     private void setAtribut(){
@@ -117,6 +105,19 @@ public class ProdukAddFragment extends Fragment {
                 chooseFile();
             }
         });
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    private void chooseFile() {
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, 1);
     }
 
     private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum, String gambar){
@@ -145,10 +146,12 @@ public class ProdukAddFragment extends Fragment {
             return false;
         }
         if(gambar == null){
+            Toast.makeText(getActivity(), "Image is required !", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
+
 
     private void saveProduk(ProdukModel produkModel){
         ApiProduk apiProduk = ApiClient.getClient().create(ApiProduk.class);
@@ -180,16 +183,24 @@ public class ProdukAddFragment extends Fragment {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri filePath = data.getData();
             try {
-
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath);
-
                 mGambar.setImageBitmap(bitmap);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
     }
+
+//    private String getRealPathFromURI(Uri contentUri) {
+//        String[] proj = {MediaStore.Images.Media.DATA};
+//        CursorLoader loader = new CursorLoader(getContext(), contentUri, proj, null, null, null);
+//        Cursor cursor = loader.loadInBackground();
+//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//        cursor.moveToFirst();
+//        String result = cursor.getString(column_index);
+//        cursor.close();
+//        return result;
+//    }
 
 }

@@ -100,7 +100,7 @@ public class ProdukEditFragment extends Fragment {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
     }
 
     private void setAtribut(){
@@ -131,8 +131,10 @@ public class ProdukEditFragment extends Fragment {
         mStok.setText(nBundle.getString("stok"));
         mStokMinimum.setText(nBundle.getString("stok_minimum"));
 
-        Picasso.with(getContext())
-                .load(gambar)
+        String temp = nBundle.getString("gambar");
+
+        Picasso.with(myView.getContext())
+                .load(temp)
                 .placeholder(R.mipmap.ic_no_image)
                 .into(mGambar);
     }

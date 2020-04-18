@@ -18,14 +18,11 @@ import retrofit2.http.Path;
 
 public interface ApiProduk {
 
-    @POST("produk/{gambar}")
-    Call<RequestBody> uploadImage(@Part MultipartBody.Part part, @Part("gambar") RequestBody requestBody);
-
     @GET("produk")
     Call<ResultProduk> getAllProduk();
 
     @GET("produk/{id}")
-    Call<ResultProduk> getProduk(@Path("id") String id_produk);
+    Call<ResultOneProduk> getProduk(@Path("id") String id_produk);
 
     @POST("produk")
     Call<ResultOneProduk> createProduk(@Body ProdukModel produkModel);

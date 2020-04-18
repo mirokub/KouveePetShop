@@ -101,7 +101,7 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
         fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, produkEditFragment).commit();
     }
 
-    private void deleteLayanan(final View view, ProdukModel produkModel, String pic){
+    private void deleteProduk(final View view, ProdukModel produkModel, String pic){
         ApiProduk apiProduk = ApiClient.getClient().create(ApiProduk.class);
         Call<ResultOneProduk> produkCall = apiProduk.deleteProduk(produkModel.getId_produk(), pic);
 
@@ -150,7 +150,7 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
                 confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteLayanan(view, produkModel, pic);
+                        deleteProduk(view, produkModel, pic);
                     }
                 });
                 confirmDialog.show();

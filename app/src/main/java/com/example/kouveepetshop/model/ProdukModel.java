@@ -1,8 +1,6 @@
 package com.example.kouveepetshop.model;
-
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 
 public class ProdukModel {
 

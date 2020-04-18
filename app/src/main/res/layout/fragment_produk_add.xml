@@ -107,6 +107,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:text="@string/title_save"/>
+            android:text="@string/title_save"
+            android:layout_marginBottom="15dp"/>
     </LinearLayout>
 </ScrollView>
