@@ -125,9 +125,6 @@ public class ProdukModel {
 
     public void setHarga_jual(String harga_jual) { this.harga_jual = harga_jual;}
 
-//    public String getGambar() {
-//        return "https://tugasbesarkami.com/api/produk/picture/"+gambar;
-//    }
     public String getGambar() {
         return gambar;
     }
