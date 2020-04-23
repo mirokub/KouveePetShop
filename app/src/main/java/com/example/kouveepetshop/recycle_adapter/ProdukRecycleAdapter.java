@@ -65,7 +65,7 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
         final ProdukModel produkModel = result.get(position);
 
         Picasso.with(context)
-                .load(produkModel.getGambar())
+                .load("https://tugasbesarkami.com/api/produk/picture/" + produkModel.getGambar())
                 .placeholder(R.mipmap.ic_launcher_round)
                 .into(holder.mProdukImage);
 
