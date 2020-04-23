@@ -58,14 +58,24 @@ public class ProdukModel {
         this.pic = pic;
     }
 
-    public ProdukModel(String nama_produk, String satuan, String harga_jual, String harga_beli, String stok, String stok_minimum, String gambar, String pic) {
+//    public ProdukModel(String nama_produk, String satuan, String harga_jual, String harga_beli, String stok, String stok_minimum, String gambar, String pic) {
+//        this.nama_produk = nama_produk;
+//        this.satuan = satuan;
+//        this.harga_jual = harga_jual;
+//        this.harga_beli = harga_beli;
+//        this.stok = stok;
+//        this.stok_minimum = stok_minimum;
+//        this.gambar = gambar;
+//        this.pic = pic;
+//    }
+
+    public ProdukModel(String nama_produk, String satuan, String harga_jual, String harga_beli, String stok, String stok_minimum, String pic) {
         this.nama_produk = nama_produk;
         this.satuan = satuan;
         this.harga_jual = harga_jual;
         this.harga_beli = harga_beli;
         this.stok = stok;
         this.stok_minimum = stok_minimum;
-        this.gambar = gambar;
         this.pic = pic;
     }
 
@@ -115,8 +125,11 @@ public class ProdukModel {
 
     public void setHarga_jual(String harga_jual) { this.harga_jual = harga_jual;}
 
+//    public String getGambar() {
+//        return "https://tugasbesarkami.com/api/produk/picture/"+gambar;
+//    }
     public String getGambar() {
-        return "https://tugasbesarkami.com/api/produk/picture/"+gambar;
+        return gambar;
     }
 
     public void setGambar(String gambar) {

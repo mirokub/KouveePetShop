@@ -1,9 +1,14 @@
 package com.example.kouveepetshop.ui.produk;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,6 +24,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.loader.content.CursorLoader;
@@ -47,6 +54,8 @@ import static android.app.Activity.RESULT_OK;
 public class ProdukAddFragment extends Fragment {
 
     private String pic;
+    private static final int GALLERY_REQUEST_CODE = 1;
+    private static final int STORAGE_PERMISSION_CODE = 101;
     View myView;
     EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
     Button mBtnSaveProduk;
@@ -54,6 +63,7 @@ public class ProdukAddFragment extends Fragment {
 
     String nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar;
     Bitmap bitmap;
+    Uri filePath;
 
     @Nullable
     @Override
@@ -66,7 +76,7 @@ public class ProdukAddFragment extends Fragment {
 
         setAtribut();
 
-       mBtnSaveProduk.setOnClickListener(new View.OnClickListener() {
+        mBtnSaveProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nama_produk = mNamaProduk.getText().toString();
@@ -77,16 +87,28 @@ public class ProdukAddFragment extends Fragment {
                 stok_minimum = mStokMinimum.getText().toString();
                 gambar = null;
                 if (bitmap != null) {
-                    gambar = getStringImage(bitmap);
+                    gambar = getRealPathFromUri(getActivity(), filePath);
                 }
 
                 if(validate(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar)){
-                    ProdukModel produkModel = new ProdukModel(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar, pic);
-                    saveProduk(produkModel);
+                    ProdukModel produkModel = new ProdukModel(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, pic);
+                    saveProduk(produkModel, gambar);
                 }
             }
         });
         return myView;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == STORAGE_PERMISSION_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(getActivity(), "Storage Permission Granted", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity(), "Storage Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void setAtribut(){
@@ -102,22 +124,28 @@ public class ProdukAddFragment extends Fragment {
         mGambar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseFile();
+                if(checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE)){
+                    chooseFile();
+                }
             }
         });
     }
 
-    public String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
+    private void chooseFile() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        String[] mimeTypes = {"image/jpeg", "image/jpg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
 
-    private void chooseFile() {
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, 1);
+    private boolean checkPermission(String permission, int requestCode){
+        if(ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(getActivity(), new String[] {permission}, requestCode);
+            return false;
+        }else{
+            return true;
+        }
     }
 
     private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum, String gambar){
@@ -152,10 +180,21 @@ public class ProdukAddFragment extends Fragment {
         return true;
     }
 
+    private void saveProduk(ProdukModel produkModel, String filePath){
+        File file = new File(filePath);
+        RequestBody image = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part gambar = MultipartBody.Part.createFormData("gambar", file.getName(), image);
 
-    private void saveProduk(ProdukModel produkModel){
+        RequestBody nama_produk = RequestBody.create(MediaType.parse("text/plain"), produkModel.getNama_produk());
+        RequestBody satuan = RequestBody.create(MediaType.parse("text/plain"), produkModel.getSatuan());
+        RequestBody harga_jual = RequestBody.create(MediaType.parse("text/plain"), produkModel.getHarga_jual());
+        RequestBody harga_beli = RequestBody.create(MediaType.parse("text/plain"), produkModel.getHarga_beli());
+        RequestBody stok = RequestBody.create(MediaType.parse("text/plain"), produkModel.getStok());
+        RequestBody stok_minimum = RequestBody.create(MediaType.parse("text/plain"), produkModel.getStok_minimum());
+        RequestBody pic = RequestBody.create(MediaType.parse("text/plain"), produkModel.getPic());
+
         ApiProduk apiProduk = ApiClient.getClient().create(ApiProduk.class);
-        Call<ResultOneProduk> produkCall = apiProduk.createProduk(produkModel);
+        Call<ResultOneProduk> produkCall = apiProduk.createProduk(gambar, nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, pic);
 
         produkCall.enqueue(new Callback<ResultOneProduk>() {
             @Override
@@ -181,26 +220,20 @@ public class ProdukAddFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         ContentResolver contentResolver = getActivity().getContentResolver();
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
+            filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath);
                 mGambar.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
-//    private String getRealPathFromURI(Uri contentUri) {
-//        String[] proj = {MediaStore.Images.Media.DATA};
-//        CursorLoader loader = new CursorLoader(getContext(), contentUri, proj, null, null, null);
-//        Cursor cursor = loader.loadInBackground();
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        String result = cursor.getString(column_index);
-//        cursor.close();
-//        return result;
-//    }
-
+    private String getRealPathFromUri(Context context, Uri uri){
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(index);
+    }
 }
