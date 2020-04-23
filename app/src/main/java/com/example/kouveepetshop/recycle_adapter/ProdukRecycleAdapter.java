@@ -28,6 +28,7 @@ import com.example.kouveepetshop.model.ProdukModel;
 import com.example.kouveepetshop.result.produk.ResultOneProduk;
 import com.example.kouveepetshop.ui.produk.ProdukViewFragment;
 import com.example.kouveepetshop.ui.produk.ProdukEditFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,12 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
         UserSharedPreferences SP = new UserSharedPreferences(context.getApplicationContext());
         final String pic = SP.getSpId();
         final ProdukModel produkModel = result.get(position);
+
+        Picasso.with(context)
+                .load("https://tugasbesarkami.com/api/produk/picture/" + produkModel.getGambar())
+                .placeholder(R.mipmap.ic_launcher_round)
+                .into(holder.mProdukImage);
+
         holder.mNamaProduk.setText(produkModel.getNama_produk());
         holder.mSatuan.setText("Satuan : " + produkModel.getSatuan());
         holder.mHargaJual.setText("Harga Jual : Rp" + produkModel.getHarga_jual());
@@ -89,11 +96,12 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
         mBundle.putString("harga_beli", produkModel.getHarga_beli());
         mBundle.putString("stok", produkModel.getStok());
         mBundle.putString("stok_minimum", produkModel.getStok_minimum());
+        mBundle.putString("gambar", produkModel.getGambar());
         produkEditFragment.setArguments(mBundle);
         fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, produkEditFragment).commit();
     }
 
-    private void deleteLayanan(final View view, ProdukModel produkModel, String pic){
+    private void deleteProduk(final View view, ProdukModel produkModel, String pic){
         ApiProduk apiProduk = ApiClient.getClient().create(ApiProduk.class);
         Call<ResultOneProduk> produkCall = apiProduk.deleteProduk(produkModel.getId_produk(), pic);
 
@@ -142,7 +150,7 @@ public class ProdukRecycleAdapter extends RecyclerView.Adapter<ProdukRecycleAdap
                 confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteLayanan(view, produkModel, pic);
+                        deleteProduk(view, produkModel, pic);
                     }
                 });
                 confirmDialog.show();

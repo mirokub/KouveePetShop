@@ -1,19 +1,34 @@
 package com.example.kouveepetshop.ui.produk;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.loader.content.CursorLoader;
 
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
@@ -22,18 +37,33 @@ import com.example.kouveepetshop.api.ApiProduk;
 import com.example.kouveepetshop.model.ProdukModel;
 import com.example.kouveepetshop.result.produk.ResultOneProduk;
 
-import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ProdukAddFragment extends Fragment {
 
     private String pic;
+    private static final int GALLERY_REQUEST_CODE = 1;
+    private static final int STORAGE_PERMISSION_CODE = 101;
     View myView;
-    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum, mGambar;
+    EditText mNamaProduk, mSatuan, mHargaJual, mHargaBeli, mStok, mStokMinimum;
     Button mBtnSaveProduk;
+    ImageView mGambar;
+
+    String nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar;
+    Bitmap bitmap;
+    Uri filePath;
 
     @Nullable
     @Override
@@ -46,24 +76,39 @@ public class ProdukAddFragment extends Fragment {
 
         setAtribut();
 
-       mBtnSaveProduk.setOnClickListener(new View.OnClickListener() {
+        mBtnSaveProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String namaProduk = mNamaProduk.getText().toString();
-                String satuan = mSatuan.getText().toString();
-                String hargaJual = mHargaJual.getText().toString();
-                String hargaBeli = mHargaBeli.getText().toString();
-                String stok = mStok.getText().toString();
-                String stok_minimum = mStokMinimum.getText().toString();
-                String gambar = mGambar.getText().toString();
+                nama_produk = mNamaProduk.getText().toString();
+                satuan = mSatuan.getText().toString();
+                harga_jual = mHargaJual.getText().toString();
+                harga_beli = mHargaBeli.getText().toString();
+                stok = mStok.getText().toString();
+                stok_minimum = mStokMinimum.getText().toString();
+                gambar = null;
+                if (bitmap != null) {
+                    gambar = getRealPathFromUri(getActivity(), filePath);
+                }
 
-                if(validate(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar)){
-                    ProdukModel produkModel = new ProdukModel(namaProduk, satuan, hargaJual, hargaBeli, stok, stok_minimum, gambar, pic);
-                    saveProduk(produkModel);
+                if(validate(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, gambar)){
+                    ProdukModel produkModel = new ProdukModel(nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, pic);
+                    saveProduk(produkModel, gambar);
                 }
             }
         });
         return myView;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == STORAGE_PERMISSION_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(getActivity(), "Storage Permission Granted", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity(), "Storage Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void setAtribut(){
@@ -74,6 +119,33 @@ public class ProdukAddFragment extends Fragment {
         mStok = myView.findViewById(R.id.etStok);
         mStokMinimum = myView.findViewById(R.id.etStokMinimum);
         mBtnSaveProduk = myView.findViewById(R.id.btnSaveProduk);
+        mGambar = myView.findViewById(R.id.produkImage);
+
+        mGambar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE)){
+                    chooseFile();
+                }
+            }
+        });
+    }
+
+    private void chooseFile() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        String[] mimeTypes = {"image/jpeg", "image/jpg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+    }
+
+    private boolean checkPermission(String permission, int requestCode){
+        if(ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(getActivity(), new String[] {permission}, requestCode);
+            return false;
+        }else{
+            return true;
+        }
     }
 
     private boolean validate(String namaProduk, String satuan, String hargaJual, String hargaBeli, String stok, String stok_minimum, String gambar){
@@ -102,15 +174,27 @@ public class ProdukAddFragment extends Fragment {
             return false;
         }
         if(gambar == null){
-            mGambar.setError("Gambar is required");
+            Toast.makeText(getActivity(), "Image is required !", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
-    private void saveProduk(ProdukModel produkModel){
+    private void saveProduk(ProdukModel produkModel, String filePath){
+        File file = new File(filePath);
+        RequestBody image = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part gambar = MultipartBody.Part.createFormData("gambar", file.getName(), image);
+
+        RequestBody nama_produk = RequestBody.create(MediaType.parse("text/plain"), produkModel.getNama_produk());
+        RequestBody satuan = RequestBody.create(MediaType.parse("text/plain"), produkModel.getSatuan());
+        RequestBody harga_jual = RequestBody.create(MediaType.parse("text/plain"), produkModel.getHarga_jual());
+        RequestBody harga_beli = RequestBody.create(MediaType.parse("text/plain"), produkModel.getHarga_beli());
+        RequestBody stok = RequestBody.create(MediaType.parse("text/plain"), produkModel.getStok());
+        RequestBody stok_minimum = RequestBody.create(MediaType.parse("text/plain"), produkModel.getStok_minimum());
+        RequestBody pic = RequestBody.create(MediaType.parse("text/plain"), produkModel.getPic());
+
         ApiProduk apiProduk = ApiClient.getClient().create(ApiProduk.class);
-        Call<ResultOneProduk> produkCall = apiProduk.createProduk(produkModel);
+        Call<ResultOneProduk> produkCall = apiProduk.createProduk(gambar, nama_produk, satuan, harga_jual, harga_beli, stok, stok_minimum, pic);
 
         produkCall.enqueue(new Callback<ResultOneProduk>() {
             @Override
@@ -131,4 +215,25 @@ public class ProdukAddFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath);
+                mGambar.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String getRealPathFromUri(Context context, Uri uri){
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(index);
+    }
 }

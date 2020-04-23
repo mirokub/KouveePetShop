@@ -19,26 +19,42 @@ import retrofit2.http.Path;
 
 public interface ApiProduk {
 
-    @Multipart
-    @POST("produk/{gambar}")
-    Call<RequestBody> uploadImage(@Part MultipartBody.Part part, @Part("gambar") RequestBody requestBody);
-
     @GET("produk")
     Call<ResultProduk> getAllProduk();
 
     @GET("produk/{id}")
-    Call<ResultProduk> getProduk(@Path("id") String id_produk);
+    Call<ResultOneProduk> getProduk(@Path("id") String id_produk);
 
+    @Multipart
     @POST("produk")
-    Call<ResultOneProduk> createProduk(@Body ProdukModel produkModel);
+    Call<ResultOneProduk> createProduk(@Part MultipartBody.Part file,
+                                       @Part("nama_produk") RequestBody nama_produk,
+                                       @Part("satuan") RequestBody satuan,
+                                       @Part("harga_jual") RequestBody harga_jual,
+                                       @Part("harga_beli") RequestBody harga_beli,
+                                       @Part("stok") RequestBody stok,
+                                       @Part("stok_minimum") RequestBody stok_minimum,
+                                       @Part("pic") RequestBody pic);
 
-    @PUT("produk/{id}")
-    Call<ResultOneProduk> updateProduk(@Path("id") String id_produk,
-                                         @Body ProdukModel produkModel);
 
-    @PUT("produk/delete/{id}")
+    @Multipart
+    @POST("produk/{id}")
+    Call<ResultOneProduk> updateProdukWithImage(@Path("id") String id_produk,
+                                                @Part MultipartBody.Part file,
+                                                @Part("nama_produk") RequestBody nama_produk,
+                                                @Part("satuan") RequestBody satuan,
+                                                @Part("harga_jual") RequestBody harga_jual,
+                                                @Part("harga_beli") RequestBody harga_beli,
+                                                @Part("stok") RequestBody stok,
+                                                @Part("stok_minimum") RequestBody stok_minimum,
+                                                @Part("pic") RequestBody pic);
+
+    @POST("produk/{id}")
+    Call<ResultOneProduk> updateProdukWithoutImage(@Path("id") String id_produk, @Body ProdukModel produkModel);
+
+    @POST("produk/delete/{id}")
     @FormUrlEncoded
     Call<ResultOneProduk> deleteProduk(@Path("id") String id_produk,
-                                         @Field("pic") String pic);
+                                       @Field("pic") String pic);
 
 }

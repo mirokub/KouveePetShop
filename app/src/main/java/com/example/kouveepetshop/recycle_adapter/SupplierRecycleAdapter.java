@@ -78,7 +78,8 @@ public class SupplierRecycleAdapter extends RecyclerView.Adapter<SupplierRecycle
         Bundle mBundle = new Bundle();
         mBundle.putString("id_supplier", supplierModel.getId_supplier());
         mBundle.putString("nama_supplier", supplierModel.getNama_supplier());
-        mBundle.putString("nomor_telp", supplierModel.getNo_telp());
+        mBundle.putString("alamat", supplierModel.getAlamat());
+        mBundle.putString("no_telp", supplierModel.getNo_telp());
         supplierEditFragment.setArguments(mBundle);
         fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, supplierEditFragment).commit();
     }
