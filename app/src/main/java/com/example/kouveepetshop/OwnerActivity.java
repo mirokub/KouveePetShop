@@ -1,6 +1,5 @@
 package com.example.kouveepetshop;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +17,6 @@ import com.example.kouveepetshop.ui.layanan.LayananAddFragment;
 import com.example.kouveepetshop.ui.layanan.LayananViewFragment;
 import com.example.kouveepetshop.ui.pengadaan_menu.PengadaanMenu;
 import com.example.kouveepetshop.ui.produk.ProdukAddFragment;
-import com.example.kouveepetshop.ui.produk.ProdukEditFragment;
 import com.example.kouveepetshop.ui.produk.ProdukViewFragment;
 import com.example.kouveepetshop.ui.supplier.SupplierAddFragment;
 import com.example.kouveepetshop.ui.ukuran_hewan.UkuranHewanAddFragment;
@@ -44,7 +42,7 @@ public class OwnerActivity extends AppCompatActivity {
                 if (navView.getSelectedItemId() == R.id.navigation_produk) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new ProdukAddFragment()).commit();
-                } else if (navView.getSelectedItemId() == R.id.navigation_layanan) {
+                } else if (navView.getSelectedItemId() == R.id.navigation_penjualan_layanan) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new LayananAddFragment()).commit();
                 } else if (navView.getSelectedItemId() == R.id.navigation_jenis_hewan) {
@@ -76,7 +74,7 @@ public class OwnerActivity extends AppCompatActivity {
                     selectedFragment = new ProdukViewFragment();
                     fab.setVisibility(View.VISIBLE);
                     break;
-                case R.id.navigation_layanan:
+                case R.id.navigation_penjualan_layanan:
                     selectedFragment = new LayananViewFragment();
                     fab.setVisibility(View.VISIBLE);
                     break;

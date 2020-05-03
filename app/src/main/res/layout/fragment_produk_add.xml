@@ -25,74 +25,121 @@
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Nama Produk"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="24dp"/>
 
         <EditText
             android:id="@+id/etNamaProduk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
             android:layout_gravity="center_horizontal"
-            android:hint="@string/title_nama_produk"
             android:inputType="textPersonName"/>
+
+        <TextView
+            android:text="Satuan"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="24dp"/>
 
         <EditText
             android:id="@+id/etSatuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:layout_gravity="center_horizontal"
-            android:hint="@string/satuan"/>
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:text="Harga Jual"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="24dp"/>
 
         <EditText
             android:id="@+id/etHargaJual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/title_harga_jual"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
             android:inputType="number"/>
+
+        <TextView
+            android:text="Harga Beli"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="24dp"/>
 
         <EditText
             android:id="@+id/etHargaBeli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
-            android:hint="@string/title_harga_beli"
             android:ems="10"
             android:inputType="number"/>
+
+        <TextView
+            android:text="Stok"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="24dp"/>
 
         <EditText
             android:id="@+id/etStok"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/stok"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="24dp"
             android:ems="10"
             android:inputType="number"/>
 
+        <TextView
+            android:text="Stok Minimum"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="24dp"/>
+
         <EditText
             android:id="@+id/etStokMinimum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/stok_minimum"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
             android:layout_gravity="center_horizontal"
