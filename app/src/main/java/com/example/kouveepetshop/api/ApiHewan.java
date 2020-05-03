@@ -18,6 +18,9 @@ public interface ApiHewan {
     @GET("hewan")
     Call<ResultHewan> getAllHewan();
 
+    @GET("hewan/getByCustomer/{id}")
+    Call<ResultHewan> getHewanByCustomer(@Path("id") String id_customer);
+
     @GET("hewan/{id}")
     Call<ResultOneHewan> getHewan(@Path("id") String id_hewan);
 

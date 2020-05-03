@@ -10,6 +10,8 @@
     <string name="title_transaksi">Transaksi</string>
     <string name="title_pengadaan">Pengadaan</string>
     <string name="title_pembayaran">Pembayaran</string>
+    <string name="title_penjualan_layanan">Penjualan Layanan</string>
+    <string name="title_penjualan_produk">Penjualan Produk</string>
 
     <string name="title_hewan">Hewan</string>
     <string name="title_customer">Customer</string>

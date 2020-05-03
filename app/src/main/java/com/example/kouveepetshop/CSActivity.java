@@ -15,6 +15,7 @@ import com.example.kouveepetshop.ui.customer.CustomerAddFragment;
 import com.example.kouveepetshop.ui.customer.CustomerViewFragment;
 import com.example.kouveepetshop.ui.hewan.HewanAddFragment;
 import com.example.kouveepetshop.ui.hewan.HewanViewFragment;
+import com.example.kouveepetshop.ui.transaksiCS.PenjualanLayananAddFragment;
 import com.example.kouveepetshop.ui.transaksiCS.TransaksiCSFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,6 +44,7 @@ public class CSActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new TransaksiCSFragment()).commit();
                 }
+
                 fab.setVisibility(View.INVISIBLE);
             }
         });
@@ -58,15 +60,17 @@ public class CSActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.navigation_customer:
                     selectedFragment = new CustomerViewFragment();
+                    fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_hewan:
                     selectedFragment = new HewanViewFragment();
+                    fab.setVisibility(View.VISIBLE);
                     break;
                 case R.id.navigation_transaksi:
                     selectedFragment = new TransaksiCSFragment();
+                    fab.setVisibility(View.INVISIBLE);
                     break;
             }
-            fab.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_cs, selectedFragment).commit();
 
             return true;
