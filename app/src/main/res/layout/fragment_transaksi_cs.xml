@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.transaksiCS.TransaksiCSFragment">
+    android:layout_height="match_parent">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginVertical="250dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="@string/under_construction" />
+        android:gravity="center"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/image_penjualan_layanan"
+            android:src="@mipmap/ic_penjualan_layanan_foreground"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBtnPenjualanLayanan"
+            android:text="@string/title_penjualan_layanan"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/image_penjualan_layanan"
+            android:layout_alignRight="@id/image_penjualan_layanan"
+            android:layout_alignLeft="@id/image_penjualan_layanan"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            />
+
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="40dp"
+            android:id="@+id/image_penjualan_produk"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:src="@mipmap/ic_penjualan_produk_foreground"
+            android:layout_below="@id/tvBtnPenjualanLayanan"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_penjualan_produk"
+            android:layout_below="@+id/image_penjualan_produk"
+            android:layout_alignRight="@+id/image_penjualan_produk"
+            android:layout_alignLeft="@id/image_penjualan_produk"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/tvBtnPengadaan"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -7,7 +7,7 @@
         android:title="@string/title_produk" />
 
     <item
-        android:id="@+id/navigation_layanan"
+        android:id="@+id/navigation_penjualan_layanan"
         android:icon="@drawable/ic_action_layanan"
         android:title="@string/title_layanan" />
 

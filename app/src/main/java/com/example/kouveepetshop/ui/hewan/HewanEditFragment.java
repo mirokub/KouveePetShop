@@ -166,7 +166,6 @@ public class HewanEditFragment extends Fragment {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-
     }
 
     public void setSpinnerUkuran(final String ukuranSelected){
