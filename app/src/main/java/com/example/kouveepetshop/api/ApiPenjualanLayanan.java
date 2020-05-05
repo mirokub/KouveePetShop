@@ -37,6 +37,11 @@ public interface ApiPenjualanLayanan {
     Call<ResultOnePenjualanLayanan> updatePenjualanLayanan(@Path("id") String id,
                                                            @Body PenjualanLayananModel penjualanLayananModel);
 
+    @PUT("transaksi/layanan/updateTotal/{id}")
+    @FormUrlEncoded
+    Call<ResultOnePenjualanLayanan> updateTotal(@Path("id") String nomor_transaksi,
+                                                @Field("total") String total);
+
     @PUT("transaksi/layanan/delete/{id}")
     @FormUrlEncoded
     Call<ResultOnePenjualanLayanan> deletePenjualanLayanan(@Path("id") String id,
@@ -44,14 +49,11 @@ public interface ApiPenjualanLayanan {
 
     //Detail Penjualan Layanan
 
-    @GET("transaksi/detail_layanan")
-    Call<ResultDetailLayanan> getAllDetail();
+    @GET("transaksi/detail_layanan/getByTransaction/{id}")
+    Call<ResultDetailLayanan> getAllDetail(@Path("id") String nomor_transaksi);
 
     @GET("transaksi/detail_layanan/{id}")
     Call<ResultOneDetailLayanan> getDetail(@Path("id") String id_detail);
-
-    @GET("transaksi/detail_layanan/getByTransaction/{id}")
-    Call<ResultDetailLayanan> getAllDetailByTransaction(@Path("id") String nomor_transaksi);
 
     @POST("transaksi/detail_layanan")
     Call<ResultOneDetailLayanan> createDetailLayanan(@Body DetailPenjualanLayananModel detailPenjualanLayananModel);

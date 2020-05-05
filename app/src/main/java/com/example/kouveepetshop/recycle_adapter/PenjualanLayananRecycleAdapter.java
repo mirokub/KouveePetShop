@@ -21,12 +21,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kouveepetshop.R;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
+import com.example.kouveepetshop.api.ApiPenjualanLayanan;
 import com.example.kouveepetshop.api.ApiSupplier;
 import com.example.kouveepetshop.model.PenjualanLayananModel;
 import com.example.kouveepetshop.model.SupplierModel;
+import com.example.kouveepetshop.result.penjualan_layanan.ResultOnePenjualanLayanan;
 import com.example.kouveepetshop.result.supplier.ResultOneSupplier;
 import com.example.kouveepetshop.ui.supplier.SupplierEditFragment;
 import com.example.kouveepetshop.ui.supplier.SupplierViewFragment;
+import com.example.kouveepetshop.ui.transaksiCS.DetailLayananViewFragment;
+import com.example.kouveepetshop.ui.transaksiCS.PenjualanLayananEditFragment;
+import com.example.kouveepetshop.ui.transaksiCS.PenjualanLayananViewFragment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -76,8 +81,9 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
             holder.mNamaHewan.setText("Hewan : " + penjualan.getNama_hewan() + " (" + penjualan.getJenis() + " - " + penjualan.getUkuran() + ")");
         }
         holder.mTglPenjualan.setText("Tanggal Penjualan : " + convertTglPenjualan(penjualan.getTgl_penjualan()));
-        holder.mStatusLayanan.setText("Status : " + penjualan.getStatus_layanan());
-        holder.mTotalBiaya.setText("Total Biaya : " + penjualan.getTotal());
+        holder.mStatusLayanan.setText("Status Layanan : " + penjualan.getStatus_layanan());
+        holder.mStatusPembayaran.setText("Status Pembayaran : " + penjualan.getStatus_pembayaran());
+        holder.mTotalBiaya.setText("Total Biaya : Rp " + penjualan.getTotal());
         holder.mCustomerService.setText("Customer Service : " + penjualan.getCustomer_service());
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,38 +106,50 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
         return output;
     }
 
-    private void moveToEditFragment(View view, SupplierModel supplierModel){
+    private void moveToEditFragment(View view, PenjualanLayananModel penjualan){
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        SupplierEditFragment supplierEditFragment = new SupplierEditFragment();
+        PenjualanLayananEditFragment penjualanEditFragment = new PenjualanLayananEditFragment();
         Bundle mBundle = new Bundle();
-        mBundle.putString("id_supplier", supplierModel.getId_supplier());
-        mBundle.putString("nama_supplier", supplierModel.getNama_supplier());
-        mBundle.putString("alamat", supplierModel.getAlamat());
-        mBundle.putString("no_telp", supplierModel.getNo_telp());
-        supplierEditFragment.setArguments(mBundle);
-        fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, supplierEditFragment).commit();
+        mBundle.putString("id", penjualan.getId());
+        mBundle.putString("id_customer", penjualan.getId_customer());
+        mBundle.putString("id_hewan", penjualan.getId_hewan());
+        penjualanEditFragment.setArguments(mBundle);
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, penjualanEditFragment).commit();
     }
 
-    private void deleteLayanan(final View view, SupplierModel supplierModel, String pic){
-        ApiSupplier apiSupplier = ApiClient.getClient().create(ApiSupplier.class);
-        Call<ResultOneSupplier> supplierCall = apiSupplier.deleteSupplier(supplierModel.getId_supplier(), pic);
+    private void moveToDetailFragment(View view, PenjualanLayananModel penjualan){
+        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        DetailLayananViewFragment detailLayananViewFragment = new DetailLayananViewFragment();
+        Bundle mBundle = new Bundle();
+        mBundle.putString("id", penjualan.getId());
+        mBundle.putString("nomor_transaksi", penjualan.getNomor_transaksi());
+        mBundle.putString("tgl_penjualan", penjualan.getTgl_penjualan());
+        mBundle.putString("status_pembayaran", penjualan.getStatus_pembayaran());
+        detailLayananViewFragment.setArguments(mBundle);
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, detailLayananViewFragment).commit();
+    }
 
-        supplierCall.enqueue(new Callback<ResultOneSupplier>() {
+    private void deletePenjualanLayanan(final View view, PenjualanLayananModel penjualan, String id_cs){
+        ApiPenjualanLayanan apiPenjualan = ApiClient.getClient().create(ApiPenjualanLayanan.class);
+        Call<ResultOnePenjualanLayanan> penjualanCall = apiPenjualan.deletePenjualanLayanan(penjualan.getId(), id_cs);
+
+        penjualanCall.enqueue(new Callback<ResultOnePenjualanLayanan>() {
             @Override
-            public void onResponse(Call<ResultOneSupplier> call, Response<ResultOneSupplier> response) {
+            public void onResponse(Call<ResultOnePenjualanLayanan> call, Response<ResultOnePenjualanLayanan> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(context.getApplicationContext(), "Delete Supplier Success !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "Delete Penjualan Success !", Toast.LENGTH_SHORT).show();
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new SupplierViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanLayananViewFragment()).commit();
                 }else{
-                    Toast.makeText(context.getApplicationContext(), "Delete Supplier Failed !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "Delete Penjualan Failed !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResultOneSupplier> call, Throwable t) {
+            public void onFailure(Call<ResultOnePenjualanLayanan> call, Throwable t) {
                 Toast.makeText(context.getApplicationContext(), "Connection Problem !", Toast.LENGTH_SHORT).show();
             }
         });
@@ -144,13 +162,13 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Detail", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                moveToDetailFragment(view, penjualan);
             }
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                moveToEditFragment(view, penjualan);
+                moveToEditFragment(view, penjualan);
             }
         });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", new DialogInterface.OnClickListener() {
@@ -168,7 +186,7 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
                 confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        deleteLayanan(view, supplierModel, pic);
+                        deletePenjualanLayanan(view, penjualan, id_cs);
                     }
                 });
                 confirmDialog.show();
@@ -183,7 +201,7 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mNomorTransaksi, mNamaCustomer, mNamaHewan, mTglPenjualan, mStatusLayanan, mTotalBiaya, mCustomerService;
+        private TextView mNomorTransaksi, mNamaCustomer, mNamaHewan, mTglPenjualan, mStatusLayanan, mStatusPembayaran, mTotalBiaya, mCustomerService;
         private LinearLayout mParent;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -193,6 +211,7 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
             mNamaHewan = itemView.findViewById(R.id.txtViewHewanLayanan);
             mTglPenjualan = itemView.findViewById(R.id.txtViewTglPenjualanLayanan);
             mStatusLayanan = itemView.findViewById(R.id.txtViewStatusLayanan);
+            mStatusPembayaran = itemView.findViewById(R.id.txtViewStatusPembayaranLayanan);
             mTotalBiaya = itemView.findViewById(R.id.txtViewTotalBiayaLayanan);
             mCustomerService = itemView.findViewById(R.id.txtViewCSLayanan);
             mParent = itemView.findViewById(R.id.parentPenjualanLayanan);
@@ -220,10 +239,11 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for(PenjualanLayananModel penjualan : resultFull){
                     if(penjualan.getNomor_transaksi().toLowerCase().contains(filterPattern) ||
-                            penjualan.getNama_customer().toLowerCase().contains(filterPattern) ||
-                            penjualan.getNama_hewan().toLowerCase().contains(filterPattern) ||
+//                            penjualan.getNama_customer().toLowerCase().contains(filterPattern) ||
+//                            penjualan.getNama_hewan().toLowerCase().contains(filterPattern) ||
                             penjualan.getTgl_penjualan().toLowerCase().contains(filterPattern) ||
-                            penjualan.getStatus_layanan().toLowerCase().contains(filterPattern) ||
+                            penjualan.getStatus_layanan().toLowerCase().equals(filterPattern) ||
+                            penjualan.getStatus_pembayaran().toLowerCase().contains(filterPattern) ||
                             penjualan.getTotal().toLowerCase().contains(filterPattern) ||
                             penjualan.getCustomer_service().toLowerCase().contains(filterPattern)){
                         filteredList.add(penjualan);

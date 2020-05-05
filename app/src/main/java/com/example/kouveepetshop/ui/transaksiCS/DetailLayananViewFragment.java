@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,34 +30,36 @@ import com.example.kouveepetshop.SplashScreen;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
 import com.example.kouveepetshop.api.ApiPenjualanLayanan;
-import com.example.kouveepetshop.api.ApiSupplier;
+import com.example.kouveepetshop.model.DetailPenjualanLayananModel;
 import com.example.kouveepetshop.model.PenjualanLayananModel;
-import com.example.kouveepetshop.model.SupplierModel;
+import com.example.kouveepetshop.recycle_adapter.DetailLayananRecycleAdapter;
 import com.example.kouveepetshop.recycle_adapter.PenjualanLayananRecycleAdapter;
-import com.example.kouveepetshop.recycle_adapter.SupplierRecycleAdapter;
+import com.example.kouveepetshop.result.penjualan_layanan.ResultDetailLayanan;
 import com.example.kouveepetshop.result.penjualan_layanan.ResultPenjualanLayanan;
-import com.example.kouveepetshop.result.supplier.ResultSupplier;
-import com.example.kouveepetshop.ui.supplier.SupplierAddFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PenjualanLayananViewFragment extends Fragment {
+public class DetailLayananViewFragment extends Fragment {
 
-    private List<PenjualanLayananModel> penjualanList = new ArrayList<>();
+    private String id, nomor_transaksi, tgl_penjualan, status_pembayaran;
+    private List<DetailPenjualanLayananModel> details = new ArrayList<>();
     private RecyclerView recyclerView;
-    private PenjualanLayananRecycleAdapter penjualanRecycleAdapter;
+    private DetailLayananRecycleAdapter detailLayananRecycleAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
 
+    TextView mNomorTransaksi, mTglPenjualan, mStatusPembayaran;
     FloatingActionButton fab;
-    RadioGroup mFilterStatus;
 
     View myView;
 
@@ -68,42 +71,38 @@ public class PenjualanLayananViewFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.fragment_penjualan_layanan_view, container, false);
+        myView = inflater.inflate(R.layout.fragment_detail_layanan_view, container, false);
 
         setAtribut();
+        setText();
+
+        if(status_pembayaran.equals("Lunas")){
+            fab.setVisibility(View.GONE);
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DetailLayananAddFragment detailLayananAddFragment = new DetailLayananAddFragment();
+                Bundle mBundle = new Bundle();
+                mBundle.putString("id", id);
+                mBundle.putString("nomor_transaksi", nomor_transaksi);
+                mBundle.putString("tgl_penjualan", tgl_penjualan);
+                mBundle.putString("status_pembayaran", status_pembayaran);
+                detailLayananAddFragment.setArguments(mBundle);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanLayananAddFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, detailLayananAddFragment).commit();
                 fab.setVisibility(View.INVISIBLE);
             }
         });
 
-        mFilterStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int id = mFilterStatus.getCheckedRadioButtonId();
-                switch (id){
-                    case R.id.radioButtonBelumSelesai:
-                        penjualanRecycleAdapter.getFilter().filter("Belum Selesai");
-                    break;
-
-                    case R.id.radioButtonSelesai:
-                        penjualanRecycleAdapter.getFilter().filter("Selesai");
-                    break;
-                }
-            }
-        });
-
-        recyclerView = myView.findViewById(R.id.recycleViewPenjualanLayanan);
+        recyclerView = myView.findViewById(R.id.recycleViewDetailLayanan);
         layoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        showAllPenjualan();
+        showAllDetail();
 
         return myView;
     }
@@ -125,7 +124,7 @@ public class PenjualanLayananViewFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                penjualanRecycleAdapter.getFilter().filter(newText);
+                detailLayananRecycleAdapter.getFilter().filter(newText);
                 return true;
             }
         };
@@ -145,25 +144,25 @@ public class PenjualanLayananViewFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showAllPenjualan(){
+    public void showAllDetail(){
         ApiPenjualanLayanan apiPenjualan = ApiClient.getClient().create(ApiPenjualanLayanan.class);
-        Call<ResultPenjualanLayanan> penjualanCall = apiPenjualan.getAll();
+        Call<ResultDetailLayanan> detailCall = apiPenjualan.getAllDetail(nomor_transaksi);
 
-        penjualanCall.enqueue(new Callback<ResultPenjualanLayanan>() {
+        detailCall.enqueue(new Callback<ResultDetailLayanan>() {
             @Override
-            public void onResponse(Call<ResultPenjualanLayanan> call, Response<ResultPenjualanLayanan> response) {
+            public void onResponse(Call<ResultDetailLayanan> call, Response<ResultDetailLayanan> response) {
                 if(response.isSuccessful()){
-                    penjualanList = response.body().getListPenjualanLayanan();
-                    penjualanRecycleAdapter = new PenjualanLayananRecycleAdapter(getActivity(), penjualanList);
-                    recyclerView.setAdapter(penjualanRecycleAdapter);
-                    penjualanRecycleAdapter.notifyDataSetChanged();
+                    details = response.body().getListDetailPenjualanLayanan();
+                    detailLayananRecycleAdapter = new DetailLayananRecycleAdapter(getActivity(), details, id, nomor_transaksi, tgl_penjualan, status_pembayaran);
+                    recyclerView.setAdapter(detailLayananRecycleAdapter);
+                    detailLayananRecycleAdapter.notifyDataSetChanged();
                 }else if(response.code() == 404){
-                    Toast.makeText(getContext(), "Penjualan Layanan is Empty !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Detail Penjualan Layanan is Empty !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResultPenjualanLayanan> call, Throwable t) {
+            public void onFailure(Call<ResultDetailLayanan> call, Throwable t) {
                 System.out.println(t.getMessage());
                 Toast.makeText(getContext(), "Connection Problem", Toast.LENGTH_SHORT).show();
             }
@@ -171,8 +170,34 @@ public class PenjualanLayananViewFragment extends Fragment {
     }
 
     private void setAtribut(){
-        fab = myView.findViewById(R.id.fab_btn_penjualan_layanan);
-        mFilterStatus = myView.findViewById(R.id.radioGroupStatusLayanan);
+        fab = myView.findViewById(R.id.fab_btn_detail_layanan);
+        mNomorTransaksi = myView.findViewById(R.id.tvNTDetailLayanan);
+        mTglPenjualan = myView.findViewById(R.id.tvTglPenjualanLayananDetail);
+        mStatusPembayaran = myView.findViewById(R.id.tvStatusPembayaranDetail);
+    }
+
+    public void setText(){
+        Bundle nBundle = getArguments();
+        id = nBundle.getString("id");
+        nomor_transaksi = nBundle.getString("nomor_transaksi");
+        tgl_penjualan = nBundle.getString("tgl_penjualan");
+        status_pembayaran = nBundle.getString("status_pembayaran");
+        mNomorTransaksi.setText(nomor_transaksi);
+        mTglPenjualan.setText("Tanggal Penjualan : " + convertTglPenjualan(tgl_penjualan));
+        mStatusPembayaran.setText("Status Pembayaran : " + status_pembayaran);
+    }
+
+    private String convertTglPenjualan(String tgl_penjualan){
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+        String output = "";
+        try{
+            Date date = inputFormat.parse(tgl_penjualan);
+            output = outputFormat.format(date);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return output;
     }
 
     private void doLogout(){

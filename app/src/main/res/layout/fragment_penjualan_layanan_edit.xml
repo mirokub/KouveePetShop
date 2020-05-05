@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvTipeCustomer"
+        android:id="@+id/tvTipeCustomerEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -27,21 +27,20 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:id="@+id/radioGroupCustomer"
-        app:layout_constraintTop_toBottomOf="@id/tvTipeCustomer"
+        android:id="@+id/radioGroupCustomerEdit"
+        app:layout_constraintTop_toBottomOf="@id/tvTipeCustomerEdit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <RadioButton
-            android:id="@+id/radioButtonGuest"
+            android:id="@+id/radioButtonGuestEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:checked="true"
             android:text="Guest"/>
 
         <RadioButton
-            android:id="@+id/radioButtonMember"
+            android:id="@+id/radioButtonMemberEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -50,7 +49,7 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/tvPilihCustomer"
+        android:id="@+id/tvPilihCustomerEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -61,10 +60,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.007"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radioGroupCustomer"/>
+        app:layout_constraintTop_toBottomOf="@id/radioGroupCustomerEdit"/>
 
     <Spinner
-        android:id="@+id/spinnerPilihCustomer"
+        android:id="@+id/spinnerPilihCustomerEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -72,10 +71,10 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPilihCustomer" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPilihCustomerEdit" />
 
     <TextView
-        android:id="@+id/tvPilihHewan"
+        android:id="@+id/tvPilihHewanEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -86,10 +85,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.007"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerPilihCustomer" />
+        app:layout_constraintTop_toBottomOf="@id/spinnerPilihCustomerEdit" />
 
     <Spinner
-        android:id="@+id/spinnerPilihHewan"
+        android:id="@+id/spinnerPilihHewanEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -97,22 +96,22 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPilihHewan" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPilihHewanEdit" />
 
     <Button
-        android:id="@+id/btnSavePenjualanLayanan"
+        android:id="@+id/btnUpdatePenjualanLayanan"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:text="Save"
+        android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerPilihHewan"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPilihHewanEdit"
         app:layout_constraintVertical_bias="0.054" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
