@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/penjualanLayananLayout"
+    android:id="@+id/detailLayananLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvFilterStatus"
+        android:id="@+id/tvNTDetailLayanan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -17,45 +17,43 @@
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:text="Status Layanan"
+        android:text="Nomor Transaksi"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tvTglPenjualanLayananDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tvNTDetailLayanan"
+        android:text="Tanggal Penjualan"
         android:textSize="16sp"/>
 
-    <RadioGroup
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvStatusPembayaranDetail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
+        android:layout_gravity="left"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:id="@+id/radioGroupStatusLayanan"
-        android:layout_below="@id/tvFilterStatus">
-
-        <RadioButton
-            android:id="@+id/radioButtonBelumSelesai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Belum Selesai"/>
-
-        <RadioButton
-            android:id="@+id/radioButtonSelesai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:textSize="16sp"
-            android:text="Selesai"/>
-    </RadioGroup>
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tvTglPenjualanLayananDetail"
+        android:text="Status Pembayaran"
+        android:textSize="16sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewPenjualanLayanan"
+        android:id="@+id/recycleViewDetailLayanan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/radioGroupStatusLayanan"
-        android:layout_marginTop="10dp"/>
+        android:layout_below="@id/tvStatusPembayaranDetail"
+        android:layout_marginTop="20dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_btn_penjualan_layanan"
+        android:id="@+id/fab_btn_detail_layanan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"

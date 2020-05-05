@@ -57,6 +57,10 @@ public class PenjualanLayananModel {
         this.id_cs = id_cs;
     }
 
+    public PenjualanLayananModel(String id_cs) {
+        this.id_cs = id_cs;
+    }
+
     public String getId() {
         return id;
     }

@@ -8,7 +8,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvPenjualanLayanan"
+    android:id="@+id/cvDetailPenjualanLayanan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
@@ -20,7 +20,7 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
-        android:id="@+id/parentPenjualanLayanan"
+        android:id="@+id/parentDetailLayanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -29,9 +29,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nomor Transaksi"
+            android:text="Nama Layanan"
             android:textSize="20sp"
-            android:id="@+id/txtViewNTLayanan"
+            android:id="@+id/tvNamaLayanan"
             android:textStyle="bold"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
@@ -41,9 +41,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Customer"
+            android:text="Harga Layanan"
             android:textSize="15sp"
-            android:id="@+id/txtViewCustomerLayanan"
+            android:id="@+id/tvHargaLayanan"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginStart="5dp"
@@ -53,67 +53,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Hewan"
+            android:text="Jumlah Pembelian"
             android:textSize="15sp"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
-            android:id="@+id/txtViewHewanLayanan"
+            android:id="@+id/tvJumlahBeliLayanan"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tanggal Penjualan"
+            android:text="Subtotal"
             android:textSize="15sp"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
-            android:id="@+id/txtViewTglPenjualanLayanan"
+            android:id="@+id/tvSubtotalLayanan"
             android:textColor="@color/colorPrimaryDark"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status Layanan"
-            android:textSize="15sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:id="@+id/txtViewStatusLayanan"
-            android:textColor="@color/colorPrimaryDark"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status Pembayaran"
-            android:textSize="15sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:id="@+id/txtViewStatusPembayaranLayanan"
-            android:textColor="@color/colorPrimaryDark"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Biaya"
-            android:textSize="15sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:id="@+id/txtViewTotalBiayaLayanan"
-            android:textColor="@color/colorPrimaryDark"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_edited_by"
-            android:textSize="15sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/txtViewCSLayanan"/>
 
     </LinearLayout>
 

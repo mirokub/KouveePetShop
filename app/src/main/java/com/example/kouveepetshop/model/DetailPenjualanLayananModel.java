@@ -29,7 +29,8 @@ public class DetailPenjualanLayananModel {
     public DetailPenjualanLayananModel() {
     }
 
-    public DetailPenjualanLayananModel(String id_layanan, String jumlah, String subtotal) {
+    public DetailPenjualanLayananModel(String nomor_transaksi, String id_layanan, String jumlah, String subtotal) {
+        this.nomor_transaksi = nomor_transaksi;
         this.id_layanan = id_layanan;
         this.jumlah = jumlah;
         this.subtotal = subtotal;

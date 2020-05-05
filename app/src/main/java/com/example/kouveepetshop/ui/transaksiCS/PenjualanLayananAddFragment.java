@@ -8,7 +8,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,12 +24,15 @@ import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.api.ApiClient;
 import com.example.kouveepetshop.api.ApiCustomer;
 import com.example.kouveepetshop.api.ApiHewan;
+import com.example.kouveepetshop.api.ApiPenjualanLayanan;
 import com.example.kouveepetshop.api.ApiSupplier;
 import com.example.kouveepetshop.model.CustomerModel;
 import com.example.kouveepetshop.model.HewanModel;
+import com.example.kouveepetshop.model.PenjualanLayananModel;
 import com.example.kouveepetshop.model.SupplierModel;
 import com.example.kouveepetshop.result.customer.ResultCustomer;
 import com.example.kouveepetshop.result.hewan.ResultHewan;
+import com.example.kouveepetshop.result.penjualan_layanan.ResultOnePenjualanLayanan;
 import com.example.kouveepetshop.result.supplier.ResultOneSupplier;
 import com.example.kouveepetshop.ui.supplier.SupplierViewFragment;
 
@@ -42,7 +48,9 @@ public class PenjualanLayananAddFragment extends Fragment {
     private String id_cs;
     View myView;
     Spinner mPilihCustomer, mPilihHewan;
+    RadioGroup mTipeCustomer;
     Button mBtnSavePenjualan;
+    TextView mCustomer, mHewan;
 
     @Nullable
     @Override
@@ -56,15 +64,45 @@ public class PenjualanLayananAddFragment extends Fragment {
         setAtribut();
         setSpinnerCustomer();
 
+
         mBtnSavePenjualan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id_hewan = getHewanSelected();
+                int id = mTipeCustomer.getCheckedRadioButtonId();
+                switch (id){
+                    case R.id.radioButtonGuest:
+                        PenjualanLayananModel penjualan = new PenjualanLayananModel(id_cs);
+                        savePenjualan(penjualan);
+                        break;
 
-//                if(validate(namaSupplier, alamatSupplier, nomorTelpSupplier)){
-//                    SupplierModel supplierModel = new SupplierModel(namaSupplier, alamatSupplier, nomorTelpSupplier, pic);
-//                    saveSupplier(supplierModel);
-//                }
+                    case R.id.radioButtonMember:
+                        String id_hewan = getHewanSelected();
+                        PenjualanLayananModel penjualanLayanan = new PenjualanLayananModel(id_hewan, id_cs);
+                        savePenjualan(penjualanLayanan);
+                        break;
+                }
+            }
+        });
+
+        mTipeCustomer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int id = mTipeCustomer.getCheckedRadioButtonId();
+                switch (id){
+                    case R.id.radioButtonGuest:
+                        mCustomer.setVisibility(View.GONE);
+                        mHewan.setVisibility(View.GONE);
+                        mPilihCustomer.setVisibility(View.GONE);
+                        mPilihHewan.setVisibility(View.GONE);
+                    break;
+
+                    case R.id.radioButtonMember:
+                        mCustomer.setVisibility(View.VISIBLE);
+                        mHewan.setVisibility(View.VISIBLE);
+                        mPilihCustomer.setVisibility(View.VISIBLE);
+                        mPilihHewan.setVisibility(View.VISIBLE);
+                    break;
+                }
             }
         });
 
@@ -72,7 +110,6 @@ public class PenjualanLayananAddFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String id_customer = getCustomerSelected();
-//                System.out.println(id_customer);
                 setSpinnerHewan(id_customer);
             }
 
@@ -86,9 +123,16 @@ public class PenjualanLayananAddFragment extends Fragment {
     }
 
     private void setAtribut(){
+        mTipeCustomer = myView.findViewById(R.id.radioGroupCustomer);
         mPilihCustomer = myView.findViewById(R.id.spinnerPilihCustomer);
         mPilihHewan = myView.findViewById(R.id.spinnerPilihHewan);
+        mCustomer = myView.findViewById(R.id.tvPilihCustomer);
+        mHewan = myView.findViewById(R.id.tvPilihHewan);
         mBtnSavePenjualan = myView.findViewById(R.id.btnSavePenjualanLayanan);
+        mCustomer.setVisibility(View.GONE);
+        mHewan.setVisibility(View.GONE);
+        mPilihCustomer.setVisibility(View.GONE);
+        mPilihHewan.setVisibility(View.GONE);
     }
 
     public void setSpinnerCustomer(){
@@ -140,44 +184,28 @@ public class PenjualanLayananAddFragment extends Fragment {
 
     private String getHewanSelected(){
         HewanModel hewanModel = (HewanModel) mPilihHewan.getSelectedItem();
-        return hewanModel.getId_customer();
+        return hewanModel.getId_hewan();
     }
-//
-//    private boolean validate(String namaSupplier, String alamatSupplier, String nomorTelpSupplier){
-//        if(namaSupplier == null || namaSupplier.trim().length() == 0){
-//            mNamaSupplier.setError("Nama Supplier is required");
-//            return false;
-//        }
-//        if(alamatSupplier == null || alamatSupplier.trim().length() == 0){
-//            mAlamatSupplier.setError("Alamat is required");
-//            return false;
-//        }
-//        if(nomorTelpSupplier == null || nomorTelpSupplier.trim().length() == 0){
-//            mNomorTelpSupplier.setError("Nomor Telepon is required");
-//            return false;
-//        }
-//        return true;
-//    }
 
-    private void saveSupplier(SupplierModel supplierModel){
-        ApiSupplier apiSupplier = ApiClient.getClient().create(ApiSupplier.class);
-        Call<ResultOneSupplier> supplierCall = apiSupplier.createSupplier(supplierModel);
+    private void savePenjualan(PenjualanLayananModel penjualan){
+        ApiPenjualanLayanan apiPenjualan = ApiClient.getClient().create(ApiPenjualanLayanan.class);
+        Call<ResultOnePenjualanLayanan> penjualanCall = apiPenjualan.createPenjualanLayanan(penjualan);
 
-        supplierCall.enqueue(new Callback<ResultOneSupplier>() {
+        penjualanCall.enqueue(new Callback<ResultOnePenjualanLayanan>() {
             @Override
-            public void onResponse(Call<ResultOneSupplier> call, Response<ResultOneSupplier> response) {
+            public void onResponse(Call<ResultOnePenjualanLayanan> call, Response<ResultOnePenjualanLayanan> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getActivity(), "Adding Supplier Success !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Adding Penjualan Success !", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new SupplierViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanLayananViewFragment()).commit();
                 }else{
-                    Toast.makeText(getActivity(), "Adding Supplier Failed !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Adding Penjualan Failed !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResultOneSupplier> call, Throwable t) {
-                Toast.makeText(getActivity(), "Connection Problem !", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResultOnePenjualanLayanan> call, Throwable t) {
+
             }
         });
     }
