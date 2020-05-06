@@ -17,6 +17,11 @@
         android:label="@string/title_penjualan_layanan" />
 
     <fragment
+        android:id="@+id/navigation_penjualan_produk"
+        android:name="com.example.kouveepetshop.ui.transaksiCS.PenjualanProdukViewFragment"
+        android:label="Penjualan Produk" />
+
+    <fragment
         android:id="@+id/navigation_customer"
         android:name="com.example.kouveepetshop.ui.customer.CustomerViewFragment"
         android:label="@string/title_customer"

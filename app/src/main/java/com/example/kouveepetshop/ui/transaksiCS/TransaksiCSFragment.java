@@ -54,6 +54,8 @@ public class TransaksiCSFragment extends Fragment {
         mBtnPenjualanProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanProdukViewFragment()).commit();
 
             }
         });
