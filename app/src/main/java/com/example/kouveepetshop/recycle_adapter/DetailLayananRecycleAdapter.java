@@ -27,6 +27,7 @@ import com.example.kouveepetshop.model.PenjualanLayananModel;
 import com.example.kouveepetshop.result.penjualan_layanan.ResultOneDetailLayanan;
 import com.example.kouveepetshop.result.penjualan_layanan.ResultOnePenjualanLayanan;
 import com.example.kouveepetshop.ui.transaksiCS.DetailLayananEditFragment;
+import com.example.kouveepetshop.ui.transaksiCS.DetailLayananViewFragment;
 import com.example.kouveepetshop.ui.transaksiCS.PenjualanLayananEditFragment;
 import com.example.kouveepetshop.ui.transaksiCS.PenjualanLayananViewFragment;
 
@@ -138,7 +139,7 @@ public class DetailLayananRecycleAdapter extends RecyclerView.Adapter<DetailLaya
                     Toast.makeText(context.getApplicationContext(), "Delete Detail Success !", Toast.LENGTH_SHORT).show();
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanLayananViewFragment()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new DetailLayananViewFragment()).commit();
                 } else {
                     Toast.makeText(context.getApplicationContext(), "Delete Detail Failed !", Toast.LENGTH_SHORT).show();
                 }
