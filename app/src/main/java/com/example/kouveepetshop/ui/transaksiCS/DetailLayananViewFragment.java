@@ -50,7 +50,7 @@ import retrofit2.Response;
 
 public class DetailLayananViewFragment extends Fragment {
 
-    private String id, nomor_transaksi, tgl_penjualan, status_pembayaran;
+    private String id, nomor_transaksi, tgl_penjualan, total, status_pembayaran;
     private List<DetailPenjualanLayananModel> details = new ArrayList<>();
     private RecyclerView recyclerView;
     private DetailLayananRecycleAdapter detailLayananRecycleAdapter;
@@ -153,7 +153,7 @@ public class DetailLayananViewFragment extends Fragment {
             public void onResponse(Call<ResultDetailLayanan> call, Response<ResultDetailLayanan> response) {
                 if(response.isSuccessful()){
                     details = response.body().getListDetailPenjualanLayanan();
-                    detailLayananRecycleAdapter = new DetailLayananRecycleAdapter(getActivity(), details, id, nomor_transaksi, tgl_penjualan, status_pembayaran);
+                    detailLayananRecycleAdapter = new DetailLayananRecycleAdapter(getActivity(), details, id, nomor_transaksi, tgl_penjualan, total, status_pembayaran);
                     recyclerView.setAdapter(detailLayananRecycleAdapter);
                     detailLayananRecycleAdapter.notifyDataSetChanged();
                 }else if(response.code() == 404){
@@ -181,6 +181,7 @@ public class DetailLayananViewFragment extends Fragment {
         id = nBundle.getString("id");
         nomor_transaksi = nBundle.getString("nomor_transaksi");
         tgl_penjualan = nBundle.getString("tgl_penjualan");
+        total = nBundle.getString("total");
         status_pembayaran = nBundle.getString("status_pembayaran");
         mNomorTransaksi.setText(nomor_transaksi);
         mTglPenjualan.setText("Tanggal Penjualan : " + convertTglPenjualan(tgl_penjualan));

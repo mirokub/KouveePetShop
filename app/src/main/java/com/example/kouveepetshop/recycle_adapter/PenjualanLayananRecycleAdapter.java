@@ -126,6 +126,7 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
         mBundle.putString("id", penjualan.getId());
         mBundle.putString("nomor_transaksi", penjualan.getNomor_transaksi());
         mBundle.putString("tgl_penjualan", penjualan.getTgl_penjualan());
+        mBundle.putString("total", penjualan.getTotal());
         mBundle.putString("status_pembayaran", penjualan.getStatus_pembayaran());
         detailLayananViewFragment.setArguments(mBundle);
         fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, detailLayananViewFragment).commit();
