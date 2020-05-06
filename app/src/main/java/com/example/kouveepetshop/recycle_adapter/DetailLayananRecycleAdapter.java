@@ -24,6 +24,7 @@ import com.example.kouveepetshop.api.ApiClient;
 import com.example.kouveepetshop.api.ApiPenjualanLayanan;
 import com.example.kouveepetshop.model.DetailPenjualanLayananModel;
 import com.example.kouveepetshop.model.PenjualanLayananModel;
+import com.example.kouveepetshop.result.penjualan_layanan.ResultOneDetailLayanan;
 import com.example.kouveepetshop.result.penjualan_layanan.ResultOnePenjualanLayanan;
 import com.example.kouveepetshop.ui.transaksiCS.DetailLayananEditFragment;
 import com.example.kouveepetshop.ui.transaksiCS.PenjualanLayananEditFragment;
@@ -39,16 +40,19 @@ import retrofit2.Response;
 public class DetailLayananRecycleAdapter extends RecyclerView.Adapter<DetailLayananRecycleAdapter.MyViewHolder> implements Filterable {
 
     private Context context;
-    private String id, nomor_transaksi, tgl_penjualan, status_pembayaran;
+    private String id, nomor_transaksi, tgl_penjualan, total, status_pembayaran;
     private List<DetailPenjualanLayananModel> result;
     private List<DetailPenjualanLayananModel> resultFull;
+    private PenjualanLayananModel penjualan = new PenjualanLayananModel();
 
     public DetailLayananRecycleAdapter(Context context, List<DetailPenjualanLayananModel> result,
-                                       String id, String nomor_transaksi, String tgl_penjualan, String status_pembayaran) {
+                                       String id, String nomor_transaksi, String tgl_penjualan,
+                                       String total, String status_pembayaran) {
         this.context = context;
         this.id = id;
         this.nomor_transaksi = nomor_transaksi;
         this.tgl_penjualan = tgl_penjualan;
+        this.total = total;
         this.status_pembayaran = status_pembayaran;
         this.result = result;
         resultFull = new ArrayList<>(result);
@@ -97,25 +101,51 @@ public class DetailLayananRecycleAdapter extends RecyclerView.Adapter<DetailLaya
         fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, detailLayananEditFragment).commit();
     }
 
-    private void deletePenjualanLayanan(final View view, PenjualanLayananModel penjualan, String id_cs){
+    private void delete(String idTransaksi, String total, final View view, DetailPenjualanLayananModel detail){
+        int subtotal = Integer.parseInt(detail.getSubtotal());
+        int totalBiaya = Integer.parseInt(total);
+
+        totalBiaya = totalBiaya - subtotal;
+
         ApiPenjualanLayanan apiPenjualan = ApiClient.getClient().create(ApiPenjualanLayanan.class);
-        Call<ResultOnePenjualanLayanan> penjualanCall = apiPenjualan.deletePenjualanLayanan(penjualan.getId(), id_cs);
+        Call<ResultOnePenjualanLayanan> penjualanCall = apiPenjualan.updateTotal(idTransaksi, String.valueOf(totalBiaya));
 
         penjualanCall.enqueue(new Callback<ResultOnePenjualanLayanan>() {
             @Override
             public void onResponse(Call<ResultOnePenjualanLayanan> call, Response<ResultOnePenjualanLayanan> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(context.getApplicationContext(), "Delete Penjualan Success !", Toast.LENGTH_SHORT).show();
-                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanLayananViewFragment()).commit();
+                    deleteDetail(view, detail);
                 }else{
-                    Toast.makeText(context.getApplicationContext(), "Delete Penjualan Failed !", Toast.LENGTH_SHORT).show();
+                    System.out.println(response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<ResultOnePenjualanLayanan> call, Throwable t) {
+                System.out.println("Error : " + t.getMessage());
+            }
+        });
+    }
+
+    private void deleteDetail(final View view, DetailPenjualanLayananModel detail) {
+        ApiPenjualanLayanan apiPenjualan = ApiClient.getClient().create(ApiPenjualanLayanan.class);
+        Call<ResultOneDetailLayanan> detailCall = apiPenjualan.deleteDetailLayanan(detail.getId_detail());
+
+        detailCall.enqueue(new Callback<ResultOneDetailLayanan>() {
+            @Override
+            public void onResponse(Call<ResultOneDetailLayanan> call, Response<ResultOneDetailLayanan> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(context.getApplicationContext(), "Delete Detail Success !", Toast.LENGTH_SHORT).show();
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanLayananViewFragment()).commit();
+                } else {
+                    Toast.makeText(context.getApplicationContext(), "Delete Detail Failed !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultOneDetailLayanan> call, Throwable t) {
                 Toast.makeText(context.getApplicationContext(), "Connection Problem !", Toast.LENGTH_SHORT).show();
             }
         });
@@ -146,7 +176,7 @@ public class DetailLayananRecycleAdapter extends RecyclerView.Adapter<DetailLaya
                 confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        deletePenjualanLayanan(view, penjualan, id_cs);
+                        delete(nomor_transaksi, total, view, detailPenjualan);
                     }
                 });
                 confirmDialog.show();
