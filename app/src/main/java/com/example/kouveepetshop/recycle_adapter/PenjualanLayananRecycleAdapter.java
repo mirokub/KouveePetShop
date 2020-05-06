@@ -157,43 +157,88 @@ public class PenjualanLayananRecycleAdapter extends RecyclerView.Adapter<Penjual
     }
 
     private void showDialog(final View view, final PenjualanLayananModel penjualan, final String id_cs){
-        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("");
-        alertDialog.setMessage("Choose Your Action");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Detail", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                moveToDetailFragment(view, penjualan);
-            }
-        });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Update", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                moveToEditFragment(view, penjualan);
-            }
-        });
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                AlertDialog confirmDialog = new AlertDialog.Builder(context).create();
-                confirmDialog.setTitle("");
-                confirmDialog.setMessage("Are you sure want to delete ?");
-                confirmDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
-                    @Override
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Choose Your Action");
+        builder.setItems(new CharSequence[]
+                        {"Detail", "Update", "Change Status", "Delete"},
+                new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                moveToDetailFragment(view, penjualan);
+                                break;
+                            case 1:
+                                moveToEditFragment(view, penjualan);
+                                break;
+                            case 2:
+                                showDialogChangeStatus(view, penjualan, id_cs);
+                                break;
+                            case 3:
+                                AlertDialog confirmDialog = new AlertDialog.Builder(context).create();
+                                confirmDialog.setTitle("");
+                                confirmDialog.setMessage("Are you sure want to delete ?");
+                                confirmDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
+                                    }
+                                });
+                                confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        deletePenjualanLayanan(view, penjualan, id_cs);
+                                    }
+                                });
+                                confirmDialog.show();
+                                break;
+                        }
                     }
                 });
-                confirmDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deletePenjualanLayanan(view, penjualan, id_cs);
-                    }
-                });
-                confirmDialog.show();
+        builder.create().show();
+    }
+
+    private void showDialogChangeStatus(final View view, final PenjualanLayananModel penjualan, final String id_cs){
+        AlertDialog changeStatusDialog = new AlertDialog.Builder(context).create();
+        changeStatusDialog.setTitle("");
+        changeStatusDialog.setMessage("Are you sure want to change the status layanan ?");
+        changeStatusDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
             }
         });
-        alertDialog.show();
+        changeStatusDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ubahStatus(view, penjualan, id_cs);
+            }
+        });
+        changeStatusDialog.show();
+    }
+
+    private void ubahStatus(final View view, final PenjualanLayananModel penjualan, final String id_cs){
+        ApiPenjualanLayanan apiPenjualan = ApiClient.getClient().create(ApiPenjualanLayanan.class);
+        Call<ResultOnePenjualanLayanan> penjualanCall = apiPenjualan.changeStatus(penjualan.getId(), "Selesai", id_cs);
+
+        penjualanCall.enqueue(new Callback<ResultOnePenjualanLayanan>() {
+            @Override
+            public void onResponse(Call<ResultOnePenjualanLayanan> call, Response<ResultOnePenjualanLayanan> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(context.getApplicationContext(), "Change Status Success !", Toast.LENGTH_SHORT).show();
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container_cs, new PenjualanLayananViewFragment()).commit();
+                }else{
+                    System.out.println(response.code());
+                    Toast.makeText(context.getApplicationContext(), "Change Status Failed !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultOnePenjualanLayanan> call, Throwable t) {
+                Toast.makeText(context.getApplicationContext(), "Connection Problem !", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

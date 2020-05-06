@@ -37,6 +37,12 @@ public interface ApiPenjualanLayanan {
     Call<ResultOnePenjualanLayanan> updatePenjualanLayanan(@Path("id") String id,
                                                            @Body PenjualanLayananModel penjualanLayananModel);
 
+    @PUT("transaksi/layanan/changeStatus/{id}")
+    @FormUrlEncoded
+    Call<ResultOnePenjualanLayanan> changeStatus(@Path("id") String id,
+                                                 @Field("status_layanan") String status_layanan,
+                                                 @Field("id_cs") String id_cs);
+
     @PUT("transaksi/layanan/updateTotal/{id}")
     @FormUrlEncoded
     Call<ResultOnePenjualanLayanan> updateTotal(@Path("id") String nomor_transaksi,
