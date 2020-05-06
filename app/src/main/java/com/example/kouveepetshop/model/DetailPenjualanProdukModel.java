@@ -16,7 +16,7 @@ public class DetailPenjualanProdukModel {
     @SerializedName("nama_produk")
     private String nama_produk;
 
-    @SerializedName("harga_produk")
+    @SerializedName("harga_jual")
     private String harga_produk;
 
     @SerializedName("jumlah")
@@ -30,7 +30,7 @@ public class DetailPenjualanProdukModel {
     }
 
     public DetailPenjualanProdukModel(String nomor_transaksi, String id_produk, String jumlah, String subtotal) {
-
+        this.nomor_transaksi = nomor_transaksi;
         this.id_produk = id_produk;
         this.jumlah = jumlah;
         this.subtotal = subtotal;

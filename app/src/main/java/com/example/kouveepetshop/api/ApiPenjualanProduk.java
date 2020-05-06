@@ -47,14 +47,11 @@ public interface ApiPenjualanProduk {
 
     //Detail Penjualan Produk
 
-    @GET("transaksi/detail_produk")
-    Call<ResultDetailProduk> getAllDetail(String nomor_transaksi);
+    @GET("transaksi/detail_produk/getByTransaction/{id}")
+    Call<ResultDetailProduk> getAllDetail(@Path("id") String nomor_transaksi);
 
     @GET("transaksi/detail_produk/{id}")
     Call<ResultOneDetailProduk> getDetail(@Path("id") String id_detail);
-
-    @GET("transaksi/detail_produk/getByTransaction/{id}")
-    Call<ResultDetailProduk> getAllDetailByTransaction(@Path("id") String nomor_transaksi);
 
     @POST("transaksi/detail_produk")
     Call<ResultOneDetailProduk> createDetailProduk(@Body DetailPenjualanProdukModel detailPenjualanProdukModel);

@@ -61,7 +61,7 @@ public class DetailProdukRecycleAdapter extends RecyclerView.Adapter<DetailProdu
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycle_adapter_penjualan_produk, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycle_adapter_detail_produk, parent, false);
         final MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -196,11 +196,11 @@ public class DetailProdukRecycleAdapter extends RecyclerView.Adapter<DetailProdu
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mNamaProduk = itemView.findViewById(R.id.tvNamaLayanan);
-            mHargaProduk = itemView.findViewById(R.id.tvHargaLayanan);
-            mJumlahPembelian = itemView.findViewById(R.id.tvJumlahBeliLayanan);
-            mSubtotal = itemView.findViewById(R.id.tvSubtotalLayanan);
-            mParent = itemView.findViewById(R.id.parentDetailLayanan);
+            mNamaProduk = itemView.findViewById(R.id.tvNamaProduk);
+            mHargaProduk = itemView.findViewById(R.id.tvHargaProduk);
+            mJumlahPembelian = itemView.findViewById(R.id.tvJumlahBeliProduk);
+            mSubtotal = itemView.findViewById(R.id.tvSubtotalProduk);
+            mParent = itemView.findViewById(R.id.parentDetailProduk);
         }
 
         @Override

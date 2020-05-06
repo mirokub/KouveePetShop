@@ -1,4 +1,6 @@
 package com.example.kouveepetshop.model;
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 
@@ -173,4 +175,9 @@ public class ProdukModel {
         this.pic = pic;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return this.nama_produk;
+    }
 }

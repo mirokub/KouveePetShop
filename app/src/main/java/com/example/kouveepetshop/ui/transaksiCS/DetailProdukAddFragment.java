@@ -77,6 +77,10 @@ public class DetailProdukAddFragment extends Fragment {
                 subtotal = jumlahBeli * hargaProduk;
                 totalBiaya = totalBiaya + subtotal;
 
+                System.out.println(nomor_transaksi);
+                System.out.println(id_produk);
+                System.out.println(jumlahBeli);
+                System.out.println(subtotal);
 
                 if(validate(String.valueOf(jumlahBeli))){
                     DetailPenjualanProdukModel detail = new DetailPenjualanProdukModel(nomor_transaksi, String.valueOf(id_produk), String.valueOf(jumlahBeli), String.valueOf(subtotal));
