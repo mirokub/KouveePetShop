@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailPengadaanLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvNomorPengadaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:text="Nomor Pengadaan"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tvSupplierPengadaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tvNomorPengadaan"
+        android:text="Nama Supplier"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvTglPengadaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tvSupplierPengadaan"
+        android:text="Tanggal Pengadaan"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvTotalPengeluaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tvTglPengadaan"
+        android:text="Total Pengeluaran"
+        android:textSize="16sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewDetailPengadaan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvTotalPengeluaran"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_btn_detail_pengadaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_action_tambah"/>
+</RelativeLayout>
