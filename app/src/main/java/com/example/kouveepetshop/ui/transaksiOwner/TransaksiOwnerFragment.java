@@ -1,10 +1,9 @@
-package com.example.kouveepetshop.ui.pengadaan_menu;
+package com.example.kouveepetshop.ui.transaksiOwner;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,45 +26,44 @@ import com.example.kouveepetshop.SplashScreen;
 import com.example.kouveepetshop.UserSharedPreferences;
 import com.example.kouveepetshop.ui.supplier.SupplierViewFragment;
 
-public class PengadaanMenu extends Fragment {
+public class TransaksiOwnerFragment extends Fragment {
 
-    public static PengadaanMenu newInstance() {
-        return new PengadaanMenu();
-    }
-
-    ImageButton mBtnSupplier, mBtnPengadaan;
+    ImageButton mBtnSupplier, mBtnPengadaan, mProdukMenipis;
 
     View myView;
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+    public static TransaksiOwnerFragment newInstance() {
+        return new TransaksiOwnerFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.fragment_pengadaan_menu, container, false);
+        myView = inflater.inflate(R.layout.fragment_transaksi_owner, container, false);
 
         setAtribut();
 
         mBtnSupplier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create new fragment and transaction
-                Fragment newFragment = new SupplierViewFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new SupplierViewFragment()).commit();
+            }
+        });
 
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                transaction.replace(R.id.fragment_container_owner, newFragment);
-                //transaction.addToBackStack(null);
+        mBtnPengadaan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new PengadaanViewFragment()).commit();
+            }
+        });
 
-                // Commit the transaction
-                transaction.commit();
+        mProdukMenipis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container_owner, new ProdukMenipisViewFragment()).commit();
             }
         });
 
@@ -75,18 +73,17 @@ public class PengadaanMenu extends Fragment {
     private void setAtribut(){
         mBtnSupplier = myView.findViewById(R.id.image_supplier);
         mBtnPengadaan = myView.findViewById(R.id.image_pengadaan);
+        mProdukMenipis = myView.findViewById(R.id.image_produk_menipis);
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
         menu.findItem(R.id.SearchTxt).setVisible(false);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.LogOut:
                 showDialog();

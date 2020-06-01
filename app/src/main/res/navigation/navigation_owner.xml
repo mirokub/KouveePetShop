@@ -31,9 +31,9 @@
 
     <fragment
         android:id="@+id/navigation_pengadaan"
-        android:name="com.example.kouveepetshop.ui.pengadaan_menu.PengadaanMenu"
+        android:name="com.example.kouveepetshop.ui.transaksiOwner.TransaksiOwnerFragment"
         android:label="@string/title_pengadaan"
-        tools:layout="@layout/fragment_pengadaan_menu" />
+        tools:layout="@layout/fragment_transaksi_owner" />
 
     <fragment
         android:id="@+id/navigation_supplier"
