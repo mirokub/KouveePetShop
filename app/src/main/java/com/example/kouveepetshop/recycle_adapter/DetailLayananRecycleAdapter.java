@@ -218,28 +218,25 @@ public class DetailLayananRecycleAdapter extends RecyclerView.Adapter<DetailLaya
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-//            List<PenjualanLayananModel> filteredList = new ArrayList<>();
-//
-//            if(constraint == null || constraint.length() == 0){
-//                filteredList.addAll(resultFull);
-//            }else{
-//                String filterPattern = constraint.toString().toLowerCase().trim();
-//                for(PenjualanLayananModel penjualan : resultFull){
-//                    if(penjualan.getNomor_transaksi().toLowerCase().contains(filterPattern) ||
-////                            penjualan.getNama_customer().toLowerCase().contains(filterPattern) ||
-////                            penjualan.getNama_hewan().toLowerCase().contains(filterPattern) ||
-//                            penjualan.getTgl_penjualan().toLowerCase().contains(filterPattern) ||
-//                            penjualan.getStatus_layanan().toLowerCase().equals(filterPattern) ||
-//                            penjualan.getTotal().toLowerCase().contains(filterPattern) ||
-//                            penjualan.getCustomer_service().toLowerCase().contains(filterPattern)){
-//                        filteredList.add(penjualan);
-//                    }
-//                }
-//            }
-//
+            List<DetailPenjualanLayananModel> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(resultFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(DetailPenjualanLayananModel penjualan : resultFull){
+                    if(penjualan.getNama_layanan().toLowerCase().contains(filterPattern) ||
+                            penjualan.getHarga_layanan().toLowerCase().contains(filterPattern) ||
+                            penjualan.getJumlah().toLowerCase().equals(filterPattern) ||
+                            penjualan.getSubtotal().toLowerCase().contains(filterPattern)){
+                        filteredList.add(penjualan);
+                    }
+                }
+            }
+
             FilterResults results = new FilterResults();
-//            results.values = filteredList;
-//
+            results.values = filteredList;
+
             return results;
         }
 
