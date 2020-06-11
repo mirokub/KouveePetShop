@@ -27,7 +27,7 @@ import retrofit2.http.Path;
 
 public interface ApiPengadaan {
 
-    //Penjualan Produk
+    //Pengadaan Produk
 
     @GET("pengadaan")
     Call<ResultPengadaan> getAll();
@@ -60,7 +60,7 @@ public interface ApiPengadaan {
 
 
 
-    //Detail Penjualan Produk
+    //Detail Pengadaan Produk
     @GET("detail_pengadaan/getByTransaction/{id}")
     Call<ResultDetailPengadaan> getAllDetail(@Path("id") String nomor_pengadaan);
 

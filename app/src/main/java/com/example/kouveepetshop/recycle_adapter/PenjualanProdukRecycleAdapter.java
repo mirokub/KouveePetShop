@@ -239,8 +239,6 @@ public class PenjualanProdukRecycleAdapter extends RecyclerView.Adapter<Penjuala
                 String filterPattern = constraint.toString().toLowerCase().trim();
                 for(PenjualanProdukModel penjualan : resultFull){
                     if(penjualan.getNomor_transaksi().toLowerCase().contains(filterPattern) ||
-//                            penjualan.getNama_customer().toLowerCase().contains(filterPattern) ||
-//                            penjualan.getNama_hewan().toLowerCase().contains(filterPattern) ||
                             penjualan.getTgl_penjualan().toLowerCase().contains(filterPattern) ||
                             penjualan.getStatus_pembayaran().toLowerCase().contains(filterPattern) ||
                             penjualan.getTotal().toLowerCase().contains(filterPattern) ||
