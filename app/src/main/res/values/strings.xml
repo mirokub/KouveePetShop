@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kouvee Pet Shop</string>
+    <string name="app_name">Kouvee Pet Shop - Admin</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_produk">Produk</string>
     <string name="title_layanan">Layanan</string>
